@@ -7,6 +7,7 @@ package Controller;
 
 import GameObjects.GameObject;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javafx.animation.AnimationTimer;
 
 /**
@@ -25,12 +26,31 @@ public class GameUpdateController extends AnimationTimer {
     
     @Override
     public void handle(long now) {
+        
         double frameDelta = (now - lastTime)/BILLION;
         frameDelta = (frameDelta < 1) ? frameDelta : 0;
         lastTime = now;
-        for(GameObject obj : gameObjects) {
-            obj.update(frameDelta);
+        // removes all inactive objects
+        Iterator<GameObject> it = gameObjects.iterator();
+        while(it.hasNext()) {
+            GameObject obj = it.next();
+            if(!obj.isActive()) {
+                it.remove();
+            }
         }
+        
+        ArrayList<GameObject> removeObj = new ArrayList<GameObject>();
+        ArrayList<GameObject> spawnedObj = new ArrayList<GameObject>();
+        for(GameObject obj : gameObjects) {
+            obj.update(frameDelta, spawnedObj);
+            
+        }
+        // adds all spawned objects
+        if(!spawnedObj.isEmpty()) {
+            gameObjects.addAll(spawnedObj);
+        }
+        
+        
     }
     
 }

@@ -1,6 +1,8 @@
 
 package GameObjects;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author o_0
@@ -21,7 +23,7 @@ public class Player extends Physics{
     }
     
     @Override
-    public void update(double frameDelta) {
+    public boolean update(double frameDelta, ArrayList<GameObject> spawnedObj) {
         switch(this.dir) {
             case LEFT: super.addToDx(-1); break;
             case RIGHT: super.addToDx(1); break;
@@ -34,7 +36,8 @@ public class Player extends Physics{
         if(this.jetpackState == true){
             super.addToDy(1);
         }
-        super.update(frameDelta);
+        super.update(frameDelta,spawnedObj);
+        return true;
     }
     
     public void setJetpackState(boolean b) {

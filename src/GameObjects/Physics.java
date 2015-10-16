@@ -5,6 +5,8 @@
  */
 package GameObjects;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author o_0
@@ -29,9 +31,10 @@ public abstract class Physics extends GameObject {
     }
     
     @Override
-    public void update(double frameDelta) {
+    public boolean update(double frameDelta, ArrayList<GameObject> spawnedObj) {
         //updateGravity(frameDelta);
         this.setX(this.getX() + dx*frameDelta);
         this.setY(this.getY() + dy*frameDelta);
+        return true;
     }
 }

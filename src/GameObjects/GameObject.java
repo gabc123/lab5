@@ -5,20 +5,32 @@
  */
 package GameObjects;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author o_0
  */
 public abstract class GameObject {
     private int modelID;
+    private boolean active;
     public abstract double getX();
     public abstract double getY();
     protected abstract void setX(double x);
     protected abstract void setY(double y);
     protected GameObject(int modelId) {
         this.modelID = modelId;
+        this.active = true;
     }
-    public abstract void update(double frameDelta);
+    public abstract boolean update(double frameDelta, ArrayList<GameObject> spawnedObj);
+    
+    public boolean isActive() {
+        return this.active;
+    }
+    
+    protected void deactivate() {
+        this.active = false;
+    }
     
     public int getModelID() {
         return this.modelID;
