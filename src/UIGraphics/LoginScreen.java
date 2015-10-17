@@ -17,21 +17,27 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.canvas.GraphicsContext;
+import lab5game.GameSetup;
 
 /**
  *
  * @author mats
  */
-public class LoginScreen extends Application{
-    
+public class LoginScreen {
+    GameSetup gameSetup;
     private Group root;
     private Image image = new Image("/Vatten.png", false);
     private Image imagebut = new Image("/Playknapp.png", false);
     Button but;
+    private Stage loginStage;
     
-    @Override
-    public void start(Stage stage) throws Exception{
-        
+    public LoginScreen(Stage stage, GameSetup gameSetup) {
+        this.gameSetup = gameSetup;
+        this.loginStage = stage;
+    }
+    
+    public void setup(){
+        Stage stage = this.loginStage;
 	but = new Button();
 	but.setGraphic(new ImageView(imagebut));
 
@@ -68,7 +74,7 @@ public class LoginScreen extends Application{
     }
     
     public void play(){
-    
+        gameSetup.startMap();
     }
     
     public void loadgame(){}
