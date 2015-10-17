@@ -35,7 +35,13 @@ public class LoginScreen extends Application{
 	but = new Button();
 	but.setGraphic(new ImageView(imagebut));
 
-        //but.setOnAction(new EventHandler<ActionEvent>());
+       	but.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                play();
+            }
+        });
 	
 	root = new Group();
 	Scene scene = new Scene(root, 1024, 720, Color.GREEN);
