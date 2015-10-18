@@ -6,7 +6,7 @@
 package GameObjects;
 
 import GameObjects.Projectile.ProjectileBuilder;
-import static GameObjects.Projectile.ProjectileType.*;
+
 import java.util.ArrayList;
 
 /**

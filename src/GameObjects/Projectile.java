@@ -11,10 +11,7 @@ package GameObjects;
  */
 public class Projectile extends Physics {
 
-    public enum ProjectileType {
-
-        GRANADE, BULLET, MISSILE
-    };
+    
     private double x;
     private double y;
 
