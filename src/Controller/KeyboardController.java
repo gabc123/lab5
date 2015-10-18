@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import GameObjects.Direction;
 import GameObjects.Player;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
@@ -45,19 +46,19 @@ public class KeyboardController {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode() == moveLeft) {
-                    player.setDirection(Player.Direction.LEFT);
+                    player.setDirection(Direction.LEFT);
                 }
                 
                 if (event.getCode() == moveRight) {
-                    player.setDirection(Player.Direction.RIGHT);
+                    player.setDirection(Direction.RIGHT);
                 }
                 
                 if (event.getCode() == moveUp) {
-                    player.setDirection(Player.Direction.UP);
+                    player.setDirection(Direction.UP);
                 }
                 
                 if (event.getCode() == moveDown) {
-                    player.setDirection(Player.Direction.DOWN);
+                    player.setDirection(Direction.DOWN);
                 }
                 
                 if (event.getCode() == jetpackOn) {
@@ -72,18 +73,18 @@ public class KeyboardController {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode() == moveLeft) {
-                    player.setDirection(Player.Direction.NONE);
+                    player.setDirection(Direction.NONE);
                 }
                 
                 if (event.getCode() == moveRight) {
-                    player.setDirection(Player.Direction.NONE);
+                    player.setDirection(Direction.NONE);
                 }
                 if (event.getCode() == moveUp) {
-                    player.setDirection(Player.Direction.NONE);
+                    player.setDirection(Direction.NONE);
                 }
                 
                 if (event.getCode() == moveDown) {
-                    player.setDirection(Player.Direction.NONE);
+                    player.setDirection(Direction.NONE);
                 }
                 
                 if (event.getCode() == jetpackOn) {
