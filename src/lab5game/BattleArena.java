@@ -46,6 +46,7 @@ public class BattleArena {
         KeyboardController keyboard;
         for(Player.Playerinfo info : playerInfo) {
             Player player = new Player(info.getPlayerName(),500,20,0);
+            System.out.println(info.getPlayerName());
             keyboard = info.getKeyboard();
             pressed = keyboard.getPlayerKeyPressedHandler(player);
             released = keyboard.getPlayerKeyReleasedHandler(player);

@@ -83,6 +83,10 @@ public class Player extends Physics{
             this.keyInputs = playerinput; 
         }
         
+        public void setPlayerName(String name_){
+            this.playername = name_;
+        }
+        
         public String getPlayerName(){
             return this.playername;
         }
