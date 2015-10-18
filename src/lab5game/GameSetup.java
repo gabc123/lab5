@@ -62,7 +62,7 @@ public class GameSetup {
         keyInputs.add(input);
         int numOfAi = 0;*/
         //Ovanstående ska in i en Lobby
-        battleArena.setup(lobby.getKeyInputs(), lobby.getnumOfAi());
+        battleArena.setup(lobby.getPlayerInfo(), lobby.getnumOfAi());
         //ovanstående ska ha getters från lobby istället för keyinputs och ai
         //Stoppa allt i en try catch så exception kastas om ai eller keyinpus inte finns
     }

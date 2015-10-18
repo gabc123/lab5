@@ -17,7 +17,7 @@ public class Player extends Physics{
     
     private Direction dir;
     
-    public Player(double x,double y,int modelId, String name_) {
+    public Player(String name_, double x,double y,int modelId) {
         super(0, 0, modelId); // should be stationary
         this.x = x;
         this.y = y;

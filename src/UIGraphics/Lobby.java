@@ -6,6 +6,7 @@
 package UIGraphics;
 
 import Controller.KeyboardController;
+import GameObjects.Player.Playerinfo;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,8 +26,7 @@ import lab5game.GameSetup;
  */
 public class Lobby {
     private int numOfAi;
-    private KeyboardController input;
-    private ArrayList<KeyboardController> keyInputs;
+    private ArrayList<Playerinfo> playerInfo;
     private Stage Lobbystage;
     private Group root;
     private CheckBox aiCheck;
@@ -34,9 +34,10 @@ public class Lobby {
     private Button start;
     
     public Lobby(Stage stage, GameSetup gameSetup_){
-        input = new KeyboardController(KeyCode.A, KeyCode.D, KeyCode.SPACE);
-        keyInputs = new ArrayList<KeyboardController>();
-        keyInputs.add(input);
+        KeyboardController input = new KeyboardController(KeyCode.A, KeyCode.D, KeyCode.SPACE);
+        playerInfo = new ArrayList<Playerinfo>();
+        playerInfo.add(new Playerinfo("bob",input));
+        
         numOfAi = 0;
         this.Lobbystage = stage;
         this.gameSetup = gameSetup_;
@@ -88,9 +89,9 @@ public class Lobby {
     return numOfAi;
     }
     
-    public ArrayList getKeyInputs(){
+    public ArrayList<Playerinfo> getPlayerInfo(){
         
-        return keyInputs;
+        return playerInfo;
     }
 }
 
