@@ -12,7 +12,7 @@ public class Player extends Physics{
     private double y;
     private boolean jetpackState = false;
     
-    public enum Direction {LEFT,RIGHT,UP,DOWN,NONE};
+    
     private Direction dir;
     
     public Player(double x,double y,int modelId) {
@@ -48,10 +48,12 @@ public class Player extends Physics{
         this.dir = direction;
     }
 
+    @Override
     protected void setX(double x) {
         this.x = x;
     }
 
+    @Override
     protected void setY(double y) {
         this.y = y;
     }
