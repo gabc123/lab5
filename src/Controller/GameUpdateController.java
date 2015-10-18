@@ -15,7 +15,7 @@ import javafx.animation.AnimationTimer;
  * @author o_0
  */
 public class GameUpdateController extends AnimationTimer {
-    public static final double BILLION = 100_000_000.0; //from Ball lab2b
+    public static final double BILLION = 1000_000_000.0; //from Ball lab2b
     private long lastTime;
     private ArrayList<GameObject> gameObjects;
     
@@ -30,6 +30,7 @@ public class GameUpdateController extends AnimationTimer {
         double frameDelta = (now - lastTime)/BILLION;
         frameDelta = (frameDelta < 1) ? frameDelta : 0;
         lastTime = now;
+        
         // removes all inactive objects
         Iterator<GameObject> it = gameObjects.iterator();
         while(it.hasNext()) {

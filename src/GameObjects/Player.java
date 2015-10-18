@@ -1,4 +1,3 @@
-
 package GameObjects;
 
 import Controller.KeyboardController;
@@ -8,41 +7,63 @@ import java.util.ArrayList;
  *
  * @author o_0
  */
-public class Player extends Physics{
+public class Player extends Physics {
+
     private double x;
     private double y;
     private boolean jetpackState = false;
     private String name;
-    
-    
+    private Weapon weapon;
+    private boolean didFire = false;
+
     private Direction dir;
-    
-    public Player(String name_, double x,double y,int modelId) {
+
+    public Player(String name_, double x, double y, int modelId) {
         super(0, 0, modelId); // should be stationary
         this.x = x;
         this.y = y;
         this.dir = Direction.NONE;
         this.name = name_;
+        this.weapon = new Weapon(this, ProjectileType.GRANADE, 0);
     }
-    
+
     @Override
     public boolean update(double frameDelta, ArrayList<GameObject> spawnedObj) {
-        switch(this.dir) {
-            case LEFT: super.addToDx(-1); break;
-            case RIGHT: super.addToDx(1); break;
-            case DOWN: super.addToDy(1); break;
-            case UP: super.addToDy(-1); break;
-            case NONE:  break;
-            default:break;
+        switch (this.dir) {
+            case LEFT:
+                super.addToDx(-5);
+                weapon.setAimX(dir);
+                break;
+            case RIGHT:
+                super.addToDx(5);
+                weapon.setAimX(dir);
+                break;
+            case DOWN:
+                //super.addToDy(1);
+                break;
+            case UP:
+                //super.addToDy(-1);
+                break;
+            case NONE:
+                break;
+            default:
+                break;
         }
-        
-        if(this.jetpackState == true){
-            super.addToDy(1);
+
+        weapon.setAimY(dir);
+
+        weapon.update(frameDelta, spawnedObj);
+        if (this.jetpackState == true) {
+            super.addToDy(-15);
         }
-        super.update(frameDelta,spawnedObj);
+        super.update(frameDelta, spawnedObj);
         return true;
     }
-    
+
+    public void fireWeapon() {
+        this.didFire = this.weapon.fire();
+    }
+
     public void setJetpackState(boolean b) {
         this.jetpackState = b;
     }
@@ -61,8 +82,6 @@ public class Player extends Physics{
         this.y = y;
     }
 
-    
-    
     @Override
     public double getX() {
         return this.x;
@@ -72,28 +91,29 @@ public class Player extends Physics{
     public double getY() {
         return this.y;
     }
-    
-    
-    public static class Playerinfo{
+
+    public static class Playerinfo {
+
         private String playername;
         private KeyboardController keyInputs;
-        
-        public Playerinfo(String name, KeyboardController playerinput){
+
+        public Playerinfo(String name, KeyboardController playerinput) {
             this.playername = name;
-            this.keyInputs = playerinput; 
+            this.keyInputs = playerinput;
         }
         
         public void setPlayerName(String name_){
             this.playername = name_;
         }
         
-        public String getPlayerName(){
+        public String getPlayerName() {
+            
             return this.playername;
         }
-        
-        public KeyboardController getKeyboard(){
+
+        public KeyboardController getKeyboard() {
             return this.keyInputs;
-    }
-        
+        }
+
     }
 }
