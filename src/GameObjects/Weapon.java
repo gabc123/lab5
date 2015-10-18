@@ -24,9 +24,12 @@ public class Weapon extends GameObject {
     private double fireTimer = 0;
     private boolean didFire = false;
     private ProjectileBuilder projectileBuilder;
+    private int ammo = 0;
     
     public Weapon(Player owner, ProjectileBuilder projectile, int modelId) {
         super(modelId);
+        this.x = 50;
+        this.y = 50;
         /*this.builder = new ProjectileBuilder(BULLET)
                 .withModel(0)
                 .withDamage(20)
@@ -93,10 +96,11 @@ public class Weapon extends GameObject {
         
         updateCooldown(frameDelta);
         
-        if(didFire) {
+        if(didFire && ammo > 0) {
             Projectile projectile = projectileBuilder.build(aimX, aimY);
             spawnedObj.add(projectile);
             didFire = false;
+            ammo--;
         }
         return true;
     }
