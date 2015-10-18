@@ -11,6 +11,7 @@ import Controller.KeyboardController;
 import GameData.GraphicModels;
 import GameObjects.GameObject;
 import GameObjects.Player;
+import UIGraphics.Lobby;
 import UIGraphics.LoginScreen;
 import View.GameView;
 import java.util.ArrayList;
@@ -46,12 +47,16 @@ public class GameSetup {
     
     public void startMap() {
         battleArena = new BattleArena(mainStage);
-        KeyboardController input;
+        Lobby lobby = new Lobby();
+        /**KeyboardController input;
         input = new KeyboardController(KeyCode.A, KeyCode.D, KeyCode.SPACE);
         ArrayList<KeyboardController> keyInputs = new ArrayList<KeyboardController>();
         keyInputs.add(input);
-        int numOfAi = 0;
-        battleArena.setup(keyInputs, numOfAi);
+        int numOfAi = 0;*/
+        //Ovanstående ska in i en Lobby
+        battleArena.setup(lobby.getKeyInputs(), lobby.getnumOfAi());
+        //ovanstående ska ha getters från lobby istället för keyinputs och ai
+        //Stoppa allt i en try catch så exception kastas om ai eller keyinpus inte finns
     }
     
     public void resetGame() {

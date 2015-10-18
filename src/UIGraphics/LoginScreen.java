@@ -5,7 +5,6 @@
  */
 package UIGraphics;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -26,14 +25,18 @@ import lab5game.GameSetup;
 public class LoginScreen {
     GameSetup gameSetup;
     private Group root;
-    private Image image = new Image("/Vatten.png", false);
-    private Image imagebut = new Image("/Playknapp.png", false);
+    private Image image;
+    private Image imagebut;
     Button but;
+    Button but2;
     private Stage loginStage;
     
     public LoginScreen(Stage stage, GameSetup gameSetup) {
         this.gameSetup = gameSetup;
         this.loginStage = stage;
+        this.image = new Image("Resource/Vatten.png",false);
+        this.imagebut = new Image("Resource/Playknapp.png",false);
+        
     }
     
     public void setup(){
@@ -48,14 +51,27 @@ public class LoginScreen {
                 play();
             }
         });
+        
+        but2 = new Button();
+	but2.setGraphic(new ImageView(imagebut));
+
+       	but2.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                loadgame();
+            }
+        });
 	
 	root = new Group();
 	Scene scene = new Scene(root, 1024, 720, Color.GREEN);
 	Canvas canvas = new Canvas(scene.getWidth(), scene.getHeight());
 
 	but.setLayoutX(canvas.getWidth()/2 - (imagebut.getWidth()/2));
-        but.setLayoutY(canvas.getHeight()/2 - (imagebut.getHeight()/2));
+        but.setLayoutY(canvas.getHeight()/2 - (imagebut.getHeight() + imagebut.getHeight()));
 	
+        but2.setLayoutX(canvas.getWidth()/2 - (imagebut.getWidth()/2));
+        but2.setLayoutY(canvas.getHeight()/2 - (imagebut.getHeight()/2));
 	
 	GraphicsContext gc = canvas.getGraphicsContext2D();
 	gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -63,6 +79,7 @@ public class LoginScreen {
 	
 	root.getChildren().add(canvas);
 	root.getChildren().add(but);
+        root.getChildren().add(but2);
 	
 	
 	stage.setTitle("Start");
