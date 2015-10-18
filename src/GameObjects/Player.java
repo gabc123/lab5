@@ -17,11 +17,12 @@ public class Player extends Physics{
     
     private Direction dir;
     
-    public Player(double x,double y,int modelId) {
+    public Player(double x,double y,int modelId, String name_) {
         super(0, 0, modelId); // should be stationary
         this.x = x;
         this.y = y;
         this.dir = Direction.NONE;
+        this.name = name_;
     }
     
     @Override
@@ -73,22 +74,20 @@ public class Player extends Physics{
     }
     
     
-    private static class Playerinfo{
+    public static class Playerinfo{
         private String playername;
-        private ArrayList<KeyboardController> keyInputs;
+        private KeyboardController keyInputs;
         
-        private Playerinfo(String name, KeyboardController playerinput){
+        public Playerinfo(String name, KeyboardController playerinput){
             this.playername = name;
-            this.keyInputs = new ArrayList<KeyboardController>();
-            this.keyInputs.add(playerinput);
-           
+            this.keyInputs = playerinput; 
         }
         
         public String getPlayerName(){
             return this.playername;
         }
         
-        public ArrayList<KeyboardController> getKeyboard(){
+        public KeyboardController getKeyboard(){
             return this.keyInputs;
     }
         

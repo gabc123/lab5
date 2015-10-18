@@ -45,7 +45,7 @@ public class BattleArena {
         EventHandler<KeyEvent> released;
         
         for(KeyboardController input : keyInputs) {
-            Player player = new Player(500,20,0);
+            Player player = new Player(500,20,0,"Urban");
             pressed = input.getPlayerKeyPressedHandler(player);
             released = input.getPlayerKeyReleasedHandler(player);
             gameStage.addEventHandler(KeyEvent.KEY_PRESSED,pressed );
