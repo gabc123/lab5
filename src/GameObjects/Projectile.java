@@ -5,6 +5,8 @@
  */
 package GameObjects;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author o_0
@@ -20,6 +22,7 @@ public class Projectile extends Physics {
 
     private Player owner;
     private Player target;
+    private double timeToLive = 2.0;
 
     private ProjectileType type;
 
@@ -38,7 +41,15 @@ public class Projectile extends Physics {
             super.setGravity(false);
         }
     }
-
+    @Override
+    public boolean update(double frameDelta, ArrayList<GameObject> spawnedObj) {
+        super.update(frameDelta, spawnedObj);
+        timeToLive -= frameDelta;
+        if(timeToLive < 0 ) {
+            super.deactivate();
+        }
+        return true;
+    }
     @Override
     protected void setX(double x) {
         this.x = x;

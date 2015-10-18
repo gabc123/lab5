@@ -5,6 +5,8 @@
  */
 package GameObjects;
 
+import GameObjects.Projectile.ProjectileBuilder;
+
 /**
  *
  * @author o_0
@@ -12,14 +14,27 @@ package GameObjects;
 public class SpawnBox extends Physics {
     private double x;
     private double y;
-
-    public SpawnBox(double x, double y, int modelId) {
+    private Weapon weapon;
+    private ProjectileBuilder projectile;
+    private int ammo;
+    public SpawnBox(ProjectileType type,double x, double y, int modelId) {
         super(0, 0, modelId);
         this.x = x;
         this.y = y;
+        this.projectile = new ProjectileBuilder(type);
+        this.projectile = this.projectile.withDamage(Math.random())
+                .withSpeed(Math.random());
+        switch(type) {
+            case GRANADE: projectile.withModel(0); break;
+            case BULLET: projectile.withModel(0); break;
+            case MISSILE: projectile.withModel(0); break;
+            default: projectile.withModel(0); break;
+        }
     }
     
-    
+    public Weapon consumeBox(Player player) {
+        return new Weapon(player,projectile,ammo,0);
+    }
     
     @Override
     protected void setX(double x) {

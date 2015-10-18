@@ -38,7 +38,7 @@ public class Lobby {
         playerInfo = new ArrayList<Playerinfo>();
         playerInfo.add(new Playerinfo("bob",input));
         input = new KeyboardController(KeyCode.LEFT, KeyCode.RIGHT, KeyCode.SPACE);
-        playerInfo.add(new Playerinfo("tod",input));
+        //playerInfo.add(new Playerinfo("tod",input));
         numOfAi = 0;
         this.Lobbystage = stage;
         this.gameSetup = gameSetup_;

@@ -44,7 +44,7 @@ public abstract class Physics extends GameObject {
     }
 
     protected void updateGravity(double frameDelta) {
-        this.dy += 1.0 * frameDelta;
+        this.dy += 10.0 * frameDelta;
     }
 
     @Override

@@ -22,6 +22,7 @@ public class KeyboardController {
     private KeyCode moveUp = KeyCode.W;
     private KeyCode moveDown = KeyCode.S;
     private KeyCode jetpackOn = KeyCode.SPACE;
+    private KeyCode fireWeapon = KeyCode.SHIFT;
 
     public KeyboardController(KeyCode moveLeft, KeyCode moveRight, KeyCode jetpackOn) {
         this.moveLeft = moveLeft;
@@ -45,6 +46,10 @@ public class KeyboardController {
         return new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
+                if (event.getCode() == fireWeapon) {
+                    player.fireWeapon();
+                }
+                
                 if (event.getCode() == moveLeft) {
                     player.setDirection(Direction.LEFT);
                 }

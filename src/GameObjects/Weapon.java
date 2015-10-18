@@ -16,25 +16,46 @@ import java.util.ArrayList;
 public class Weapon extends GameObject {
     private double x;
     private double y;
-    private Direction dirX;
-    private Direction dirY;
-    private double aimX;
-    private double aimY;
+    private Direction dirX = Direction.LEFT;
+    private Direction dirY = Direction.NONE;
+    private double aimX = 0;
+    private double aimY = 0;
     private double cooldown = 1;
     private double fireTimer = 0;
     private boolean didFire = false;
     private ProjectileBuilder projectileBuilder;
     private int ammo = 0;
     
-    public Weapon(Player owner, ProjectileBuilder projectile, int modelId) {
+    public Weapon(Player owner, ProjectileBuilder projectile, int ammo, int modelId) {
         super(modelId);
         this.x = 50;
         this.y = 50;
+        this.ammo = ammo;
+        this.projectileBuilder = projectile.withOwner(owner);
+        
         /*this.builder = new ProjectileBuilder(BULLET)
                 .withModel(0)
                 .withDamage(20)
                 .withSpeed(10)
                 .withOwner(owner);*/
+    }
+    
+    /**
+     * Defualt value, basic weapon
+     * @param owner
+     * @param type
+     * @param modelId 
+     */
+    public Weapon(Player owner, ProjectileType type,int modelId) {
+        super(modelId);
+        this.x = 50;
+        this.y = 50;
+        this.ammo = 50;
+        this.projectileBuilder = new ProjectileBuilder(type)
+                .withModel(1)
+                .withDamage(20)
+                .withSpeed(200)
+                .withOwner(owner);
     }
     
     public void setAimX(Direction dir) {
@@ -90,8 +111,8 @@ public class Weapon extends GameObject {
         }
         
         switch(dirY) {
-            case UP: aimY += -1.0*frameDelta; break;
-            case DOWN: aimY += 1.0*frameDelta; break;
+            case UP: aimY += -0.01*frameDelta; break;
+            case DOWN: aimY += 0.1*frameDelta; break;
         }
         
         updateCooldown(frameDelta);
