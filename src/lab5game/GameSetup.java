@@ -31,6 +31,7 @@ import javafx.stage.Stage;
 public class GameSetup {
     private LoginScreen loginScreen = null;
     private BattleArena battleArena = null;
+    private Lobby lobby = null;
 
     private Stage mainStage;
     
@@ -45,9 +46,16 @@ public class GameSetup {
         loginScreen.setup();
     }
     
+    public void lobbyStart(GameSetup gameSetup_){
+        if(lobby == null){
+            lobby = new Lobby(mainStage, gameSetup_);
+        }
+        lobby.lobbysetup();
+    }
+    
     public void startMap() {
+
         battleArena = new BattleArena(mainStage);
-        Lobby lobby = new Lobby();
         /**KeyboardController input;
         input = new KeyboardController(KeyCode.A, KeyCode.D, KeyCode.SPACE);
         ArrayList<KeyboardController> keyInputs = new ArrayList<KeyboardController>();
