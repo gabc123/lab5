@@ -37,7 +37,8 @@ public class Lobby {
         KeyboardController input = new KeyboardController(KeyCode.A, KeyCode.D, KeyCode.SPACE);
         playerInfo = new ArrayList<Playerinfo>();
         playerInfo.add(new Playerinfo("bob",input));
-        
+        input = new KeyboardController(KeyCode.LEFT, KeyCode.RIGHT, KeyCode.SPACE);
+        playerInfo.add(new Playerinfo("tod",input));
         numOfAi = 0;
         this.Lobbystage = stage;
         this.gameSetup = gameSetup_;
