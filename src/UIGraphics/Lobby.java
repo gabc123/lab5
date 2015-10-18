@@ -36,13 +36,12 @@ public class Lobby {
     private GameSetup gameSetup;
     private Button start;
     private String player1name;
-    private KeyboardController input;
     
     public Lobby(Stage stage, GameSetup gameSetup_){
-        this.input = new KeyboardController(KeyCode.A, KeyCode.D, KeyCode.SPACE);
+        KeyboardController input = new KeyboardController(KeyCode.A, KeyCode.D, KeyCode.SPACE);
         playerInfo = new ArrayList<Playerinfo>();
         playerInfo.add(new Playerinfo("bob",input));
-        this.input = new KeyboardController(KeyCode.LEFT, KeyCode.RIGHT, KeyCode.SPACE);
+        input = new KeyboardController(KeyCode.LEFT, KeyCode.RIGHT, KeyCode.SPACE);
         playerInfo.add(new Playerinfo("tod",input));
         numOfAi = 0;
         this.Lobbystage = stage;
@@ -51,8 +50,7 @@ public class Lobby {
     
     public void lobbysetup(){
         Stage stage = this.Lobbystage;
-        //KeyboardController input_  this.input;
-        
+
         Label player1 = new Label("Player 1 Name:");
         TextField player1Name = new TextField ();
         HBox namecon = new HBox();
