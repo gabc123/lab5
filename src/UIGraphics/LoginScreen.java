@@ -27,8 +27,8 @@ public class LoginScreen {
     private Group root;
     private Image image;
     private Image imagebut;
-    Button but;
-    Button but2;
+    private Button but;
+    private Button but2;
     private Stage loginStage;
     
     public LoginScreen(Stage stage, GameSetup gameSetup) {
@@ -91,7 +91,9 @@ public class LoginScreen {
     }
     
     public void play(){
-        gameSetup.startMap();
+        
+        
+        gameSetup.lobbyStart(this.gameSetup);
     }
     
     public void loadgame(){}
