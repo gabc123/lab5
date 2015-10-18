@@ -51,7 +51,7 @@ public class Lobby {
     
     public void lobbysetup(){
         Stage stage = this.Lobbystage;
-        KeyboardController input_ = this.input;
+        //KeyboardController input_  this.input;
         
         Label player1 = new Label("Player 1 Name:");
         TextField player1Name = new TextField ();
@@ -65,7 +65,7 @@ public class Lobby {
             @Override
             public void handle(ActionEvent event) {
                 player1name = player1Name.getText();
-                playerInfo.set(0, new Playerinfo(player1name,input));
+                playerInfo.get(0).setPlayerName(player1name);
                 //System.out.println(player1name);
                 //playerInfo.add(new Playerinfo(player1name,input));
                 startMap();

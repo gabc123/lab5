@@ -12,11 +12,6 @@ import java.util.ArrayList;
  * @author o_0
  */
 public class Projectile extends Physics {
-
-    
-    private double x;
-    private double y;
-
     private double damage;
     private double speed;
 
@@ -33,8 +28,8 @@ public class Projectile extends Physics {
         this.owner = builder.owner;
         this.target = builder.target;
         this.type = builder.type;
-        this.x = this.owner.getX();
-        this.y = this.owner.getY();
+        this.setX(this.owner.getX());
+        this.setY(this.owner.getY());
         super.addToDx(aimSide * speed);
         super.addToDy(aimUp * speed);
         if(type == ProjectileType.BULLET) {
@@ -50,26 +45,7 @@ public class Projectile extends Physics {
         }
         return true;
     }
-    @Override
-    protected void setX(double x) {
-        this.x = x;
-    }
-
-    @Override
-    protected void setY(double y) {
-        this.y = y;
-    }
-
-    @Override
-    public double getX() {
-        return this.x;
-    }
-
-    @Override
-    public double getY() {
-        return this.y;
-    }
-
+    
     public static class ProjectileBuilder {
 
         private double damage = 0;

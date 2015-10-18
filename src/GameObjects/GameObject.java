@@ -14,10 +14,12 @@ import java.util.ArrayList;
 public abstract class GameObject {
     private int modelID;
     private boolean active;
-    public abstract double getX();
-    public abstract double getY();
-    protected abstract void setX(double x);
-    protected abstract void setY(double y);
+    private double x = 0.0;
+    private double y = 0.0;
+    public double getX(){return this.x;}
+    public double getY(){return this.y;}
+    protected void setX(double x){this.x = x;}
+    protected void setY(double y){this.y = y;}
     protected GameObject(int modelId) {
         this.modelID = modelId;
         this.active = true;

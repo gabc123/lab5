@@ -14,8 +14,6 @@ import java.util.ArrayList;
  * @author o_0
  */
 public class Weapon extends GameObject {
-    private double x;
-    private double y;
     private Direction dirX = Direction.LEFT;
     private Direction dirY = Direction.NONE;
     private double aimX = 0;
@@ -28,8 +26,8 @@ public class Weapon extends GameObject {
     
     public Weapon(Player owner, ProjectileBuilder projectile, int ammo, int modelId) {
         super(modelId);
-        this.x = 50;
-        this.y = 50;
+        this.setX(50);
+        this.setY(50);
         this.ammo = ammo;
         this.projectileBuilder = projectile.withOwner(owner);
         
@@ -48,8 +46,8 @@ public class Weapon extends GameObject {
      */
     public Weapon(Player owner, ProjectileType type,int modelId) {
         super(modelId);
-        this.x = 50;
-        this.y = 50;
+        this.setX(50);
+        this.setY(50);
         this.ammo = 50;
         this.projectileBuilder = new ProjectileBuilder(type)
                 .withModel(1)
@@ -64,28 +62,6 @@ public class Weapon extends GameObject {
     
     public void setAimY(Direction dir) {
         this.dirY = dir;
-    }
-    
-    @Override
-    protected void setX(double x) {
-        this.x = x;
-    }
-
-    @Override
-    protected void setY(double y) {
-        this.y = y;
-    }
-
-    
-    
-    @Override
-    public double getX() {
-        return this.x;
-    }
-
-    @Override
-    public double getY() {
-        return this.y;
     }
     
     private void updateCooldown(double frameDelta) {

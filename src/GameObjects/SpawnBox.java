@@ -12,15 +12,13 @@ import GameObjects.Projectile.ProjectileBuilder;
  * @author o_0
  */
 public class SpawnBox extends Physics {
-    private double x;
-    private double y;
     private Weapon weapon;
     private ProjectileBuilder projectile;
     private int ammo;
     public SpawnBox(ProjectileType type,double x, double y, int modelId) {
         super(0, 0, modelId);
-        this.x = x;
-        this.y = y;
+        this.setX(x);
+        this.setY(y);
         this.projectile = new ProjectileBuilder(type);
         this.projectile = this.projectile.withDamage(Math.random())
                 .withSpeed(Math.random());
@@ -35,27 +33,4 @@ public class SpawnBox extends Physics {
     public Weapon consumeBox(Player player) {
         return new Weapon(player,projectile,ammo,0);
     }
-    
-    @Override
-    protected void setX(double x) {
-        this.x = x;
-    }
-
-    @Override
-    protected void setY(double y) {
-        this.y = y;
-    }
-
-    
-    
-    @Override
-    public double getX() {
-        return this.x;
-    }
-
-    @Override
-    public double getY() {
-        return this.y;
-    }
-    
 }

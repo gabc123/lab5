@@ -8,9 +8,6 @@ import java.util.ArrayList;
  * @author o_0
  */
 public class Player extends Physics {
-
-    private double x;
-    private double y;
     private boolean jetpackState = false;
     private String name;
     private Weapon weapon;
@@ -20,8 +17,8 @@ public class Player extends Physics {
 
     public Player(String name_, double x, double y, int modelId) {
         super(0, 0, modelId); // should be stationary
-        this.x = x;
-        this.y = y;
+        this.setX(x);
+        this.setY(y);
         this.dir = Direction.NONE;
         this.name = name_;
         this.weapon = new Weapon(this, ProjectileType.GRANADE, 0);
@@ -70,26 +67,6 @@ public class Player extends Physics {
 
     public void setDirection(Direction direction) {
         this.dir = direction;
-    }
-
-    @Override
-    protected void setX(double x) {
-        this.x = x;
-    }
-
-    @Override
-    protected void setY(double y) {
-        this.y = y;
-    }
-
-    @Override
-    public double getX() {
-        return this.x;
-    }
-
-    @Override
-    public double getY() {
-        return this.y;
     }
 
     public static class Playerinfo {
