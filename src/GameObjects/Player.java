@@ -1,6 +1,7 @@
 
 package GameObjects;
 
+import Controller.KeyboardController;
 import java.util.ArrayList;
 
 /**
@@ -11,6 +12,7 @@ public class Player extends Physics{
     private double x;
     private double y;
     private boolean jetpackState = false;
+    private String name;
     
     
     private Direction dir;
@@ -70,4 +72,25 @@ public class Player extends Physics{
         return this.y;
     }
     
+    
+    private static class Playerinfo{
+        private String playername;
+        private ArrayList<KeyboardController> keyInputs;
+        
+        private Playerinfo(String name, KeyboardController playerinput){
+            this.playername = name;
+            this.keyInputs = new ArrayList<KeyboardController>();
+            this.keyInputs.add(playerinput);
+           
+        }
+        
+        public String getPlayerName(){
+            return this.playername;
+        }
+        
+        public ArrayList<KeyboardController> getKeyboard(){
+            return this.keyInputs;
+    }
+        
+    }
 }
