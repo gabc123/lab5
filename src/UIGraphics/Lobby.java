@@ -36,6 +36,7 @@ public class Lobby {
     private GameSetup gameSetup;
     private Button start;
     private String player1name;
+    private String player2name;
     
     public Lobby(Stage stage, GameSetup gameSetup_){
         KeyboardController input = new KeyboardController(KeyCode.A, KeyCode.D, KeyCode.SPACE);
@@ -55,6 +56,10 @@ public class Lobby {
         TextField player1Name = new TextField ();
         HBox namecon = new HBox();
         
+        Label player2 = new Label("Player 2 Name:");
+        TextField player2Name = new TextField ();
+        HBox namecon2 = new HBox();
+        
         aiCheck = new CheckBox();
         start = new Button("Start");
         
@@ -66,6 +71,9 @@ public class Lobby {
                 playerInfo.get(0).setPlayerName(player1name);
                 //System.out.println(player1name);
                 //playerInfo.add(new Playerinfo(player1name,input));
+                if(aiCheck.isSelected() == true){
+                    playerInfo.remove(1);
+                }
                 startMap();
             }
         });
@@ -83,10 +91,14 @@ public class Lobby {
         aiCheck.setText("Ai");
         
         namecon.setSpacing(10);
-        namecon.getChildren().addAll(player1, player1Name, aiCheck);
+        namecon.getChildren().addAll(player1, player1Name);
+        
+        namecon2.setSpacing(10);
+        namecon2.getChildren().addAll(player2, player2Name, aiCheck);
         
         root.getChildren().add(canvas);
         root.getChildren().add(namecon);
+        root.getChildren().add(namecon2);
         root.getChildren().add(start);
         //root.getChildren().add(aiCheck);
          
