@@ -20,6 +20,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -38,7 +39,6 @@ public class BattleArena {
     private GameUpdateController gameUpdate;
     private ArrayList<EventHandler<KeyEvent>> inputs;
     private Stage gameStage;
-    private HBox dropmenu;
     
     public BattleArena(Stage stage) {
         this.gameStage = stage;
@@ -72,14 +72,14 @@ public class BattleArena {
     
     public void setup(ArrayList<Player.Playerinfo> playerInfo,int numOfAi) {
         Stage stage = this.gameStage;
+        MenuBar menubar = new MenuBar();
         Menu menu = new Menu(this);
         root = new Group();
         Scene scene = new Scene(root, 1024, 720, Color.GREEN);
         Canvas canvas = new Canvas(scene.getWidth(), scene.getHeight());
         root.getChildren().add(canvas);
-        HBox dropmenu = new HBox();
-        dropmenu = menu.menuGetHbox();
-        root.getChildren().add(dropmenu);
+        menubar = menu.getMenu();
+        root.getChildren().add(menubar);
         
         gameObjects = new ArrayList<GameObject>();
         createPlayers(playerInfo);

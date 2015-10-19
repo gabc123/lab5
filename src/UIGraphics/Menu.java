@@ -10,6 +10,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import lab5game.BattleArena;
 
@@ -19,46 +21,36 @@ import lab5game.BattleArena;
  */
 public class Menu {
     private BattleArena battlearena;
+    private MenuBar menubar;
     
     public Menu(BattleArena ba){
     this.battlearena = ba;
     }
     
-    public HBox menuGetHbox(){
+    public MenuBar getMenu(){
         
-        Button quit = new Button();
-        Button scorboard = new Button();
-	quit.setText("Quit");
-	scorboard.setText("Scorboard");
+        menubar = new MenuBar();
         
-        HBox menu = new HBox();
-        ComboBox dropdown = new ComboBox();
+        /**Menu menuFile = new Menu("State");
+	Menu menuEdit = new Menu("Edit");
+	Menu menuView = new Menu("View");
+        Menu hejsan = new Menu("hej");*/
+	
+	MenuItem add = new MenuItem("add");
+	add.setOnAction(new EventHandler<ActionEvent>() {
+		public void handle(ActionEvent t) {
+		    System.out.println("Hejsan");
+		}
+	    }); 
+	
+	MenuItem clear = new MenuItem("clear");
+	MenuItem exit = new MenuItem("exit");
+	
+	//menuFile.getItems().addAll(add, clear,  exit);
+        //menubar.getMenus().addAll(menuFile, menuEdit, menuView);
+
         
-        dropdown.getItems().addAll(
-            "Stop",
-            "Play" 
-        );
-        
-        dropdown.setOnAction(new EventHandler<ActionEvent>(){
-           public void handle(ActionEvent event) {
-               if(dropdown.getValue() == "Stop"){
-                   stop();
-               }
-               else{
-                   start();
-               }
-           
-           }
-        });
-        
-        
-        menu.setStyle("-fx-background-color: LIGHTGREY;");
-	menu.setPrefWidth(1024);
-	menu.setPrefHeight(28);
-	menu.setSpacing(5);
-        menu.getChildren().addAll(dropdown, scorboard, quit);
-        
-        return menu;
+        return menubar;
     }
     
     public void save(){}
