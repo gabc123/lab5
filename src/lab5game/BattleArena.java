@@ -86,7 +86,7 @@ public class BattleArena {
         gameObjects.add(new SpawnBox(ProjectileType.BULLET,200,200,0));
         render.start();
         
-        gameUpdate = new GameUpdateController(gameObjects);
+        gameUpdate = new GameUpdateController(scene.getWidth(), scene.getHeight(),gameObjects);
         gameUpdate.start();
         stage.setTitle("Lab5Game");
         stage.setScene(scene);

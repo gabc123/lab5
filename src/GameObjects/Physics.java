@@ -19,7 +19,7 @@ public abstract class Physics extends GameObject implements Observer {
     private double dx;
     private double dy;
     private boolean gravityAcitve = true;
-
+    private double bodyRadius = 10;
     protected double getDx() {
         return dx;
     }
@@ -40,6 +40,7 @@ public abstract class Physics extends GameObject implements Observer {
         super(modelId);
         this.dx = dx;
         this.dy = dy;
+        this.bodyRadius = 10;
     }
 
     @Override
@@ -53,6 +54,12 @@ public abstract class Physics extends GameObject implements Observer {
         this.dy += 10.0 * frameDelta;
     }
 
+    public double getBodyRadius() {
+        return this.bodyRadius;
+    }
+    
+    public abstract void collisionWith(Physics gameObj);
+    
     @Override
     public boolean update(double frameDelta, ArrayList<GameObject> spawnedObj) {
         if (this.gravityAcitve) {
@@ -87,5 +94,24 @@ public abstract class Physics extends GameObject implements Observer {
         }
     }
     
+    @Override
+    public void constrain(double w, double h) {
+        double x = this.getX();
+        double y = this.getY();
+        if(x < bodyRadius) {
+            this.setX(bodyRadius);
+            this.dx = 0;//-dx/2;
+        }else if(w - bodyRadius < x) {
+            this.setX(w - bodyRadius);
+            this.dx = 0;//-dx/2;;
+        }
+        if(y < bodyRadius) {
+            this.setY(bodyRadius);
+            this.dy = 0;//-dy/2;
+        }else if(h - bodyRadius < y) {
+            this.setY(h - bodyRadius);
+            this.dy = 0;//-dy/2;
+        }
+    }
     
 }

@@ -43,4 +43,17 @@ public abstract class GameObject {
     public void setModelID(int modelId) {
         this.modelID = modelId;
     }
+    
+    public void constrain(double w, double h) {
+        if(x < 0) {
+            this.setX(1);
+        }else if(w < x) {
+            this.setX(w - 1);
+        }
+        if(y < 0) {
+            this.setY(1);
+        }else if(h < y) {
+            this.setY(h - 1);
+        }
+    }
 }

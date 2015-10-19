@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * @author o_0
  */
 public class Projectile extends Physics {
+
     private double damage;
     private double speed;
     private double radius;
@@ -33,38 +34,45 @@ public class Projectile extends Physics {
         this.setY(this.owner.getY());
         super.addToDx(aimSide * speed);
         super.addToDy(aimUp * speed);
-        if(type == ProjectileType.BULLET) {
+        if (type == ProjectileType.BULLET) {
             super.setGravity(false);
         }
     }
-    
+
     public double getDamage() {
         return this.damage;
     }
-    
+
     public double getRadius() {
         return this.radius;
     }
-    
+
     public Player getOwner() {
         return this.owner;
     }
-    
+
     @Override
     public boolean update(double frameDelta, ArrayList<GameObject> spawnedObj) {
         super.update(frameDelta, spawnedObj);
         timeToLive -= frameDelta;
-        if(timeToLive < 0 ) {
-            spawnedObj.add(new Explosion(this.getX(),this.getY()));
+        if (timeToLive < 0) {
+            spawnedObj.add(new Explosion(this.getX(), this.getY()));
             super.deactivate();
         }
         return true;
     }
-    
+
+    @Override
+    public void collisionWith(Physics gameObj) {
+        if (this.owner != gameObj) {
+            timeToLive = -1;
+        }
+    }
+
     public static class ProjectileBuilder {
 
-        private double damage = 0;
-        private double speed = 0;
+        private double damage = 10;
+        private double speed = 20;
         private ProjectileType type;
         private double radius = 50;
         private Player owner = null;
@@ -85,7 +93,7 @@ public class Projectile extends Physics {
             this.damage = damage;
             return this;
         }
-        
+
         public ProjectileBuilder withRadius(double radius) {
             this.radius = radius;
             return this;

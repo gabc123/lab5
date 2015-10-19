@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Collisions.Collisions;
 import GameObjects.GameObject;
 import GameObjects.Physics;
 import GameObjects.Projectile;
@@ -22,9 +23,12 @@ public class GameUpdateController extends AnimationTimer {
     private long lastTime;
     private ArrayList<GameObject> gameObjects;
     private ExplosionObserver explosionObserver;
-
-    public GameUpdateController(ArrayList<GameObject> gameObj) {
+    private double heigth = 10;
+    private double width = 10;
+    public GameUpdateController(double width,double heigth,ArrayList<GameObject> gameObj) {
         super();
+        this.width = width;
+        this.heigth = heigth;
         this.gameObjects = gameObj;
         explosionObserver = new ExplosionObserver();
         for (GameObject obj : gameObj) {
@@ -69,10 +73,13 @@ public class GameUpdateController extends AnimationTimer {
             }
         }
         
-        ArrayList<GameObject> removeObj = new ArrayList<GameObject>();
+        Collisions collisions = new Collisions();
+        collisions.checkCollisions(gameObjects);
+        
         ArrayList<GameObject> spawnedObj = new ArrayList<GameObject>();
         for (GameObject obj : gameObjects) {
             obj.update(frameDelta, spawnedObj);
+            obj.constrain(width, heigth);
 
         }
         // adds all spawned objects

@@ -31,7 +31,9 @@ public class GameRender extends AnimationTimer {
     @Override
     public void handle(long now) {
         gameView.drawbackground();
-        for(GameObject obj : gameObjects) {
+        // due to GameUpdate controller ability to add/remmove from gameObjects, we need a clone
+        ArrayList<GameObject> localbuffer = (ArrayList<GameObject>) gameObjects.clone();
+        for(GameObject obj : localbuffer) {
             Image img = graphicModel.getModel(obj.getModelID(), 0);
             gameView.drawmodel(img, obj.getX(), obj.getY());
         }
