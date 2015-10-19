@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public abstract class GameObject {
     private int modelID;
     private boolean active;
+    //private boolean physicsEnable = false;
     private double x = 0.0;
     private double y = 0.0;
     public double getX(){return this.x;}
@@ -33,6 +34,8 @@ public abstract class GameObject {
     protected void deactivate() {
         this.active = false;
     }
+    
+    public boolean physicsEnable() { return false;};
     
     public int getModelID() {
         return this.modelID;

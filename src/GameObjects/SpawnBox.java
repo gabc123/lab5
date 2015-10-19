@@ -28,6 +28,7 @@ public class SpawnBox extends Physics {
             case MISSILE: projectile.withModel(0); break;
             default: projectile.withModel(0); break;
         }
+        this.setGravity(false);
     }
     
     public Weapon consumeBox(Player player) {

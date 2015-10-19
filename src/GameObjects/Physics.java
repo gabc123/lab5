@@ -5,13 +5,16 @@
  */
 package GameObjects;
 
+import Controller.ExplosionObserver;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  *
  * @author o_0
  */
-public abstract class Physics extends GameObject {
+public abstract class Physics extends GameObject implements Observer {
 
     private double dx;
     private double dy;
@@ -39,6 +42,9 @@ public abstract class Physics extends GameObject {
         this.dy = dy;
     }
 
+    @Override
+    public boolean physicsEnable() { return true;};
+    
     protected void setGravity(boolean isOn) {
         this.gravityAcitve = isOn;
     }
@@ -56,4 +62,30 @@ public abstract class Physics extends GameObject {
         this.setY(this.getY() + dy * frameDelta);
         return true;
     }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        
+        Projectile exploded = ((ExplosionObserver) o).getProjectile();
+        
+        double diffX = this.getX() - exploded.getX();
+        double diffY = this.getY() - exploded.getY();
+        double effectRadius = exploded.getRadius();
+        
+        double distance = Math.sqrt(diffX*diffX + diffY*diffY);
+        if(distance > effectRadius) {
+            return;
+        }
+        
+        double power = 1 - distance/effectRadius;
+        double strength = power * exploded.getDamage();
+        this.dx += Math.signum(diffX) * strength;
+        this.dy += Math.signum(diffY) * strength;
+        
+        if(this instanceof Player) {
+            ((Player)this).takeDamage(strength);
+        }
+    }
+    
+    
 }

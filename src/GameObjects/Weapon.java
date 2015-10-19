@@ -18,7 +18,7 @@ public class Weapon extends GameObject {
     private Direction dirY = Direction.NONE;
     private double aimX = 0;
     private double aimY = 0;
-    private double cooldown = 1;
+    private double cooldown = 0.1;
     private double fireTimer = 0;
     private boolean didFire = false;
     private ProjectileBuilder projectileBuilder;
@@ -53,6 +53,7 @@ public class Weapon extends GameObject {
                 .withModel(1)
                 .withDamage(20)
                 .withSpeed(200)
+                .withRadius(50)
                 .withOwner(owner);
     }
     

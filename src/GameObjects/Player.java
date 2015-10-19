@@ -12,7 +12,8 @@ public class Player extends Physics {
     private String name;
     private Weapon weapon;
     private boolean didFire = false;
-
+    private double health = 100;
+    
     private Direction dir;
 
     public Player(String name_, double x, double y, int modelId) {
@@ -24,6 +25,14 @@ public class Player extends Physics {
         this.weapon = new Weapon(this, ProjectileType.GRANADE, 0);
     }
 
+    void takeDamage(double damage) {
+        health -= damage;
+        System.out.println("player: " + this.name +" Health: " + this.health);
+        if(health < 0) {
+            this.deactivate();
+        }
+    }
+    
     @Override
     public boolean update(double frameDelta, ArrayList<GameObject> spawnedObj) {
         switch (this.dir) {
@@ -51,7 +60,7 @@ public class Player extends Physics {
 
         weapon.update(frameDelta, spawnedObj);
         if (this.jetpackState == true) {
-            super.addToDy(-15);
+            super.addToDy(-5);
         }
         super.update(frameDelta, spawnedObj);
         return true;
