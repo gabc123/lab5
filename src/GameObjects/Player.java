@@ -8,10 +8,12 @@ import java.util.ArrayList;
  * @author o_0
  */
 public class Player extends Physics {
+
     private boolean jetpackState = false;
     private String name;
     private Weapon weapon;
     private boolean didFire = false;
+    private double health = 100;
 
     private Direction dir;
 
@@ -22,6 +24,14 @@ public class Player extends Physics {
         this.dir = Direction.NONE;
         this.name = name_;
         this.weapon = new Weapon(this, ProjectileType.GRANADE, 0);
+    }
+
+    void takeDamage(double damage) {
+        health -= damage;
+        System.out.println("player: " + this.name + " Health: " + this.health);
+        if (health < 0) {
+            this.deactivate();
+        }
     }
 
     @Override
@@ -51,7 +61,7 @@ public class Player extends Physics {
 
         weapon.update(frameDelta, spawnedObj);
         if (this.jetpackState == true) {
-            super.addToDy(-15);
+            super.addToDy(-5);
         }
         super.update(frameDelta, spawnedObj);
         return true;
@@ -59,6 +69,10 @@ public class Player extends Physics {
 
     public void fireWeapon() {
         this.didFire = this.weapon.fire();
+        /*System.out.println("player: " + getName()
+                    + " Ammo: " + weapon.getAmmo()
+                    + " cooldown: " + weapon.getCooldown()
+            );*/
     }
 
     public void setJetpackState(boolean b) {
@@ -67,6 +81,22 @@ public class Player extends Physics {
 
     public void setDirection(Direction direction) {
         this.dir = direction;
+    }
+
+    @Override
+    public void collisionWith(Physics gameObj) {
+        if (gameObj instanceof SpawnBox) {
+            SpawnBox box = (SpawnBox) gameObj;
+            this.weapon = box.consumeBox(this);
+            System.out.println("player: " + getName()
+                    + " Ammo: " + weapon.getAmmo()
+                    + " cooldown: " + weapon.getCooldown()
+            );
+        }
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public static class Playerinfo {
@@ -78,13 +108,13 @@ public class Player extends Physics {
             this.playername = name;
             this.keyInputs = playerinput;
         }
-        
-        public void setPlayerName(String name_){
+
+        public void setPlayerName(String name_) {
             this.playername = name_;
         }
-        
+
         public String getPlayerName() {
-            
+
             return this.playername;
         }
 

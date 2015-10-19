@@ -14,28 +14,27 @@ import java.util.ArrayList;
  * @author o_0
  */
 public class Weapon extends GameObject {
+    Player owner;
     private Direction dirX = Direction.LEFT;
     private Direction dirY = Direction.NONE;
     private double aimX = 0;
     private double aimY = 0;
-    private double cooldown = 1;
+    private double cooldown = 0.1;
     private double fireTimer = 0;
     private boolean didFire = false;
     private ProjectileBuilder projectileBuilder;
     private int ammo = 0;
     
-    public Weapon(Player owner, ProjectileBuilder projectile, int ammo, int modelId) {
+    public Weapon(Player owner, ProjectileBuilder projectile,double cooldown, int ammo, int modelId) {
         super(modelId);
+        this.owner = owner;
         this.setX(50);
         this.setY(50);
         this.ammo = ammo;
+        this.cooldown = cooldown;
+        this.fireTimer = 0;
         this.projectileBuilder = projectile.withOwner(owner);
         
-        /*this.builder = new ProjectileBuilder(BULLET)
-                .withModel(0)
-                .withDamage(20)
-                .withSpeed(10)
-                .withOwner(owner);*/
     }
     
     /**
@@ -53,6 +52,7 @@ public class Weapon extends GameObject {
                 .withModel(1)
                 .withDamage(20)
                 .withSpeed(200)
+                .withRadius(50)
                 .withOwner(owner);
     }
     
@@ -72,11 +72,20 @@ public class Weapon extends GameObject {
     
     public boolean fire() {
         if(fireTimer > 0) {
+            //System.out.println("player: " + owner.getName() + " Ammo: " + ammo);
             return false;
         }
         fireTimer = cooldown;
         didFire = true;
         return true;
+    }
+    
+    public int getAmmo() {
+        return this.ammo;
+    }
+    
+    public double getCooldown() {
+        return this.cooldown;
     }
     
     @Override

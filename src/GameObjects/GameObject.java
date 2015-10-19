@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public abstract class GameObject {
     private int modelID;
     private boolean active;
+    //private boolean physicsEnable = false;
     private double x = 0.0;
     private double y = 0.0;
     public double getX(){return this.x;}
@@ -34,10 +35,25 @@ public abstract class GameObject {
         this.active = false;
     }
     
+    public boolean physicsEnable() { return false;};
+    
     public int getModelID() {
         return this.modelID;
     }
     public void setModelID(int modelId) {
         this.modelID = modelId;
+    }
+    
+    public void constrain(double w, double h) {
+        if(x < 0) {
+            this.setX(1);
+        }else if(w < x) {
+            this.setX(w - 1);
+        }
+        if(y < 0) {
+            this.setY(1);
+        }else if(h < y) {
+            this.setY(h - 1);
+        }
     }
 }

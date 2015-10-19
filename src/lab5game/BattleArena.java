@@ -12,6 +12,8 @@ import GameData.GraphicModels;
 import GameObjects.GameObject;
 import GameObjects.Player;
 import UIGraphics.Menu;
+import GameObjects.ProjectileType;
+import GameObjects.SpawnBox;
 import View.GameView;
 import java.util.ArrayList;
 import javafx.event.EventHandler;
@@ -83,15 +85,15 @@ public class BattleArena {
         createPlayers(playerInfo);
         
         GraphicModels gameModels = new GraphicModels();
-        String[] imgNames = {"buss.png","unit.png"};
+        String[] imgNames = {"buss.png","unit.png","Resource/explosion.png"};
         gameModels.loadmodel(imgNames);
         
         GameView gameView = new GameView(canvas, new Image("mapbackground.png"));
         render = new GameRender(gameView,gameModels,gameObjects);
-        
+        gameObjects.add(new SpawnBox(ProjectileType.BULLET,200,200,0));
         render.start();
         
-        gameUpdate = new GameUpdateController(gameObjects);
+        gameUpdate = new GameUpdateController(scene.getWidth(), scene.getHeight(),gameObjects);
         gameUpdate.start();
         stage.setTitle("Lab5Game");
         stage.setScene(scene);
