@@ -70,10 +70,13 @@ public class Lobby {
             public void handle(ActionEvent event) {
                 player1name = player1Name.getText();
                 playerInfo.get(0).setPlayerName(player1name);
+                player2name = player2Name.getText();
+                playerInfo.get(1).setPlayerName(player2name);
                 //System.out.println(player1name);
                 //playerInfo.add(new Playerinfo(player1name,input));
                 if(aiCheck.isSelected() == true){
                     playerInfo.remove(1);
+                    numOfAi++;
                 }
                 startMap();
             }
