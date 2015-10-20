@@ -3,51 +3,56 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-//put in vbox
 package UIGraphics;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.Menu;
 import lab5game.BattleArena;
 
 /**
  *
  * @author mats
  */
-public class Menu {
+public class TopMenu {
+    
     private BattleArena battlearena;
     private MenuBar menubar;
     
-    public Menu(BattleArena ba){
-    this.battlearena = ba;
+    public TopMenu(BattleArena ba){
+        this.battlearena = ba;
     }
+    
     
     public MenuBar getMenu(){
         
         menubar = new MenuBar();
         
-        /**Menu menuFile = new Menu("State");
-	Menu menuEdit = new Menu("Edit");
-	Menu menuView = new Menu("View");
-        Menu hejsan = new Menu("hej");*/
+        Menu menuFile = new Menu("State");
+	Menu menuSave = new Menu("Save");
+	Menu scoreView = new Menu("ViewScoreboard");
+        Menu hejsan = new Menu("hej");
 	
-	MenuItem add = new MenuItem("add");
-	add.setOnAction(new EventHandler<ActionEvent>() {
+	MenuItem stopgame = new MenuItem("Stop");
+	stopgame.setOnAction(new EventHandler<ActionEvent>() {
 		public void handle(ActionEvent t) {
-		    System.out.println("Hejsan");
+		    stop();
 		}
 	    }); 
 	
-	MenuItem clear = new MenuItem("clear");
+	MenuItem startgame = new MenuItem("start");
+        startgame.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent y) {
+		start();
+            }
+	});
+        
 	MenuItem exit = new MenuItem("exit");
 	
-	//menuFile.getItems().addAll(add, clear,  exit);
-        //menubar.getMenus().addAll(menuFile, menuEdit, menuView);
+	menuFile.getItems().addAll(stopgame, startgame,  exit);
+        menubar.getMenus().addAll(menuFile, menuSave, scoreView);
 
         
         return menubar;
