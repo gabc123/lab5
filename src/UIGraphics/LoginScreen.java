@@ -45,7 +45,6 @@ public class LoginScreen {
 	but.setGraphic(new ImageView(imagebut));
 
        	but.setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent event) {
                 play();

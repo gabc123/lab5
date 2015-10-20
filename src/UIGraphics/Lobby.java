@@ -38,6 +38,7 @@ public class Lobby {
     private String player1name;
     private String player2name;
     
+    
     public Lobby(Stage stage, GameSetup gameSetup_){
         KeyboardController input = new KeyboardController(KeyCode.A, KeyCode.D, KeyCode.SPACE);
         playerInfo = new ArrayList<Playerinfo>();
@@ -80,6 +81,9 @@ public class Lobby {
         
         root = new Group();
 	Scene scene = new Scene(root, 1024, 720, Color.AZURE);
+        
+        //Scene scene = new Scene(bordpane, 1024, 720, Color.AZURE);
+        
 	Canvas canvas = new Canvas(scene.getWidth(), scene.getHeight());
         
         start.setLayoutX(canvas.getWidth()/2);
@@ -95,6 +99,7 @@ public class Lobby {
         
         namecon2.setSpacing(10);
         namecon2.getChildren().addAll(player2, player2Name, aiCheck);
+
         
         root.getChildren().add(canvas);
         root.getChildren().add(namecon);

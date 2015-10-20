@@ -78,6 +78,7 @@ public class BattleArena {
         Canvas canvas = new Canvas(scene.getWidth(), scene.getHeight());
         root.getChildren().add(canvas);
         menubar = menu.getMenu();
+        menubar.prefWidthProperty().bind(gameStage.widthProperty());
         root.getChildren().add(menubar);
         
         gameObjects = new ArrayList<GameObject>();

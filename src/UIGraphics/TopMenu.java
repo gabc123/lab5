@@ -33,7 +33,6 @@ public class TopMenu {
         Menu menuFile = new Menu("State");
 	Menu menuSave = new Menu("Save");
 	Menu scoreView = new Menu("ViewScoreboard");
-        Menu hejsan = new Menu("hej");
 	
 	MenuItem stopgame = new MenuItem("Stop");
 	stopgame.setOnAction(new EventHandler<ActionEvent>() {
@@ -68,7 +67,9 @@ public class TopMenu {
         battlearena.play();
     }
     
-    public void quit(){}
+    public void quit(){
+        battlearena.killGame();
+    }
     
     public void showscoreboard(){}
     
