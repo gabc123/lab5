@@ -18,7 +18,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -38,7 +37,6 @@ public class Lobby {
     private Button start;
     private String player1name;
     private String player2name;
-    private FlowPane flow;
     
     
     public Lobby(Stage stage, GameSetup gameSetup_){
@@ -54,7 +52,6 @@ public class Lobby {
     
     public void lobbysetup(){
         Stage stage = this.Lobbystage;
-        flow  = new FlowPane();
 
         Label player1 = new Label("Player 1 Name:");
         TextField player1Name = new TextField ();
@@ -87,7 +84,7 @@ public class Lobby {
         
         root = new Group();
 	Scene scene = new Scene(root, 1024, 720, Color.AZURE);
-        
+
         //Scene scene = new Scene(bordpane, 1024, 720, Color.AZURE);
         
 	Canvas canvas = new Canvas(scene.getWidth(), scene.getHeight());
@@ -106,12 +103,13 @@ public class Lobby {
         namecon2.setSpacing(10);
         namecon2.getChildren().addAll(player2, player2Name, aiCheck);
 
+        HBox namecon4 = new HBox();
+        namecon4.setSpacing(10);
+        namecon4.getChildren().addAll(namecon, namecon2);
         
         root.getChildren().add(canvas);
-        root.getChildren().add(namecon);
-        root.getChildren().add(namecon2);
+        root.getChildren().add(namecon4);
         root.getChildren().add(start);
-        //root.getChildren().add(aiCheck);
          
         stage.setTitle("Lobby");
 	stage.setScene(scene);
