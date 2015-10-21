@@ -94,7 +94,7 @@ public class BattleArena {
         createPlayers(playerInfo);
 
         
-        String[] imgNames = {"buss.png", "unit.png", "Resource/explosion.png"};
+        String[] imgNames = {"buss.png", "Resource/Misil.png", "Resource/explosion.png"};
         GraphicModels gameModels = new GraphicModels();
         gameModels.loadmodel(imgNames);
 
