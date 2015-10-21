@@ -3,43 +3,39 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package GameTimers;
 
-import GameData.GraphicModels;
+import Controller.RenderController;
 import GameData.Terrain;
 import GameObjects.GameObject;
-import View.GameView;
 import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
-import javafx.scene.image.Image;
 
 /**
  *
  * @author o_0
  */
-public class GameRender extends AnimationTimer {
+public class RenderTimer extends AnimationTimer {
+
     private ArrayList<GameObject> gameObjects;
-    private GameView gameView;
-    private GraphicModels graphicModel;
+    RenderController renderController;
     private Terrain terrain;
-    public GameRender(GameView view, GraphicModels graphicModel, ArrayList<GameObject> gameObj,Terrain terrain) {
+
+    public RenderTimer(RenderController renderController, ArrayList<GameObject> gameObj, Terrain terrain) {
         super();
         this.gameObjects = gameObj;
-        this.gameView = view;
-        this.graphicModel = graphicModel;
         this.terrain = terrain;
+        this.renderController = renderController;
     }
-    
+
     @Override
     public void handle(long now) {
-        gameView.drawbackground(this.terrain.getTerrainImage());
+        renderController.displayTerrain(terrain);
+
 // due to GameUpdate controller ability to add/remmove from gameObjects, we need a clone
         ArrayList<GameObject> localbuffer = (ArrayList<GameObject>) gameObjects.clone();
-        for(GameObject obj : localbuffer) {
-            Image img = graphicModel.getModel(obj.getModelID(), 0);
-            gameView.drawmodel(img, obj.getX(), obj.getY());
+        for (GameObject obj : localbuffer) {
+            renderController.displayModel(obj);
         }
-        
-        
     }
 }
