@@ -100,7 +100,7 @@ public class BattleArena {
         GameView gameView = new GameView(canvas);
         RenderController render = new RenderController(gameView, gameModels);
 
-        terrain = new Terrain(root, scene.getWidth(), scene.getHeight());
+        terrain = new Terrain(scene.getWidth(), scene.getHeight());
         renderTimer = new RenderTimer(render, gameObjects, terrain);
         
         gameObjects.add(new SpawnBox(ProjectileType.BULLET, 200, 200, 0));
