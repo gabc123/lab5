@@ -17,10 +17,14 @@ public abstract class GameObject {
     //private boolean physicsEnable = false;
     private double x = 0.0;
     private double y = 0.0;
+    private double bodySize = 0.0;
     public double getX(){return this.x;}
     public double getY(){return this.y;}
     protected void setX(double x){this.x = x;}
     protected void setY(double y){this.y = y;}
+    public double getBodySize() {return this.bodySize;}
+    protected void setBodySize(double bodySize) {this.bodySize = bodySize;}
+    
     protected GameObject(int modelId) {
         this.modelID = modelId;
         this.active = true;

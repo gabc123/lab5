@@ -10,6 +10,7 @@ import GameObjects.Player.Playerinfo;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -18,6 +19,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -51,9 +53,13 @@ public class Lobby {
         this.gameSetup = gameSetup_;
     }
     
+    
+
+    
     public void lobbysetup(){
         Stage stage = this.Lobbystage;
-
+        
+        
         Label player1 = new Label("Player 1 Name:");
         TextField player1Name = new TextField ();
         HBox namecon = new HBox();

@@ -23,7 +23,7 @@ public class Projectile extends Physics {
     private ProjectileType type;
 
     private Projectile(double aimSide, double aimUp, ProjectileBuilder builder) {
-        super(0, 0, builder.modelId);
+        super(0, 0, 10,builder.modelId);
         this.damage = builder.damage;
         this.damageRadius = builder.radius;
         this.speed = builder.speed;
@@ -56,7 +56,7 @@ public class Projectile extends Physics {
         super.update(frameDelta, spawnedObj);
         timeToLive -= frameDelta;
         if (timeToLive < 0) {
-            spawnedObj.add(new Explosion(this.getX(), this.getY()));
+            spawnedObj.add(new Explosion(getX(), getY(), getDamageRadius()));
             super.deactivate();
         }
         return true;

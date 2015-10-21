@@ -36,13 +36,14 @@ public abstract class Physics extends GameObject implements Observer {
         this.dy += dy;
     }
 
-    protected Physics(double dx, double dy, int modelId) {
+    protected Physics(double dx, double dy, double bodyRadius, int modelId) {
         super(modelId);
         this.dx = dx;
         this.dy = dy;
-        this.bodyRadius = 10;
+        this.bodyRadius = bodyRadius;
+        this.setBodySize(bodyRadius*2);
     }
-
+    
     @Override
     public boolean physicsEnable() { return true;};
     
@@ -54,6 +55,11 @@ public abstract class Physics extends GameObject implements Observer {
         this.dy += 10.0 * frameDelta;
     }
 
+    protected void setBodyRadius(double bodyRadius) {
+        this.bodyRadius = bodyRadius;
+        this.setBodySize(bodyRadius);
+    }
+    
     public double getBodyRadius() {
         return this.bodyRadius;
     }

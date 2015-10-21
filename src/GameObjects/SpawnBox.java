@@ -18,7 +18,7 @@ public class SpawnBox extends Physics {
     private int ammo;
     private double cooldown;
     public SpawnBox(ProjectileType type,double x, double y, int modelId) {
-        super(0, 0, modelId);
+        super(0, 0,10, modelId);
         this.setX(x);
         this.setY(y);
         Random rand = new Random();
@@ -35,7 +35,7 @@ public class SpawnBox extends Physics {
         this.ammo = rand.nextInt(100) + 10;
         //System.out.println("Create Spawnbox with ammo: " + ammo);
         this.cooldown = 0.01 + rand.nextDouble() * 2 ;
-        this.setGravity(false);
+        //this.setGravity(false);
     }
     
     public Weapon consumeBox(Player player) {
@@ -50,10 +50,16 @@ public class SpawnBox extends Physics {
         this.addToDy(-this.getDy());
         
         // move the objected so it do not collide
-        double diffX = getX() - x;
-        double diffY = getY() - y;
-        this.setX(getX() + 2 * Math.signum(diffX));
-        this.setY(getY() + 2 * Math.signum(diffY));        
+        double diffX = (getX() - x);
+        double diffY = (getY() - y);
+        this.setX(getX() + 1*Math.signum(diffX));
+        this.setY(getY() + 1*Math.signum(diffY));
+        if(getBodyRadius()!=0) {
+            diffX = diffX - diffX*(1 - diffX/getBodyRadius());
+            diffY = diffY- diffY*(1 - diffY/getBodyRadius());
+        }
+        this.addToDx(diffX);
+        this.addToDy(diffY);  
     }
     
     @Override
