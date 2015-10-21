@@ -84,16 +84,11 @@ public class Lobby {
         
         root = new Group();
 	Scene scene = new Scene(root, 1024, 720, Color.AZURE);
-
-        //Scene scene = new Scene(bordpane, 1024, 720, Color.AZURE);
         
 	Canvas canvas = new Canvas(scene.getWidth(), scene.getHeight());
         
         start.setLayoutX(canvas.getWidth()/2);
         start.setLayoutY(canvas.getHeight()/6 * 5);
-        
-        //aiCheck.setLayoutX(canvas.getWidth()/2);
-        //aiCheck.setLayoutY(canvas.getHeight()/2);
         
         aiCheck.setText("Ai");
         
@@ -104,7 +99,7 @@ public class Lobby {
         namecon2.getChildren().addAll(player2, player2Name, aiCheck);
 
         HBox namecon4 = new HBox();
-        namecon4.setSpacing(10);
+        namecon4.setSpacing(100);
         namecon4.getChildren().addAll(namecon, namecon2);
         
         root.getChildren().add(canvas);

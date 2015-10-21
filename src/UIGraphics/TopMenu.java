@@ -11,6 +11,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Menu;
 import lab5game.BattleArena;
+import lab5game.GameSetup;
 
 /**
  *
@@ -20,9 +21,11 @@ public class TopMenu {
     
     private BattleArena battlearena;
     private MenuBar menubar;
+    private GameSetup GS;
     
-    public TopMenu(BattleArena ba){
+    public TopMenu(BattleArena ba, GameSetup GS_){
         this.battlearena = ba;
+        this.GS = GS_;
     }
     
     
@@ -35,23 +38,15 @@ public class TopMenu {
 	Menu scoreView = new Menu("ViewScoreboard");
 	
 	MenuItem stopgame = new MenuItem("Stop");
-	stopgame.setOnAction(new EventHandler<ActionEvent>() {
-		public void handle(ActionEvent t) {
-		    stop();
-		}
-	    }); 
+	stopgame.setOnAction(stop());
 	
 	MenuItem startgame = new MenuItem("start");
         startgame.setOnAction(start());
-        /*startgame.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent y) {
-		start();
-            }
-	});*/
         
-	MenuItem exit = new MenuItem("exit");
+	MenuItem exitgame = new MenuItem("exit");
+        exitgame.setOnAction(quit());
 	
-	menuFile.getItems().addAll(stopgame, startgame,  exit);
+	menuFile.getItems().addAll(stopgame, startgame,  exitgame);
         menubar.getMenus().addAll(menuFile, menuSave, scoreView);
 
         
@@ -66,16 +61,25 @@ public class TopMenu {
         };
     }
     
-    public void stop(){
-        battlearena.paus();
+    public EventHandler<ActionEvent> stop(){
+        return new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+		battlearena.paus();
+		}
+	    };
+        
     }
     
     public void save(){
         //battlearena.play();
     }
     
-    public void quit(){
-        battlearena.killGame();
+    public EventHandler<ActionEvent> quit(){
+        return new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent z) {
+		GS.resetGame();
+		}
+	    }; 
     }
     
     public void showscoreboard(){}
