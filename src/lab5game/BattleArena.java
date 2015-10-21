@@ -19,6 +19,7 @@ import UIGraphics.TopMenu;
 import View.GameView;
 import java.util.ArrayList;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -26,6 +27,10 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -37,7 +42,8 @@ public class BattleArena {
 
     private ArrayList<GameObject> gameObjects;
     private Terrain terrain;
-    private Group root;
+    //private Group root;
+    private StackPane root;
 
     private RenderTimer renderTimer;
     private GameUpdateController gameUpdate;
@@ -75,21 +81,38 @@ public class BattleArena {
         inputs.clear();
     }
 
-    public void setup(ArrayList<Player.Playerinfo> playerInfo, int numOfAi, GameSetup GS_) {
+    public void setup(ArrayList<Player.Playerinfo> playerInfo, int numOfAi, GameSetup gameSetup) {
         Stage stage = this.gameStage;
-        GameSetup GS = GS_;
-        MenuBar menubar = new MenuBar();
-        TopMenu menu = new TopMenu(this, GS);
-        root = new Group();
-        Scene scene = new Scene(root, 1024, 720, Color.GREEN);
+        
+        //root = new Group();
+        
+        root = new StackPane();
 
-        Canvas canvas = new Canvas(scene.getWidth(), scene.getHeight());
-        root.getChildren().add(canvas);
+        
         //root.getChildren().
+        double width = 1024;
+        double height = 720;
+        MenuBar menubar = new MenuBar();
+        TopMenu menu = new TopMenu(this, gameSetup);
         menubar = menu.getMenu();
         menubar.prefWidthProperty().bind(gameStage.widthProperty());
-        root.getChildren().add(menubar);
-
+        
+        Canvas canvas = new Canvas(width, height);
+        
+        VBox hbox = new VBox();
+        HBox menuBox = new HBox();
+        menuBox.getChildren().add(menubar);
+        
+        HBox gameBox = new HBox();
+        gameBox.getChildren().add(canvas);        
+        gameBox.prefHeight(720);
+        StackPane.setMargin(hbox, Insets.EMPTY);
+        hbox.getChildren().addAll(menuBox,gameBox);
+        root.getChildren().addAll(hbox);
+        
+        
+        Scene scene = new Scene(root, width, height + 28, Color.GREEN);
+        
         gameObjects = new ArrayList<GameObject>();
         createPlayers(playerInfo);
 
@@ -101,12 +124,12 @@ public class BattleArena {
         GameView gameView = new GameView(canvas);
         RenderController render = new RenderController(gameView, gameModels);
 
-        terrain = new Terrain(scene.getWidth(), scene.getHeight());
+        terrain = new Terrain(width, height);
         renderTimer = new RenderTimer(render, gameObjects, terrain);
         
         gameObjects.add(new SpawnBox(ProjectileType.BULLET, 200, 200, 0));
         
-        gameUpdate = new GameUpdateController(scene.getWidth(), scene.getHeight(), gameObjects, terrain);
+        gameUpdate = new GameUpdateController(width, height, gameObjects, terrain);
         
         this.play();
         stage.setTitle("Lab5Game");
