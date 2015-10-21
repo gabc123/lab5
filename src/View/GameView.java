@@ -8,6 +8,7 @@ package View;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.PixelWriter;
 
 /**
  *
@@ -16,22 +17,24 @@ import javafx.scene.image.Image;
 public class GameView {
     
     private Canvas canvas;
-    private Image background;
-    public GameView(Canvas canvas,Image background) {
+    //private Canvas background;
+    public GameView(Canvas canvas) {
         this.canvas = canvas;
-        this.background = background;
     }
     
-    public void drawbackground(){
-        
+    public void drawbackground(Image background){
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         gc.drawImage(background, 0, 0, canvas.getWidth(), canvas.getHeight());
+        //GraphicsContext gc = canvas.getGraphicsContext2D();
+        //PixelWriter pixelWriter = gc.getPixelWriter();
+        
+        //gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        //gc.drawImage(background, 0, 0, canvas.getWidth(), canvas.getHeight());
     }
     
     public void drawmodel(Image model, double x, double y){
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.drawImage(model, x, y);
+        gc.drawImage(model, x - model.getWidth()/2, y - model.getHeight()/2);
     }
     
    

@@ -44,6 +44,18 @@ public class SpawnBox extends Physics {
         return new Weapon(player,projectile,cooldown,ammo,0);
     }
 
+    public void collisionWithTerrainAt(double x, double y) {
+        // stop movement
+        this.addToDx(-this.getDx());
+        this.addToDy(-this.getDy());
+        
+        // move the objected so it do not collide
+        double diffX = getX() - x;
+        double diffY = getY() - y;
+        this.setX(getX() + 2 * Math.signum(diffX));
+        this.setY(getY() + 2 * Math.signum(diffY));        
+    }
+    
     @Override
     public void collisionWith(Physics gameObj) {
         

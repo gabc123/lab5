@@ -9,6 +9,7 @@ import Controller.GameRender;
 import Controller.GameUpdateController;
 import Controller.KeyboardController;
 import GameData.GraphicModels;
+import GameData.Terrain;
 import GameObjects.GameObject;
 import GameObjects.Player;
 import GameObjects.ProjectileType;
@@ -33,9 +34,12 @@ import javafx.stage.Stage;
  */
 public class BattleArena {
     private ArrayList<GameObject> gameObjects;
+    private Terrain terrain;
     private Group root;
+    
     private GameRender render;
     private GameUpdateController gameUpdate;
+    
     private ArrayList<EventHandler<KeyEvent>> inputs;
     private Stage gameStage;
     
@@ -75,8 +79,10 @@ public class BattleArena {
         TopMenu menu = new TopMenu(this);
         root = new Group();
         Scene scene = new Scene(root, 1024, 720, Color.GREEN);
+        
         Canvas canvas = new Canvas(scene.getWidth(), scene.getHeight());
         root.getChildren().add(canvas);
+        //root.getChildren().
         menubar = menu.getMenu();
         menubar.prefWidthProperty().bind(gameStage.widthProperty());
         root.getChildren().add(menubar);
@@ -87,13 +93,16 @@ public class BattleArena {
         GraphicModels gameModels = new GraphicModels();
         String[] imgNames = {"buss.png","unit.png","Resource/explosion.png"};
         gameModels.loadmodel(imgNames);
+        GameView gameView = new GameView(canvas);
         
-        GameView gameView = new GameView(canvas, new Image("mapbackground.png"));
-        render = new GameRender(gameView,gameModels,gameObjects);
+        //GameView gameView = new GameView(canvas, new Image("mapbackground.png"));
+        
+        terrain = new Terrain(root,scene.getWidth(), scene.getHeight());
+        render = new GameRender(gameView,gameModels,gameObjects,terrain);
         gameObjects.add(new SpawnBox(ProjectileType.BULLET,200,200,0));
         render.start();
         
-        gameUpdate = new GameUpdateController(scene.getWidth(), scene.getHeight(),gameObjects);
+        gameUpdate = new GameUpdateController(scene.getWidth(), scene.getHeight(),gameObjects,terrain);
         gameUpdate.start();
         stage.setTitle("Lab5Game");
         stage.setScene(scene);

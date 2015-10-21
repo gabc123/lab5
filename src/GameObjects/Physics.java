@@ -60,6 +60,8 @@ public abstract class Physics extends GameObject implements Observer {
     
     public abstract void collisionWith(Physics gameObj);
     
+    public abstract void collisionWithTerrainAt(double x, double y);
+    
     @Override
     public boolean update(double frameDelta, ArrayList<GameObject> spawnedObj) {
         if (this.gravityAcitve) {
@@ -77,7 +79,7 @@ public abstract class Physics extends GameObject implements Observer {
         
         double diffX = this.getX() - exploded.getX();
         double diffY = this.getY() - exploded.getY();
-        double effectRadius = exploded.getRadius();
+        double effectRadius = exploded.getDamageRadius();
         
         double distance = Math.sqrt(diffX*diffX + diffY*diffY);
         if(distance > effectRadius) {

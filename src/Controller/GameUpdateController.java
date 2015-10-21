@@ -6,6 +6,7 @@
 package Controller;
 
 import Collisions.Collisions;
+import GameData.Terrain;
 import GameObjects.GameObject;
 import GameObjects.Physics;
 import GameObjects.Projectile;
@@ -22,15 +23,18 @@ public class GameUpdateController extends AnimationTimer {
     public static final double BILLION = 1000_000_000.0; //from Ball lab2b
     private long lastTime;
     private ArrayList<GameObject> gameObjects;
+    private Terrain terrain;
     private ExplosionObserver explosionObserver;
     private double heigth = 10;
     private double width = 10;
-    public GameUpdateController(double width,double heigth,ArrayList<GameObject> gameObj) {
+    public GameUpdateController(double width,double heigth,ArrayList<GameObject> gameObj,Terrain terrain) {
         super();
         this.width = width;
         this.heigth = heigth;
         this.gameObjects = gameObj;
+        this.terrain = terrain;
         explosionObserver = new ExplosionObserver();
+        explosionObserver.addObserver(this.terrain);
         for (GameObject obj : gameObj) {
             if (obj.physicsEnable()) {
                 explosionObserver.addObserver((Physics) obj);
@@ -75,6 +79,7 @@ public class GameUpdateController extends AnimationTimer {
         
         Collisions collisions = new Collisions();
         collisions.checkCollisions(gameObjects);
+        collisions.checkTerrainCollisions(terrain, gameObjects);
         
         ArrayList<GameObject> spawnedObj = new ArrayList<GameObject>();
         for (GameObject obj : gameObjects) {

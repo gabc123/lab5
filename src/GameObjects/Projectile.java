@@ -15,7 +15,7 @@ public class Projectile extends Physics {
 
     private double damage;
     private double speed;
-    private double radius;
+    private double damageRadius;
     private Player owner;
     private Player target;
     private double timeToLive = 2.0;
@@ -25,7 +25,7 @@ public class Projectile extends Physics {
     private Projectile(double aimSide, double aimUp, ProjectileBuilder builder) {
         super(0, 0, builder.modelId);
         this.damage = builder.damage;
-        this.radius = builder.radius;
+        this.damageRadius = builder.radius;
         this.speed = builder.speed;
         this.owner = builder.owner;
         this.target = builder.target;
@@ -43,8 +43,8 @@ public class Projectile extends Physics {
         return this.damage;
     }
 
-    public double getRadius() {
-        return this.radius;
+    public double getDamageRadius() {
+        return this.damageRadius;
     }
 
     public Player getOwner() {
@@ -69,6 +69,10 @@ public class Projectile extends Physics {
         }
     }
 
+    public void collisionWithTerrainAt(double x, double y) {
+        timeToLive = -1;    // explodes when < 0
+    }
+    
     public static class ProjectileBuilder {
 
         private double damage = 10;

@@ -99,6 +99,14 @@ public class Player extends Physics {
         return this.name;
     }
 
+    public void collisionWithTerrainAt(double x, double y) {
+        // stop movement
+        this.addToDx(-this.getDx());
+        this.addToDy(-this.getDy());
+        this.addToDx((this.getX() - x)/1);
+        this.addToDy((this.getY() - y)/1);
+    }
+
     public static class Playerinfo {
 
         private String playername;

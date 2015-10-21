@@ -5,6 +5,7 @@
  */
 package Collisions;
 
+import GameData.Terrain;
 import GameObjects.GameObject;
 import GameObjects.Physics;
 import java.util.ArrayList;
@@ -48,6 +49,14 @@ public class Collisions {
                 continue;
             }
             checkCollisionWithObject((Physics) objA, i , gameObjects);
+        }
+    }
+    
+    public void checkTerrainCollisions(Terrain terrain, ArrayList<GameObject> gameObjects) {
+        for(GameObject obj : gameObjects) {
+            if(obj.physicsEnable()) {
+                terrain.checkCollision((Physics) obj);
+            }
         }
     }
 }
