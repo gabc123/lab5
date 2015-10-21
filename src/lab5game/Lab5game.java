@@ -1,7 +1,7 @@
 
 package lab5game;
 
-import Controller.GameRender;
+import GameTimers.RenderTimer;
 import Controller.GameUpdateController;
 import Controller.KeyboardController;
 import GameObjects.GameObject;

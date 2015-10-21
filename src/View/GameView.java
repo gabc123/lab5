@@ -25,11 +25,6 @@ public class GameView {
     public void drawbackground(Image background){
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.drawImage(background, 0, 0, canvas.getWidth(), canvas.getHeight());
-        //GraphicsContext gc = canvas.getGraphicsContext2D();
-        //PixelWriter pixelWriter = gc.getPixelWriter();
-        
-        //gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        //gc.drawImage(background, 0, 0, canvas.getWidth(), canvas.getHeight());
     }
     
     public void drawmodel(Image model, double x, double y){
@@ -38,6 +33,9 @@ public class GameView {
     }
     
    
-    public void drawterrain(Canvas terrain){}
+    public void drawterrain(Image terrain){        
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.drawImage(terrain, 0, 0, canvas.getWidth(), canvas.getHeight());
+    }
     
 }
