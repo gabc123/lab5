@@ -2,7 +2,7 @@
 package lab5game;
 
 import GameTimers.RenderTimer;
-import Controller.GameUpdateController;
+import GameTimers.GameTimer;
 import Controller.KeyboardController;
 import GameObjects.GameObject;
 import GameObjects.Player;

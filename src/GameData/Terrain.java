@@ -34,7 +34,7 @@ public class Terrain implements Observer {
     double mapWidth;
     double mapHeigth;
 
-    public Terrain(Group root, double width, double heigth) {
+    public Terrain(double width, double heigth) {
         this.craters = new ArrayList<Circle>();
         this.background = new Image("Resource/battleTerrain.png");
         this.mapHeigth = heigth;

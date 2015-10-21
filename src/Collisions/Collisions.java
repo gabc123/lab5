@@ -15,7 +15,13 @@ import java.util.ArrayList;
  * @author o_0
  */
 public class Collisions {
-
+    private ArrayList<GameObject> gameObjects;
+    private Terrain terrain;
+    
+    public Collisions(Terrain terrain, ArrayList<GameObject> gameObjects) {
+        this.terrain = terrain;
+        this.gameObjects = gameObjects;
+    }
     private boolean checkIntersect(Physics objA, Physics objB) {
         double diffX = objA.getX() - objB.getX();
         double diffY = objA.getY() - objB.getY();
@@ -27,7 +33,7 @@ public class Collisions {
         return false;
     }
     
-    private void checkCollisionWithObject(Physics objA, int startIndex, ArrayList<GameObject> gameObjects) {
+    private void checkCollisionWithObject(Physics objA, int startIndex) {
         for (int j = startIndex + 1; j < gameObjects.size(); j++) {
             GameObject objB = gameObjects.get(j);
             if (!objB.physicsEnable()) {
@@ -41,18 +47,18 @@ public class Collisions {
         }
     }
 
-    public void checkCollisions(ArrayList<GameObject> gameObjects) {
+    public void checkAllCollisions() {
         int size = gameObjects.size();
         for (int i = 0; i < size; i++) {
             GameObject objA = gameObjects.get(i);
             if (!objA.physicsEnable()) {
                 continue;
             }
-            checkCollisionWithObject((Physics) objA, i , gameObjects);
+            checkCollisionWithObject((Physics) objA, i );
         }
     }
     
-    public void checkTerrainCollisions(Terrain terrain, ArrayList<GameObject> gameObjects) {
+    public void checkTerrainCollisions() {
         for(GameObject obj : gameObjects) {
             if(obj.physicsEnable()) {
                 terrain.checkCollision((Physics) obj);

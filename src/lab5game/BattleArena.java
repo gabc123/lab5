@@ -5,13 +5,18 @@
  */
 package lab5game;
 
+import Collisions.Collisions;
+import Controller.ExplosionObserver;
+import Controller.GameController;
+import GameData.GameModel;
 import GameTimers.RenderTimer;
-import Controller.GameUpdateController;
+import GameTimers.GameTimer;
 import Controller.KeyboardController;
 import Controller.RenderController;
 import GameData.GraphicModels;
 import GameData.Terrain;
 import GameObjects.GameObject;
+import GameObjects.Physics;
 import GameObjects.Player;
 import GameObjects.ProjectileType;
 import GameObjects.SpawnBox;
@@ -19,6 +24,7 @@ import UIGraphics.TopMenu;
 import View.GameView;
 import java.util.ArrayList;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -26,6 +32,10 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -37,10 +47,11 @@ public class BattleArena {
 
     private ArrayList<GameObject> gameObjects;
     private Terrain terrain;
-    private Group root;
+    //private Group root;
+    private StackPane root;
 
     private RenderTimer renderTimer;
-    private GameUpdateController gameUpdate;
+    private GameTimer gameUpdate;
 
     private ArrayList<EventHandler<KeyEvent>> inputs;
     private Stage gameStage;
@@ -75,38 +86,73 @@ public class BattleArena {
         inputs.clear();
     }
 
-    public void setup(ArrayList<Player.Playerinfo> playerInfo, int numOfAi, GameSetup GS_) {
+    public ExplosionObserver observerSetup() {
+        ExplosionObserver explosionObserver = new ExplosionObserver();
+        explosionObserver.addObserver(this.terrain);
+        for (GameObject obj : gameObjects) {
+            if (obj.physicsEnable()) {
+                explosionObserver.addObserver((Physics) obj);
+            }
+        }
+        return explosionObserver;
+    }
+    
+    public void setup(ArrayList<Player.Playerinfo> playerInfo, int numOfAi, GameSetup gameSetup) {
         Stage stage = this.gameStage;
-        GameSetup GS = GS_;
-        MenuBar menubar = new MenuBar();
-        TopMenu menu = new TopMenu(this, GS);
-        root = new Group();
-        Scene scene = new Scene(root, 1024, 720, Color.GREEN);
+        
+        //root = new Group();
+        
+        root = new StackPane();
 
-        Canvas canvas = new Canvas(scene.getWidth(), scene.getHeight());
-        root.getChildren().add(canvas);
+        
         //root.getChildren().
+        double width = 1024;
+        double height = 720;
+        MenuBar menubar = new MenuBar();
+        TopMenu menu = new TopMenu(this, gameSetup);
         menubar = menu.getMenu();
         menubar.prefWidthProperty().bind(gameStage.widthProperty());
-        root.getChildren().add(menubar);
-
+        
+        Canvas canvas = new Canvas(width, height);
+        
+        VBox hbox = new VBox();
+        HBox menuBox = new HBox();
+        menuBox.getChildren().add(menubar);
+        
+        HBox gameBox = new HBox();
+        gameBox.getChildren().add(canvas);        
+        gameBox.prefHeight(720);
+        StackPane.setMargin(hbox, Insets.EMPTY);
+        hbox.getChildren().addAll(menuBox,gameBox);
+        root.getChildren().addAll(hbox);
+        
+        
+        Scene scene = new Scene(root, width, height + 28, Color.GREEN);
+        
         gameObjects = new ArrayList<GameObject>();
         createPlayers(playerInfo);
 
         
-        String[] imgNames = {"buss.png", "Resource/Misil.png", "Resource/explosion.png"};
-        GraphicModels gameModels = new GraphicModels();
-        gameModels.loadmodel(imgNames);
+        
 
-        GameView gameView = new GameView(canvas);
-        RenderController render = new RenderController(gameView, gameModels);
-
-        terrain = new Terrain(root, scene.getWidth(), scene.getHeight());
-        renderTimer = new RenderTimer(render, gameObjects, terrain);
+        terrain = new Terrain(width, height);
         
         gameObjects.add(new SpawnBox(ProjectileType.BULLET, 200, 200, 0));
         
-        gameUpdate = new GameUpdateController(scene.getWidth(), scene.getHeight(), gameObjects, terrain);
+        ExplosionObserver observer = observerSetup();
+        Collisions collisions = new Collisions(terrain,gameObjects);
+        GameModel gameModel = new GameModel(width, height, gameObjects, collisions, terrain);
+        GameController gameController = new GameController(gameModel, observer);
+        gameUpdate = new GameTimer(gameController);
+        
+        // render timer, controller, and GraphicModels
+        String[] imgNames = {"buss.png", "Resource/Misil.png", "Resource/explosion.png"};
+        GraphicModels graphicModels = new GraphicModels();
+        graphicModels.loadmodel(imgNames);
+
+        GameView gameView = new GameView(canvas);
+        RenderController render = new RenderController(gameView, graphicModels);
+        renderTimer = new RenderTimer(render, gameObjects, terrain);
         
         this.play();
         stage.setTitle("Lab5Game");
