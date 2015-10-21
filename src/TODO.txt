@@ -1,0 +1,34 @@
+////////// TODO
+
+Health och ammo ska synnas.
+Spelar namn.
+
+////// Rendering
+Göra om så det blir model view controller, update timer.
+Fixa state sak,
+Aim ska fixas, Både idicator samt styrning (angle)
+
+/// modeler
+Rita granat, missil, bullet
+
+////// Ai
+göra en ai.
+
+
+///// game
+
+Avlutas, startas om.
+, finaup koden.
+
+/// 
+exepctions,
+Spara karta
+ladda karta
+
+// visa score, samt spara/ladda
+
+sätta att keyrebind.
+
+Fixa jar file för spelet
+
+UML

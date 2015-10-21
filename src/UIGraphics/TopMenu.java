@@ -42,11 +42,12 @@ public class TopMenu {
 	    }); 
 	
 	MenuItem startgame = new MenuItem("start");
-        startgame.setOnAction(new EventHandler<ActionEvent>() {
+        startgame.setOnAction(start());
+        /*startgame.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent y) {
 		start();
             }
-	});
+	});*/
         
 	MenuItem exit = new MenuItem("exit");
 	
@@ -57,14 +58,20 @@ public class TopMenu {
         return menubar;
     }
     
-    public void save(){}
+    private EventHandler<ActionEvent> start(){
+        return new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent y) {
+		battlearena.play();
+            }
+        };
+    }
     
     public void stop(){
         battlearena.paus();
     }
     
-    public void start(){
-        battlearena.play();
+    public void save(){
+        //battlearena.play();
     }
     
     public void quit(){
