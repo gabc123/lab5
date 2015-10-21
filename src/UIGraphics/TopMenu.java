@@ -33,21 +33,35 @@ public class TopMenu {
         
         menubar = new MenuBar();
         
-        Menu menuFile = new Menu("State");
-	Menu menuSave = new Menu("Save");
-	Menu scoreView = new Menu("ViewScoreboard");
+        Menu menuState = new Menu("State");
 	
 	MenuItem stopgame = new MenuItem("Stop");
 	stopgame.setOnAction(stop());
-	
 	MenuItem startgame = new MenuItem("start");
         startgame.setOnAction(start());
         
-	MenuItem exitgame = new MenuItem("exit");
-        exitgame.setOnAction(quit());
+        menuState.getItems().addAll(stopgame, startgame);
+        
+        Menu menuOptions = new Menu("Options");
+        
+        MenuItem savegame = new MenuItem("Save");
+	//stopgame.setOnAction(save());
+	MenuItem scoregame = new MenuItem("Score board");
+        //startgame.setOnAction(score());
+        
+        menuOptions.getItems().addAll(savegame, scoregame);
+            
+        Menu menuEnd = new Menu("End game");
+        
+        MenuItem maingame = new MenuItem("Main menu");
+        maingame.setOnAction(quit());
+        MenuItem exitgame = new MenuItem("Exit Game");
+        //maingame.setOnAction(exit());
+        
+        menuEnd.getItems().addAll(maingame, exitgame);
 	
-	menuFile.getItems().addAll(stopgame, startgame,  exitgame);
-        menubar.getMenus().addAll(menuFile, menuSave, scoreView);
+	
+        menubar.getMenus().addAll(menuState, menuOptions, menuEnd);
 
         
         return menubar;
@@ -83,5 +97,9 @@ public class TopMenu {
     }
     
     public void showscoreboard(){}
+    
+    public EventHandler<ActionEvent> exit(){
+        return null;
+    }
     
 }
