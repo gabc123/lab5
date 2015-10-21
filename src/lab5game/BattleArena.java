@@ -146,7 +146,7 @@ public class BattleArena {
         gameUpdate = new GameTimer(gameController);
         
         // render timer, controller, and GraphicModels
-        String[] imgNames = {"buss.png", "unit.png", "Resource/explosion.png"};
+        String[] imgNames = {"buss.png", "Resource/Misil.png", "Resource/explosion.png"};
         GraphicModels graphicModels = new GraphicModels();
         graphicModels.loadmodel(imgNames);
 
