@@ -5,13 +5,18 @@
  */
 package lab5game;
 
+import Collisions.Collisions;
+import Controller.ExplosionObserver;
+import Controller.GameController;
+import GameData.GameModel;
 import GameTimers.RenderTimer;
-import Controller.GameUpdateController;
+import GameTimers.GameTimer;
 import Controller.KeyboardController;
 import Controller.RenderController;
 import GameData.GraphicModels;
 import GameData.Terrain;
 import GameObjects.GameObject;
+import GameObjects.Physics;
 import GameObjects.Player;
 import GameObjects.ProjectileType;
 import GameObjects.SpawnBox;
@@ -46,7 +51,7 @@ public class BattleArena {
     private StackPane root;
 
     private RenderTimer renderTimer;
-    private GameUpdateController gameUpdate;
+    private GameTimer gameUpdate;
 
     private ArrayList<EventHandler<KeyEvent>> inputs;
     private Stage gameStage;
@@ -81,6 +86,17 @@ public class BattleArena {
         inputs.clear();
     }
 
+    public ExplosionObserver observerSetup() {
+        ExplosionObserver explosionObserver = new ExplosionObserver();
+        explosionObserver.addObserver(this.terrain);
+        for (GameObject obj : gameObjects) {
+            if (obj.physicsEnable()) {
+                explosionObserver.addObserver((Physics) obj);
+            }
+        }
+        return explosionObserver;
+    }
+    
     public void setup(ArrayList<Player.Playerinfo> playerInfo, int numOfAi, GameSetup gameSetup) {
         Stage stage = this.gameStage;
         
@@ -117,19 +133,26 @@ public class BattleArena {
         createPlayers(playerInfo);
 
         
-        String[] imgNames = {"buss.png", "unit.png", "Resource/explosion.png"};
-        GraphicModels gameModels = new GraphicModels();
-        gameModels.loadmodel(imgNames);
-
-        GameView gameView = new GameView(canvas);
-        RenderController render = new RenderController(gameView, gameModels);
+        
 
         terrain = new Terrain(width, height);
-        renderTimer = new RenderTimer(render, gameObjects, terrain);
         
         gameObjects.add(new SpawnBox(ProjectileType.BULLET, 200, 200, 0));
         
-        gameUpdate = new GameUpdateController(width, height, gameObjects, terrain);
+        ExplosionObserver observer = observerSetup();
+        Collisions collisions = new Collisions(terrain,gameObjects);
+        GameModel gameModel = new GameModel(width, height, gameObjects, collisions, terrain);
+        GameController gameController = new GameController(gameModel, observer);
+        gameUpdate = new GameTimer(gameController);
+        
+        // render timer, controller, and GraphicModels
+        String[] imgNames = {"buss.png", "unit.png", "Resource/explosion.png"};
+        GraphicModels graphicModels = new GraphicModels();
+        graphicModels.loadmodel(imgNames);
+
+        GameView gameView = new GameView(canvas);
+        RenderController render = new RenderController(gameView, graphicModels);
+        renderTimer = new RenderTimer(render, gameObjects, terrain);
         
         this.play();
         stage.setTitle("Lab5Game");

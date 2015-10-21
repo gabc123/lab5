@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import GameObjects.GameObject;
 import GameObjects.Projectile;
 import java.util.Observable;
 
@@ -18,6 +19,12 @@ public class ExplosionObserver extends Observable {
         this.projectile = projectile;
         this.setChanged();
         this.notifyObservers();
+    }
+    
+    public void checkTrigger(GameObject obj) {
+        if (obj instanceof Projectile) {
+            this.explode((Projectile) obj);
+        }
     }
     
     public Projectile getProjectile() {

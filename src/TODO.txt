@@ -4,7 +4,7 @@ Health och ammo ska synnas.
 Spelar namn.
 
 ////// Rendering
-Göra om så det blir model view controller, update timer.
+-Göra om så det blir model view controller, update timer.
 Fixa state sak,
 Aim ska fixas, Både idicator samt styrning (angle)
 
