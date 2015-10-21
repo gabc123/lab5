@@ -75,10 +75,11 @@ public class BattleArena {
         inputs.clear();
     }
 
-    public void setup(ArrayList<Player.Playerinfo> playerInfo, int numOfAi) {
+    public void setup(ArrayList<Player.Playerinfo> playerInfo, int numOfAi, GameSetup GS_) {
         Stage stage = this.gameStage;
+        GameSetup GS = GS_;
         MenuBar menubar = new MenuBar();
-        TopMenu menu = new TopMenu(this);
+        TopMenu menu = new TopMenu(this, GS);
         root = new Group();
         Scene scene = new Scene(root, 1024, 720, Color.GREEN);
 

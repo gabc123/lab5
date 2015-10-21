@@ -5,23 +5,8 @@
  */
 package lab5game;
 
-import GameTimers.RenderTimer;
-import Controller.GameUpdateController;
-import Controller.KeyboardController;
-import GameData.GraphicModels;
-import GameObjects.GameObject;
-import GameObjects.Player;
 import UIGraphics.Lobby;
 import UIGraphics.LoginScreen;
-import View.GameView;
-import java.util.ArrayList;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -62,7 +47,7 @@ public class GameSetup {
         keyInputs.add(input);
         int numOfAi = 0;*/
         //Ovanstående ska in i en Lobby
-        battleArena.setup(lobby.getPlayerInfo(), lobby.getnumOfAi());
+        battleArena.setup(lobby.getPlayerInfo(), lobby.getnumOfAi(), this);
         //ovanstående ska ha getters från lobby istället för keyinputs och ai
         //Stoppa allt i en try catch så exception kastas om ai eller keyinpus inte finns
     }
