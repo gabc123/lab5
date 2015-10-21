@@ -18,6 +18,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -37,6 +38,7 @@ public class Lobby {
     private Button start;
     private String player1name;
     private String player2name;
+    private FlowPane flow;
     
     
     public Lobby(Stage stage, GameSetup gameSetup_){
@@ -52,6 +54,7 @@ public class Lobby {
     
     public void lobbysetup(){
         Stage stage = this.Lobbystage;
+        flow  = new FlowPane();
 
         Label player1 = new Label("Player 1 Name:");
         TextField player1Name = new TextField ();
