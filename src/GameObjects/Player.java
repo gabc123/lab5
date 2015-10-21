@@ -129,6 +129,10 @@ public class Player extends Physics {
         public KeyboardController getKeyboard() {
             return this.keyInputs;
         }
+        
+        public void setKeyboard(KeyboardController playerinput_) {
+            this.keyInputs = playerinput_;
+        }
 
     }
 }

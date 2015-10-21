@@ -37,6 +37,7 @@ public class Lobby {
     private Button start;
     private String player1name;
     private String player2name;
+    private KeyboardController player1input;
     
     
     public Lobby(Stage stage, GameSetup gameSetup_){
@@ -70,6 +71,10 @@ public class Lobby {
             public void handle(ActionEvent event) {
                 player1name = player1Name.getText();
                 playerInfo.get(0).setPlayerName(player1name);
+                
+                player1input = new KeyboardController(KeyCode.A, KeyCode.D, KeyCode.getKeyCode(player1name.toUpperCase()));
+                playerInfo.get(0).setKeyboard(player1input);
+                
                 player2name = player2Name.getText();
                 playerInfo.get(1).setPlayerName(player2name);
                 //System.out.println(player1name);
