@@ -8,6 +8,7 @@ package lab5game;
 import Collisions.Collisions;
 import Controller.ExplosionObserver;
 import Controller.GameController;
+import Controller.GameStatsObservable;
 import GameData.GameModel;
 import GameTimers.RenderTimer;
 import GameTimers.GameTimer;
@@ -21,6 +22,7 @@ import GameObjects.Player;
 import GameObjects.ProjectileType;
 import GameObjects.SpawnBox;
 import UIGraphics.TopMenu;
+import UIGraphics.UIStatObserver;
 import View.GameView;
 import java.util.ArrayList;
 import javafx.event.EventHandler;
@@ -99,15 +101,24 @@ public class BattleArena {
         return explosionObserver;
     }
     
+    
     public void setup(ArrayList<Player.Playerinfo> playerInfo, int numOfAi, GameSetup gameSetup) {
         Stage stage = this.gameStage;
         Label player1name = new Label(playerInfo.get(0).getPlayerName());
         Label player2name = new Label(playerInfo.get(1).getPlayerName());
         player1name.setTextFill(Color.RED);
         player2name.setTextFill(Color.RED);
+        Label player1health = new Label(playerInfo.get(0).getPlayerName());
+        Label player2health = new Label(playerInfo.get(1).getPlayerName());
+        player1health.setTextFill(Color.RED);
+        player2health.setTextFill(Color.RED);
+        VBox playerinfocon1 = new VBox(5);
+        playerinfocon1.getChildren().addAll(player1name, player1health);
+        VBox playerinfocon2 = new VBox(5);
+        playerinfocon2.getChildren().addAll(player2name, player2health);
         HBox namecon = new HBox(880);
         namecon.setAlignment(Pos.BOTTOM_CENTER);
-        namecon.getChildren().addAll(player1name, player2name);
+        namecon.getChildren().addAll(playerinfocon1, playerinfocon2);
         
         //root = new Group();
         
