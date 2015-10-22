@@ -54,7 +54,7 @@ public class GameController {
     }
     
     public ArrayList<GameObject> updateGame(double frameDelta) {
-        gameModel.updateAiPlayers();
+        gameModel.updateAiPlayers(frameDelta);
         return gameModel.updateGameobjects(frameDelta);
     }
     

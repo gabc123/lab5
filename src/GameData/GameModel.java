@@ -58,9 +58,9 @@ public class GameModel {
         collisions.checkTerrainCollisions();
     }
     
-    public void updateAiPlayers() {
+    public void updateAiPlayers(double frameDelta) {
         for(Ai ai : aiPlayers) {
-            ai.updateAi();
+            ai.updateAi(frameDelta);
         }
     }
     

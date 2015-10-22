@@ -152,7 +152,9 @@ public class BattleArena {
         for(int i = 0; i < numOfAi; i++) {
             Player aiUnit = new Player("Ai monster",200 , 40, 0);
             gameObjects.add(aiUnit);
-            aiPlayers.add(new Ai(aiUnit,aiEnemys,gameObjects));
+            Ai ai = new Ai(aiUnit,aiEnemys,gameObjects);
+            aiUnit.setAiControl(ai);
+            aiPlayers.add(ai);
         }
         
 

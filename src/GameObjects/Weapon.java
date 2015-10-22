@@ -88,6 +88,10 @@ public class Weapon extends GameObject {
         return this.cooldown;
     }
     
+    protected double getAimAngle() {
+        return this.angle;
+    }
+    
     @Override
     public boolean update(double frameDelta, ArrayList<GameObject> spawnedObj) {
                 

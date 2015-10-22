@@ -52,7 +52,7 @@ public abstract class Physics extends GameObject implements Observer {
     }
 
     protected void updateGravity(double frameDelta) {
-        this.dy += 10.0 * frameDelta;
+        this.dy += 80.0 * frameDelta;
     }
 
     protected void setBodyRadius(double bodyRadius) {
