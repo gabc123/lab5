@@ -24,6 +24,7 @@ public class GameTimer extends AnimationTimer {
     public static final double BILLION = 1000_000_000.0; //from Ball lab2b
     private long lastTime;
     GameController gameController;
+    private double gametime;
     public GameTimer(GameController gameController) {
         super();
         this.gameController = gameController;

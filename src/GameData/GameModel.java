@@ -9,6 +9,7 @@ import Collisions.Collisions;
 import GameData.Terrain;
 import GameObjects.GameObject;
 import GameObjects.Physics;
+import GameObjects.Player;
 import GameObjects.Projectile;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -27,6 +28,7 @@ public class GameModel {
     private Terrain terrain;
     private double heigth = 10;
     private double width = 10;
+    private ArrayList<Player> inactiveplayers;
     
     public GameModel(double width,double heigth,ArrayList<GameObject> gameObj,ArrayList<Ai> aiPlayers,Collisions collisions,Terrain terrain) {
         super();
@@ -36,6 +38,8 @@ public class GameModel {
         this.collisions = collisions;
         this.terrain = terrain;
         this.aiPlayers = aiPlayers;
+        this.inactiveplayers = new ArrayList<Player>();
+        this.findeplayers();
     }
     
     public ArrayList<GameObject> reapInactiveObjects() {
@@ -52,6 +56,36 @@ public class GameModel {
         }
         return removed;
     }
+    
+    private void findeplayers(){
+        for(GameObject obj : this.gameObjects) {
+            if(obj instanceof Player){
+                inactiveplayers.add((Player) obj);
+            }
+        }
+    }
+    
+    public Boolean deathCheck(){ 
+        for(Player i: inactiveplayers){
+            if(!i.isActive()){
+                return true;          
+            }
+        }
+        return false;
+    }
+    
+    public ArrayList<GameObject> reSpawnPlayers(){
+        ArrayList<GameObject> respawned = new ArrayList<GameObject>();
+        
+        for(Player i: inactiveplayers){
+            if(!i.isActive()){
+                gameObjects.add(i);
+                respawned.add(i);
+            }
+        }
+        return respawned;
+    }
+    
 
     public void checkCollisions() {
          collisions.checkAllCollisions();

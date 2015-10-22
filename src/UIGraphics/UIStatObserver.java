@@ -51,7 +51,7 @@ public class UIStatObserver implements Observer {
         playerinfocon1.getChildren().addAll(player1name, player1health);
         VBox playerinfocon2 = new VBox(0);
         playerinfocon2.getChildren().addAll(player2name, player2health);
-        HBox namecon = new HBox(880);
+        HBox namecon = new HBox(850);
         namecon.setAlignment(Pos.BOTTOM_CENTER);
         namecon.getChildren().addAll(playerinfocon1, playerinfocon2);
         //root.getChildren().addAll(playerinfocon1, playerinfocon2);
