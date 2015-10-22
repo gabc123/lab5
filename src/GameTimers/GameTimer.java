@@ -24,6 +24,8 @@ public class GameTimer extends AnimationTimer {
     public static final double BILLION = 1000_000_000.0; //from Ball lab2b
     private long lastTime;
     GameController gameController;
+    private double gametime = 0;
+    private double savetime = 0;
     public GameTimer(GameController gameController) {
         super();
         this.gameController = gameController;
@@ -36,6 +38,7 @@ public class GameTimer extends AnimationTimer {
         double frameDelta = (now - lastTime) / BILLION;
         frameDelta = (frameDelta < 1) ? frameDelta : 0;
         lastTime = now;
+        this.gametime += frameDelta;
 
         ArrayList<GameObject> inActiveObj;
         inActiveObj = gameController.removeInactiveObjects();
@@ -46,6 +49,12 @@ public class GameTimer extends AnimationTimer {
         ArrayList<GameObject> newObjects;
         newObjects = gameController.updateGame(frameDelta);
         
+        if(gameController.deathcheck()){
+            savetime = gametime;
+            if((gametime - savetime) > 2){
+            gameController.playerRespawn();
+            }
+        }
         gameController.addObjects(newObjects);
         gameController.addObservers(newObjects);
 

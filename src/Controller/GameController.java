@@ -61,4 +61,17 @@ public class GameController {
     public void addObjects(ArrayList<GameObject> newObjects) {
         gameModel.addObjects(newObjects);
     }
+    
+    public void playerRespawn(){
+        if(gameModel.deathCheck()){
+            ArrayList<GameObject> respawned = new ArrayList<GameObject>();
+            respawned = gameModel.reSpawnPlayers();
+            this.addObservers(respawned);
+        }
+    
+    }
+    
+        public boolean deathcheck(){
+        return gameModel.deathCheck();
+    }
 }
