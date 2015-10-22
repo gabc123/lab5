@@ -27,6 +27,7 @@ public class LoginScreen {
     private Group root;
     private Image image;
     private Image imagebut;
+    private Image imagebut2;
     private Button but;
     private Button but2;
     private Stage loginStage;
@@ -34,8 +35,9 @@ public class LoginScreen {
     public LoginScreen(Stage stage, GameSetup gameSetup) {
         this.gameSetup = gameSetup;
         this.loginStage = stage;
-        this.image = new Image("Resource/Vatten.png",false);
+        this.image = new Image("Resource/battleTerrain.png",false);
         this.imagebut = new Image("Resource/Playknapp.png",false);
+        this.imagebut2 = new Image("Resource/higknapp.png",false);
         
     }
     
@@ -52,7 +54,7 @@ public class LoginScreen {
         });
         
         but2 = new Button();
-	but2.setGraphic(new ImageView(imagebut));
+	but2.setGraphic(new ImageView(imagebut2));
 
        	but2.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -97,8 +99,8 @@ public class LoginScreen {
     
     public void loadgame(){}
     
-    public void showhighscore(){}
-
-    public void keybindings(){}
+    public void showhighscore(){
+    
+    }
     
 }

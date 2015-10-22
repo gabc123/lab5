@@ -76,7 +76,6 @@ public class GameModel {
     
     public ArrayList<GameObject> reSpawnPlayers(){
         ArrayList<GameObject> respawned = new ArrayList<GameObject>();
-        
         for(Player i: inactiveplayers){
             if(!i.isActive()){
                 gameObjects.add(i);

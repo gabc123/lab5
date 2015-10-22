@@ -16,6 +16,7 @@ public class Player extends Physics {
     private boolean didFire = false;
     private double health = 100;
     private GameStatsObservable gameStatsObservable = null;
+    private int numberofdeaths = 0;
 
     private Direction dir;
     private Direction aim;
@@ -39,6 +40,7 @@ public class Player extends Physics {
         System.out.println("player: " + this.name + " Health: " + this.health);
         if (health < 0) {
             this.deactivate();
+            numberofdeaths++;
         }
         if(gameStatsObservable != null) {
             this.gameStatsObservable.checkUIInfo();
