@@ -18,7 +18,9 @@ import javafx.scene.paint.Color;
 import java.text.DecimalFormat;
 
 /**
- *
+ *Observer that looks on the basic stats of a player like health and ammo.
+ * If changes happen to the stats this class will update the numbers 
+ * shown on the screen in the game.
  * @author mats
  */
 public class UIStatObserver implements Observer {
@@ -34,6 +36,10 @@ public class UIStatObserver implements Observer {
     private Label player2death;
     private ArrayList<Player> players;
 
+    /**
+     * constructor for the observer
+     * @param players takes a arraylist of Player type containing players
+     */
     public UIStatObserver(ArrayList<Player> players) {
         super();
         this.players = players;
@@ -41,6 +47,13 @@ public class UIStatObserver implements Observer {
 
     }
 
+    /**
+     * Method that creates the graphic view for the stats in a HBox that is 
+     * returned
+     * @param root takes a StackPane  a parameter since this is were the 
+     * information will be added
+     * @return returns HBox containing the information
+     */
     public HBox createUI(StackPane root) {
         player1name = new Label(players.get(0).getName());
         player2name = new Label(players.get(1).getName());
@@ -69,12 +82,19 @@ public class UIStatObserver implements Observer {
         return namecon;
     }
 
+    /**
+     * sets the players of whom the stats are shown
+     * @param players_ ArrayList of Player type 
+     */
     public void setPlayers(ArrayList<Player> players_) {
         this.players = players_;
 
     }
 
     @Override
+    /**
+     * Method that updates the labels containing player information
+     */
     public void update(Observable o, Object arg) {
         DecimalFormat form = new DecimalFormat("##0.0");
         String p1h = form.format(players.get(0).currentHealth());

@@ -5,18 +5,14 @@
  */
 package GameTimers;
 
-import Collisions.Collisions;
 import Controller.GameController;
-import GameData.Terrain;
 import GameObjects.GameObject;
-import GameObjects.Physics;
-import GameObjects.Projectile;
 import java.util.ArrayList;
-import java.util.Iterator;
 import javafx.animation.AnimationTimer;
 
 /**
- *
+ *Gametimer keeps track of time during the game and calls 
+ * functions reliant on timed actions.
  * @author o_0
  */
 public class GameTimer extends AnimationTimer {
@@ -28,12 +24,21 @@ public class GameTimer extends AnimationTimer {
     private double savetime = 0;
     private double spawnTime = 0;
 
+    /**
+     * Constructor
+     * @param gameController takes a gameController as input
+     * since the methods are needed
+     */
     public GameTimer(GameController gameController) {
         super();
         this.gameController = gameController;
     }
 
     @Override
+    /**
+     * handle keeps track of time and calls methods from gameController.
+     * handle removes and adds objects, spawn players.
+     */
     public void handle(long now) {
 
         double frameDelta = (now - lastTime) / BILLION;

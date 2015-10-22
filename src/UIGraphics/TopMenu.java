@@ -34,7 +34,10 @@ public class TopMenu {
         this.GS = GS_;
     }
     
-    
+    /**
+     * Method that creates the menubar and all it's options and returns it
+     * @return returns a MenuBar to be put on the game scene
+     */
     public MenuBar getMenu(){
         
         menubar = new MenuBar();
@@ -78,6 +81,10 @@ public class TopMenu {
         return menubar;
     }
     
+    /**
+     * Action event containing a call to a method
+     * @return a Eventhandler of actionevent type
+     */
     private EventHandler<ActionEvent> start(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent y) {
@@ -86,6 +93,10 @@ public class TopMenu {
         };
     }
     
+    /**
+     * Action event containing a call to a method
+     * @return Eventhandler of actionevent type
+     */
     public EventHandler<ActionEvent> stop(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
@@ -95,6 +106,10 @@ public class TopMenu {
         
     }
     
+    /**
+     * Action event containing a call to a method
+     * @return Eventhandler of actionevent type
+     */
     private EventHandler<ActionEvent> save(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent y) {
@@ -103,6 +118,10 @@ public class TopMenu {
         };
     }
     
+    /**
+     * Action event containing a call to a method
+     * @return Eventhandler of actionevent type
+     */
     private EventHandler<ActionEvent> load(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent y) {
@@ -111,6 +130,10 @@ public class TopMenu {
         };
     }
     
+    /**
+     * Action event containing a call to a method
+     * @return Eventhandler of actionevent type
+     */
     public EventHandler<ActionEvent> reset(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent z) {
@@ -119,6 +142,10 @@ public class TopMenu {
 	    }; 
     }
     
+    /**
+     * Action event containing a call to a method
+     * @return Eventhandler of actionevent type
+     */
     public EventHandler<ActionEvent> quit(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent z) {
@@ -129,6 +156,10 @@ public class TopMenu {
     
     public void showscoreboard(){}
     
+    /**
+     * Action event containing a call to a method
+     * @return Eventhandler of actionevent type
+     */
     public EventHandler<ActionEvent> info(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent z) {

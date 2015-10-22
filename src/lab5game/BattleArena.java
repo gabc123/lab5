@@ -20,31 +20,21 @@ import GameData.Terrain;
 import GameObjects.GameObject;
 import GameObjects.Physics;
 import GameObjects.Player;
-import GameObjects.ProjectileType;
-import GameObjects.SpawnBox;
 import UIGraphics.TopMenu;
 import UIGraphics.UIStatObserver;
 import View.GameView;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
-import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -52,7 +42,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
- *
+ *Class responsible for the construction of the game.
+ * contains everything from players and terrain to alerts.
  * @author o_0
  */
 public class BattleArena {
@@ -70,12 +61,21 @@ public class BattleArena {
     //private UIStatObserver uIStatObserver;
     private GameStatsObservable gameStatsObservable;
 
+    /**
+     * Constructor takes a stage as input 
+     * @param stage stage taken from start of program GameSetup
+     */
     public BattleArena(Stage stage) {
         this.gameStage = stage;
     }
 
     
-    
+    /**
+     * Creates players, adds all infromation regarding name and keybord
+     * to players
+     * @param playerInfo ArrayList of type Player internal class playerinfo 
+     * @return returns ArrayList of Player type
+     */
     private ArrayList<Player> createPlayers(ArrayList<Player.Playerinfo> playerInfo) {
         inputs = new ArrayList<EventHandler<KeyEvent>>();
         ArrayList<Player> newPlayers = new ArrayList<Player>();
@@ -101,6 +101,9 @@ public class BattleArena {
         return newPlayers;
     }
 
+    /**
+     * removes eventhandler from gameStage
+     */
     private void removeKeyEvents() {
         for (EventHandler<KeyEvent> input : inputs) {
             gameStage.removeEventHandler(KeyEvent.ANY, input);
@@ -108,6 +111,10 @@ public class BattleArena {
         inputs.clear();
     }
 
+    /**
+     * Creates new explosion observer for objects that can detonate
+     * @return a explosionObserver 
+     */
     public ExplosionObserver observerSetup() {
         ExplosionObserver explosionObserver = new ExplosionObserver();
         explosionObserver.addObserver(this.terrain);
@@ -119,6 +126,10 @@ public class BattleArena {
         return explosionObserver;
     }
     
+    /**
+     * findes players in a gameobjects array
+     * @return ArrayList of type player containing players 
+     */
      public ArrayList<Player> playerFinde() {
         ArrayList<Player> players = new ArrayList<Player>();
         for(GameObject obj : this.gameObjects) {
@@ -129,7 +140,12 @@ public class BattleArena {
         return players;
     }
     
-    
+    /**
+     * Sets up gamunits, controllers and modles for the game
+     * @param playerInfo ArrayList of Player subclass Playerinfo type 
+     * @param numOfAi a int number of ai
+     * @param gameSetup a GameSetup
+     */
     public void setup(ArrayList<Player.Playerinfo> playerInfo, int numOfAi, GameSetup gameSetup) {
         Stage stage = this.gameStage;
         
@@ -222,6 +238,9 @@ public class BattleArena {
         stage.show();
     }
 
+    /**
+     * kills game
+     */
     public void killGame() {
         renderTimer.stop();
         gameUpdate.stop();
@@ -229,16 +248,24 @@ public class BattleArena {
 
     }
 
+    /**
+     * freses game uppdates and renders
+     */
     public void paus() {
         gameUpdate.stop();
         renderTimer.stop();
     }
 
+    /**
+     * starts game again after paus
+     */
     public void play() {
         gameUpdate.start();
         renderTimer.start();
     }
-    
+    /**
+     * contains info for alert
+     */
     public void info(){
         String titel = ("Keybindings");
         String header = ("Standard keybindings");
