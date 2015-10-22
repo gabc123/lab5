@@ -8,6 +8,7 @@ package lab5game;
 import Collisions.Collisions;
 import Controller.ExplosionObserver;
 import Controller.GameController;
+import Controller.GameStatsObservable;
 import GameData.GameModel;
 import GameTimers.RenderTimer;
 import GameTimers.GameTimer;
@@ -22,6 +23,7 @@ import GameObjects.Player;
 import GameObjects.ProjectileType;
 import GameObjects.SpawnBox;
 import UIGraphics.TopMenu;
+import UIGraphics.UIStatObserver;
 import View.GameView;
 import java.io.File;
 import java.io.IOException;
@@ -30,9 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -61,6 +65,7 @@ public class BattleArena {
 
     private ArrayList<EventHandler<KeyEvent>> inputs;
     private Stage gameStage;
+    private UIStatObserver uIStatObserver;
 
     public BattleArena(Stage stage) {
         this.gameStage = stage;
@@ -111,6 +116,25 @@ public class BattleArena {
         return explosionObserver;
     }
     
+    public GameStatsObservable infoObserverSetup(UIStatObserver uIStatObserver){
+        GameStatsObservable gameStatsObservable = new GameStatsObservable();
+        gameStatsObservable.addObserver(uIStatObserver);    
+        return gameStatsObservable;
+    }
+    
+    public void playerFinde(GameStatsObservable UIobserver) {
+        ArrayList<Player> players = new ArrayList<Player>();
+        for(GameObject obj : this.gameObjects) {
+            if(obj instanceof Player){
+                players.add((Player) obj);
+            }
+        }
+        uIStatObserver.setPlayers(players);
+        for(int i = 0; i < players.size(); i++){
+            players.get(0).setGameStatsObservable(UIobserver);
+        }
+    }
+    
     
     public void setup(ArrayList<Player.Playerinfo> playerInfo, int numOfAi, GameSetup gameSetup) {
         Stage stage = this.gameStage;
@@ -118,6 +142,8 @@ public class BattleArena {
         //root = new Group();
         
         root = new StackPane();
+        
+        uIStatObserver = new UIStatObserver(root);
 
         
         //root.getChildren().
@@ -143,6 +169,9 @@ public class BattleArena {
         gameObjects.add(new SpawnBox(ProjectileType.BULLET, 200, 200, 0));
         
         ExplosionObserver observer = observerSetup();
+        GameStatsObservable UIobserver = infoObserverSetup(uIStatObserver);
+        this.playerFinde(UIobserver);
+        
         Collisions collisions = new Collisions(terrain,gameObjects);
         GameModel gameModel = new GameModel(width, height, gameObjects, aiPlayers, collisions, terrain);
         GameController gameController = new GameController(gameModel, observer);
@@ -157,6 +186,7 @@ public class BattleArena {
         RenderController render = new RenderController(gameView, graphicModels);
         renderTimer = new RenderTimer(render, gameObjects, terrain);
         
+        uIStatObserver.createUI();
         
         //MenuBar menubar = new MenuBar();
         TopMenu menu = new TopMenu(this, gameSetup);
