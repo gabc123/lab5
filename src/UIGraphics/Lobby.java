@@ -240,11 +240,14 @@ public class Lobby {
         
         Label wichplayer2 = new Label("Player2:");
         VBox keyconp2 = new VBox(10);
-        keyconp1.getChildren().addAll(wichplayer2,jumpcon2, leftcon2, rightcon2);
+        keyconp2.getChildren().addAll(wichplayer2,jumpcon2, leftcon2, rightcon2);
+        
+        HBox players12 = new HBox(10);
+        players12.getChildren().addAll(keyconp1, keyconp2);
         
         VBox keyconinfo = new VBox(10);
         Label info = new Label("Choose buttons to controll your caracter with:");
-        keyconinfo.getChildren().addAll(info, keyconp1, keyconp2);
+        keyconinfo.getChildren().addAll(info, players12);
         
         /**HBox namecon4 = new HBox();
         namecon4.setSpacing(10);
