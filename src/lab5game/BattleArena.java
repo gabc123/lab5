@@ -36,6 +36,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
@@ -195,9 +196,6 @@ public class BattleArena {
         gameBox.prefHeight(720);
         StackPane.setMargin(hbox, Insets.EMPTY);
         
-        
-        
-        
         ArrayList<Player> allPlayers = playerFinde();
         UIStatObserver uIStatObserver = new UIStatObserver(allPlayers);
         HBox uigamestat = uIStatObserver.createUI(root);
@@ -250,7 +248,8 @@ public class BattleArena {
         try {
             this.terrain.saveTerrain(file);
         } catch (IOException ex) {
-            System.out.println("save error");
+            //System.out.println("save error");
+            showErrorMsg("Failed to save","Path error","Make sure you save it with a valid name");
         }
     }
     
@@ -263,8 +262,23 @@ public class BattleArena {
         try {
             this.terrain.loadTerrain(file);
         } catch (IOException ex) {
-            System.out.println("loadgame error");
+            //System.out.println("loadgame error");
+            showErrorMsg("Failed to load","Could not load","File need to be of typ png");
+            
+        }catch(IllegalArgumentException ex) {
+            showErrorMsg("Failed to load","Path error","File can only be loaded from game directory");
         }
         renderTimer.start();
     }
+    
+    public void showErrorMsg(String title,String header,String msg) {
+        
+        errorMsg.setTitle(title);
+        errorMsg.setHeaderText(header);
+        errorMsg.setContentText(msg);
+        errorMsg.show();
+        
+    }
+    
+    private final Alert errorMsg = new Alert(Alert.AlertType.ERROR);
 }
