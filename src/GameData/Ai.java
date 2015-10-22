@@ -73,14 +73,18 @@ public class Ai {
         } else {
             aiPlayer.setJetpackState(false);
         }
-
-        if (destX > 0 && aiPlayer.currentDx() < 20) {
+        double maxX = Math.abs(aiPlayer.currentDx());
+        /*if(maxX > 10) {
+            aiPlayer.setDirection(Direction.NONE);
+        }*/
+        if (destX > 0 && aiPlayer.currentDx() < 10) {
             aiPlayer.setDirection(Direction.LEFT);
-        } else if (aiPlayer.currentDx() > -20) {
+        } else if (aiPlayer.currentDx() > -10) {
             aiPlayer.setDirection(Direction.RIGHT);
         } else {
             aiPlayer.setDirection(Direction.NONE);
         }
+        
     }
 
     private void moveToPoint() {
@@ -110,10 +114,10 @@ public class Ai {
         }
         StateData stateData = stateStack.get(index);
         double timeDiff = this.gameTime - stateData.timeStamp;
-        if(timeDiff > 5 ) {
+        if(timeDiff > 20 ) {
             stateData.setTimeStamp(gameTime); // reset this state clock
             this.destination = new Point2D(1000*Math.random(),1000*Math.random());
-            stateStack.set(index, new StateData(AiState.MOVETOPOINT, gameTime));
+            stateStack.add(new StateData(AiState.MOVETOPOINT, gameTime));
             return;
         }
         double aiLocX = aiPlayer.getX();
