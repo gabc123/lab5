@@ -17,9 +17,11 @@ import java.util.ArrayList;
 public class GameController {
     private GameModel gameModel;
     private ExplosionObserver explosionObserver;
+    private GameStatsObservable gameStatsObservable;
     public GameController(GameModel gameModel,ExplosionObserver explosionObserver) {
         this.gameModel = gameModel;
         this.explosionObserver = explosionObserver;
+        this.gameStatsObservable  = gameStatsObservable;
     }
     
     public void addObservers(ArrayList<GameObject> newObservers) {

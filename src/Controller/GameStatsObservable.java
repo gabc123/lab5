@@ -13,5 +13,9 @@ import java.util.Observable;
  */
 public class GameStatsObservable extends Observable {
     
+    public void checkUIInfo(){
+        this.setChanged();
+        this.notifyObservers();
+    }
     
 }

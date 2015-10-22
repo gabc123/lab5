@@ -60,6 +60,7 @@ public class BattleArena {
 
     private ArrayList<EventHandler<KeyEvent>> inputs;
     private Stage gameStage;
+    private UIStatObserver uIStatObserver;
 
     public BattleArena(Stage stage) {
         this.gameStage = stage;
@@ -108,28 +109,34 @@ public class BattleArena {
         return explosionObserver;
     }
     
+    public GameStatsObservable infoObserverSetup(UIStatObserver uIStatObserver){
+        GameStatsObservable gameStatsObservable = new GameStatsObservable();
+        gameStatsObservable.addObserver(uIStatObserver);    
+        return gameStatsObservable;
+    }
+    
+    public void playerFinde(GameStatsObservable UIobserver) {
+        ArrayList<Player> players = new ArrayList<Player>();
+        for(GameObject obj : this.gameObjects) {
+            if(obj instanceof Player){
+                players.add((Player) obj);
+            }
+        }
+        uIStatObserver.setPlayers(players);
+        for(int i = 0; i < players.size(); i++){
+            players.get(0).setGameStatsObservable(UIobserver);
+        }
+    }
+    
     
     public void setup(ArrayList<Player.Playerinfo> playerInfo, int numOfAi, GameSetup gameSetup) {
         Stage stage = this.gameStage;
-        Label player1name = new Label(playerInfo.get(0).getPlayerName());
-        Label player2name = new Label(playerInfo.get(1).getPlayerName());
-        player1name.setTextFill(Color.RED);
-        player2name.setTextFill(Color.RED);
-        Label player1health = new Label(playerInfo.get(0).getPlayerName());
-        Label player2health = new Label(playerInfo.get(1).getPlayerName());
-        player1health.setTextFill(Color.RED);
-        player2health.setTextFill(Color.RED);
-        VBox playerinfocon1 = new VBox(5);
-        playerinfocon1.getChildren().addAll(player1name, player1health);
-        VBox playerinfocon2 = new VBox(5);
-        playerinfocon2.getChildren().addAll(player2name, player2health);
-        HBox namecon = new HBox(880);
-        namecon.setAlignment(Pos.BOTTOM_CENTER);
-        namecon.getChildren().addAll(playerinfocon1, playerinfocon2);
         
         //root = new Group();
         
         root = new StackPane();
+        
+        uIStatObserver = new UIStatObserver(root);
 
         
         //root.getChildren().
@@ -152,8 +159,6 @@ public class BattleArena {
         StackPane.setMargin(hbox, Insets.EMPTY);
         hbox.getChildren().addAll(menuBox,gameBox);
         root.getChildren().addAll(hbox);
-        root.getChildren().addAll(namecon);
-        
         
         Scene scene = new Scene(root, width, height + 28, Color.GREEN);
         
@@ -172,6 +177,9 @@ public class BattleArena {
         gameObjects.add(new SpawnBox(ProjectileType.BULLET, 200, 200, 0));
         
         ExplosionObserver observer = observerSetup();
+        GameStatsObservable UIobserver = infoObserverSetup(uIStatObserver);
+        this.playerFinde(UIobserver);
+        
         Collisions collisions = new Collisions(terrain,gameObjects);
         GameModel gameModel = new GameModel(width, height, gameObjects, aiPlayers, collisions, terrain);
         GameController gameController = new GameController(gameModel, observer);
@@ -186,6 +194,7 @@ public class BattleArena {
         RenderController render = new RenderController(gameView, graphicModels);
         renderTimer = new RenderTimer(render, gameObjects, terrain);
         
+        uIStatObserver.createUI();
         this.play();
         stage.setTitle("Lab5Game");
         stage.setScene(scene);

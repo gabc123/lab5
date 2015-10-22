@@ -1,5 +1,6 @@
 package GameObjects;
 
+import Controller.GameStatsObservable;
 import Controller.KeyboardController;
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ public class Player extends Physics {
     private Weapon weapon;
     private boolean didFire = false;
     private double health = 100;
+    private GameStatsObservable gameStatsObservable;
 
     private Direction dir;
     private Direction aim;
@@ -27,6 +29,10 @@ public class Player extends Physics {
         this.name = name_;
         this.weapon = new Weapon(this, ProjectileType.GRANADE, 0);
     }
+    
+    public void setGameStatsObservable(GameStatsObservable o){
+        this.gameStatsObservable = o;
+    }
 
     public void takeDamage(double damage) {
         health -= damage;
@@ -34,6 +40,7 @@ public class Player extends Physics {
         if (health < 0) {
             this.deactivate();
         }
+        this.gameStatsObservable.checkUIInfo();
     }
     
     public double currentHealth() {
@@ -71,6 +78,9 @@ public class Player extends Physics {
                     + " Ammo: " + weapon.getAmmo()
                     + " cooldown: " + weapon.getCooldown()
             );*/
+        if(this.didFire){
+            this.gameStatsObservable.checkUIInfo();
+        }
     }
 
     public void setJetpackState(boolean b) {
