@@ -38,6 +38,9 @@ public abstract class GameObject {
     protected void deactivate() {
         this.active = false;
     }
+    protected void reActivate(){
+        this.active = true;
+    }
     
     public boolean physicsEnable() { return false;};
     

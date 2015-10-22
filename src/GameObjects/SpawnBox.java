@@ -17,8 +17,8 @@ public class SpawnBox extends Physics {
     private ProjectileBuilder projectile;
     private int ammo;
     private double cooldown;
-    public SpawnBox(ProjectileType type,double x, double y, int modelId) {
-        super(0, 0,10, modelId);
+    public SpawnBox(ProjectileType type,double x, double y) {
+        super(0, 0,10, 0);
         this.setX(x);
         this.setY(y);
         Random rand = new Random();
@@ -27,9 +27,9 @@ public class SpawnBox extends Physics {
                 .withSpeed(20 + rand.nextDouble() * 500)
                 .withRadius(5 + rand.nextDouble() * 200);
         switch(type) {
-            case GRANADE: projectile.withModel(0); break;
-            case BULLET: projectile.withModel(0); break;
-            case MISSILE: projectile.withModel(0); break;
+            case GRANADE: projectile.withModel(3); break;
+            case BULLET: projectile.withModel(4); break;
+            case MISSILE: projectile.withModel(1); break;
             default: projectile.withModel(0); break;
         }
         this.ammo = rand.nextInt(100) + 10;

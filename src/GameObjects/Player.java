@@ -31,7 +31,7 @@ public class Player extends Physics {
         this.dir = Direction.NONE;
         this.aim = Direction.NONE;
         this.name = name_;
-        this.weapon = new Weapon(this, ProjectileType.GRANADE, 0);
+        this.weapon = new Weapon(this, ProjectileType.GRANADE, 3);
     }
 
     public void setGameStatsObservable(GameStatsObservable o) {
@@ -54,7 +54,18 @@ public class Player extends Physics {
         }
     }
     
-    public int getDeths(){
+    public void resetPlayer(double x, double y, double health) {
+        this.setX(x);
+        this.setY(y);
+        this.weapon = new Weapon(this, ProjectileType.GRANADE, 3);
+        this.health = health;
+        this.reActivate();
+        if (gameStatsObservable != null) {
+            this.gameStatsObservable.checkUIInfo();
+        }
+    }
+    
+    public int getDeaths(){
         return this.numberofdeaths;
     }
     

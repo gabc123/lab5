@@ -7,6 +7,7 @@ package lab5game;
 
 import UIGraphics.Lobby;
 import UIGraphics.LoginScreen;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 /**
@@ -63,4 +64,5 @@ public class GameSetup {
         
         startMainMenu();
     }
+    
 }

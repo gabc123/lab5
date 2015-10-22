@@ -54,8 +54,8 @@ public class UIStatObserver implements Observer {
         player2ammo = new Label("Ammo:" + players.get(1).currentAmmo());
         player1ammo.setTextFill(Color.RED);
         player2ammo.setTextFill(Color.RED);
-        player1death = new Label("Deths:" + players.get(0).getDeths());
-        player2death = new Label("Deths:" + players.get(1).getDeths());
+        player1death = new Label("Deaths:" + players.get(0).getDeaths());
+        player2death = new Label("Deaths:" + players.get(1).getDeaths());
         player1death.setTextFill(Color.RED);
         player2death.setTextFill(Color.RED);
         HBox playerinfocon1 = new HBox(5);
@@ -86,8 +86,8 @@ public class UIStatObserver implements Observer {
         //this.player2health.setText("Health:" + players.get(1).currentHealth());
         this.player1ammo.setText("Ammo:" + players.get(0).currentAmmo());
         this.player2ammo.setText("Ammo:" + players.get(1).currentAmmo());
-        this.player1death.setText("Deths:" + players.get(0).getDeths());
-        this.player2death.setText("Deths:" + players.get(1).getDeths());
+        this.player1death.setText("Deaths:" + players.get(0).getDeaths());
+        this.player2death.setText("Deaths:" + players.get(1).getDeaths());
     }
 
 }
