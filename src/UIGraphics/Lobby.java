@@ -27,7 +27,11 @@ import javafx.stage.Stage;
 import lab5game.GameSetup;
 
 /**
- *
+ *The Lobby class creates a number of buttons and textfields made to collect
+ * inputs from users. It is also where a user can choose to play by themselfe
+ * or against a ai opponent.
+ * the buttons are used as keybindings and the textfield allowes user to 
+ * enter their name.
  * @author mats
  */
 public class Lobby {
@@ -44,7 +48,15 @@ public class Lobby {
     private boolean enterNewKey;
     private int player;
     private int whatkey;
-
+    
+    /**
+    * constructor for the Lobby class
+    * @param stage takes a stage used to draw on
+    * @param gameSetup_ takes gameSetup to gain accses to methods to start game
+    * Also creates the standard keyboard controllers in case the users chooses not
+    * to change them.
+    * 
+    */
     public Lobby(Stage stage, GameSetup gameSetup_) {
         KeyboardController input = new KeyboardController(KeyCode.A, KeyCode.D,
                 KeyCode.W,KeyCode.S,
@@ -60,6 +72,14 @@ public class Lobby {
         this.gameSetup = gameSetup_;
     }
 
+    /**
+     * lobbysetup method does a lot of things, firstly it creates a number of 
+     * buttons used to change keyboardcontrollers for the users.
+     * lobbysetup also creates the checkbox where a user can choose to face a 
+     * ai opponen and the textfields used to get user names.
+     * lastly the lobbysetup puts all these things on the screen and uses 
+     * the startbutton it created to start the game.
+     */
     public void lobbysetup() {
         Stage stage = this.Lobbystage;
         enterNewKey = false;
@@ -246,21 +266,39 @@ public class Lobby {
         stage.show();
     }
 
+    /**
+     * Simply a method that calls the startMap method in gameSetup so that
+     * the game starts
+     */
     public void startMap() {
 
         gameSetup.startMap();
     }
 
+    /**
+     * A getter method used to see if the users choose to play against ai 
+     * opponents
+     * @return int containing number of ai opponents
+     */
     public int getnumOfAi() {
 
         return numOfAi;
     }
 
+    /**
+     * A getter method that returns information about the player in a arraylist
+     * @return Arraylist of Playerinfo typ contains name and keybordcontroller
+     */
     public ArrayList<Playerinfo> getPlayerInfo() {
 
         return playerInfo;
     }
 
+    /**
+     * Method that sets the keyboard buttons the users want to use to controll
+     * their players
+     * @param key is a KeyCode used to determine which key users pressed
+     */
     private void setKey(KeyCode key) {
         int playerIdx = player - 1;
         if (playerIdx < 0 || playerIdx >= playerInfo.size()) {

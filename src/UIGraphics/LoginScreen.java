@@ -21,6 +21,8 @@ import lab5game.GameSetup;
 /**
  *
  * @author mats
+ * Creates the first screen the application shows, used only as a startscreen where
+ * the user can choose to play or close the application.
  */
 public class LoginScreen {
     GameSetup gameSetup;
@@ -32,15 +34,24 @@ public class LoginScreen {
     private Button but2;
     private Stage loginStage;
     
+    /**
+     * constructor for the LoginScreen class
+     * @param stage Gets a Stage used for canvas and Boxes
+     * @param gameSetup takes a gameSetup as parameter to gett accses to methods
+     * Also loads the background and button images
+     */
     public LoginScreen(Stage stage, GameSetup gameSetup) {
         this.gameSetup = gameSetup;
         this.loginStage = stage;
         this.image = new Image("Resource/battleTerrain.png",false);
         this.imagebut = new Image("Resource/Playknapp.png",false);
-        this.imagebut2 = new Image("Resource/higknapp.png",false);
+        //this.imagebut2 = new Image("Resource/higknapp.png",false);
         
     }
-    
+    /**
+     * Setup method that creates the buttons and stages, also 
+     * creates the canvas
+     */
     public void setup(){
         Stage stage = this.loginStage;
 	but = new Button();
@@ -53,7 +64,7 @@ public class LoginScreen {
             }
         });
         
-        but2 = new Button();
+        /**but2 = new Button();
 	but2.setGraphic(new ImageView(imagebut2));
 
        	but2.setOnAction(new EventHandler<ActionEvent>() {
@@ -62,17 +73,17 @@ public class LoginScreen {
             public void handle(ActionEvent event) {
                 loadgame();
             }
-        });
+        });*/
 	
 	root = new Group();
 	Scene scene = new Scene(root, 1024, 720, Color.GREEN);
 	Canvas canvas = new Canvas(scene.getWidth(), scene.getHeight());
 
 	but.setLayoutX(canvas.getWidth()/2 - (imagebut.getWidth()/2));
-        but.setLayoutY(canvas.getHeight()/2 - (imagebut.getHeight() + imagebut.getHeight()));
+        but.setLayoutY(canvas.getHeight()/2 - (imagebut.getHeight()/2));
 	
-        but2.setLayoutX(canvas.getWidth()/2 - (imagebut.getWidth()/2));
-        but2.setLayoutY(canvas.getHeight()/2 - (imagebut.getHeight()/2));
+        /**but2.setLayoutX(canvas.getWidth()/2 - (imagebut.getWidth()/2));
+        but2.setLayoutY(canvas.getHeight()/2 - (imagebut.getHeight()/2));*/
 	
 	GraphicsContext gc = canvas.getGraphicsContext2D();
 	gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -80,7 +91,7 @@ public class LoginScreen {
 	
 	root.getChildren().add(canvas);
 	root.getChildren().add(but);
-        root.getChildren().add(but2);
+        //root.getChildren().add(but2);
 	
 	
 	stage.setTitle("Start");
@@ -91,16 +102,11 @@ public class LoginScreen {
         
     }
     
+    /**
+     * Calls method to load next window in gameSetup
+     */
     public void play(){
-        
-        
         gameSetup.lobbyStart(this.gameSetup);
-    }
-    
-    public void loadgame(){}
-    
-    public void showhighscore(){
-    
     }
     
 }
