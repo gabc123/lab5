@@ -5,6 +5,7 @@
  */
 package UIGraphics;
 
+import GameData.Terrain;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.MenuBar;
@@ -45,11 +46,14 @@ public class TopMenu {
         Menu menuOptions = new Menu("Options");
         
         MenuItem savegame = new MenuItem("Save");
-	//stopgame.setOnAction(save());
+	savegame.setOnAction(save());
+        MenuItem loadgame = new MenuItem("Load");
+	loadgame.setOnAction(load());
+        
 	MenuItem scoregame = new MenuItem("Score board");
         //startgame.setOnAction(score());
         
-        menuOptions.getItems().addAll(savegame, scoregame);
+        menuOptions.getItems().addAll(savegame, loadgame,scoregame);
             
         Menu menuEnd = new Menu("End game");
         
@@ -84,8 +88,20 @@ public class TopMenu {
         
     }
     
-    public void save(){
-        //battlearena.play();
+    private EventHandler<ActionEvent> save(){
+        return new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent y) {
+                battlearena.saveGame();
+            }
+        };
+    }
+    
+    private EventHandler<ActionEvent> load(){
+        return new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent y) {
+                battlearena.loadGame();
+            }
+        };
     }
     
     public EventHandler<ActionEvent> quit(){

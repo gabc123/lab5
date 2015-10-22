@@ -25,7 +25,11 @@ import GameObjects.SpawnBox;
 import UIGraphics.TopMenu;
 import UIGraphics.UIStatObserver;
 import View.GameView;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -42,6 +46,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -66,6 +71,8 @@ public class BattleArena {
         this.gameStage = stage;
     }
 
+    
+    
     private ArrayList<Player> createPlayers(ArrayList<Player.Playerinfo> playerInfo) {
         inputs = new ArrayList<EventHandler<KeyEvent>>();
         ArrayList<Player> newPlayers = new ArrayList<Player>();
@@ -142,25 +149,10 @@ public class BattleArena {
         //root.getChildren().
         double width = 1024;
         double height = 720;
-        MenuBar menubar = new MenuBar();
-        TopMenu menu = new TopMenu(this, gameSetup);
-        menubar = menu.getMenu();
-        menubar.prefWidthProperty().bind(gameStage.widthProperty());
+        
         
         Canvas canvas = new Canvas(width, height);
         
-        VBox hbox = new VBox();
-        HBox menuBox = new HBox();
-        menuBox.getChildren().add(menubar);
-        
-        HBox gameBox = new HBox();
-        gameBox.getChildren().add(canvas);        
-        gameBox.prefHeight(720);
-        StackPane.setMargin(hbox, Insets.EMPTY);
-        hbox.getChildren().addAll(menuBox,gameBox);
-        root.getChildren().addAll(hbox);
-        
-        Scene scene = new Scene(root, width, height + 28, Color.GREEN);
         
         gameObjects = new ArrayList<GameObject>();
         ArrayList<Player> aiEnemys = createPlayers(playerInfo);
@@ -195,6 +187,25 @@ public class BattleArena {
         renderTimer = new RenderTimer(render, gameObjects, terrain);
         
         uIStatObserver.createUI();
+        
+        //MenuBar menubar = new MenuBar();
+        TopMenu menu = new TopMenu(this, gameSetup);
+        MenuBar menubar = menu.getMenu();
+        menubar.prefWidthProperty().bind(gameStage.widthProperty());
+        
+        VBox hbox = new VBox();
+        HBox menuBox = new HBox();
+        menuBox.getChildren().add(menubar);
+        
+        HBox gameBox = new HBox();
+        gameBox.getChildren().add(canvas);        
+        gameBox.prefHeight(720);
+        StackPane.setMargin(hbox, Insets.EMPTY);
+        hbox.getChildren().addAll(menuBox,gameBox);
+        root.getChildren().addAll(hbox);
+        
+        Scene scene = new Scene(root, width, height + 28, Color.GREEN);
+        
         this.play();
         stage.setTitle("Lab5Game");
         stage.setScene(scene);
@@ -217,6 +228,34 @@ public class BattleArena {
 
     public void play() {
         gameUpdate.start();
+        renderTimer.start();
+    }
+    
+    public void saveGame() {
+        paus();
+        System.out.println("savegame selected");
+        System.out.println("loadgame selected");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save game map");
+        File file = fileChooser.showSaveDialog(gameStage);
+        try {
+            this.terrain.saveTerrain(file);
+        } catch (IOException ex) {
+            System.out.println("save error");
+        }
+    }
+    
+    public void loadGame() {
+        paus();
+        System.out.println("loadgame selected");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Load game map");
+        File file = fileChooser.showOpenDialog(gameStage);
+        try {
+            this.terrain.loadTerrain(file);
+        } catch (IOException ex) {
+            System.out.println("loadgame error");
+        }
         renderTimer.start();
     }
 }

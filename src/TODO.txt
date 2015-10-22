@@ -24,14 +24,14 @@ finaup koden.
 
 /// 
 exepctions,
-Spara karta
-ladda karta
+-Spara karta
+-ladda karta
 
 // 
 visa score, 
 samt spara/ladda score
 
-sätta att keyrebind.
+?sätta att keyrebind.
 
 Fixa jar file för spelet
 
