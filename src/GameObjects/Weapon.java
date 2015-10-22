@@ -24,6 +24,14 @@ public class Weapon extends GameObject {
     private ProjectileBuilder projectileBuilder;
     private int ammo = 0;
     
+    /**
+     * 
+     * @param owner who has this weapon
+     * @param projectile hhe ProjectileBuilder 
+     * @param cooldown what cooldown this weapon should have
+     * @param ammo how much ammo it has
+     * @param modelId the modelid, no used
+     */
     public Weapon(Player owner, ProjectileBuilder projectile,double cooldown, int ammo, int modelId) {
         super(modelId);
         this.owner = owner;
@@ -56,20 +64,36 @@ public class Weapon extends GameObject {
                 .withOwner(owner);
     }
     
+    /**
+     * sets aim
+     * @param dir 
+     */
     public void setAimX(Direction dir) {
         this.dirX = dir;
     }
     
+    /**
+     * 
+     * @param dir 
+     */
     public void setAimY(Direction dir) {
         this.dirY = dir;
     }
     
+    /**
+     * updates cooldown
+     * @param frameDelta 
+     */
     private void updateCooldown(double frameDelta) {
         if(fireTimer > 0) {
             fireTimer -= frameDelta;
         }
     }
     
+    /**
+     * fires a weapon
+     * @return if it sucseeded
+     */
     public boolean fire() {
         if(fireTimer > 0) {
             //System.out.println("player: " + owner.getName() + " Ammo: " + ammo);
@@ -80,18 +104,36 @@ public class Weapon extends GameObject {
         return true;
     }
     
+    /**
+     * 
+     * @return ammo left
+     */
     public int getAmmo() {
         return this.ammo;
     }
     
+    /**
+     * cooldown left
+     * @return 
+     */
     public double getCooldown() {
         return this.cooldown;
     }
     
+    /**
+     * 
+     * @return the current aim angle
+     */
     protected double getAimAngle() {
         return this.angle;
     }
     
+    /**
+     * This is called every frame by gameTimer thru the controller
+     * @param frameDelta fraction of a seconde since last update
+     * @param spawnedObj list to store all newly created objects
+     * @return not used
+     */
     @Override
     public boolean update(double frameDelta, ArrayList<GameObject> spawnedObj) {
                 
