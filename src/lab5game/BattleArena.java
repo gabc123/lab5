@@ -192,13 +192,17 @@ public class BattleArena {
         gameBox.getChildren().add(canvas);        
         gameBox.prefHeight(720);
         StackPane.setMargin(hbox, Insets.EMPTY);
-        hbox.getChildren().addAll(menuBox,gameBox);
-        root.getChildren().addAll(hbox);
+        
         
         
         
         ArrayList<Player> allPlayers = playerFinde();
-        UIStatObserver uIStatObserver = new UIStatObserver(root,allPlayers);
+        UIStatObserver uIStatObserver = new UIStatObserver(allPlayers);
+        HBox uigamestat = uIStatObserver.createUI(root);
+        //uigamestat.getChildren().add(gameBox);
+        //gameBox.getChildren().add();
+        hbox.getChildren().addAll(menuBox,uigamestat,gameBox);
+        root.getChildren().addAll(hbox);
         
         gameStatsObservable = new GameStatsObservable();
         gameStatsObservable.addObserver(uIStatObserver);
@@ -207,7 +211,7 @@ public class BattleArena {
             player.setGameStatsObservable(gameStatsObservable);
         }
         
-        Scene scene = new Scene(root, width, height + 28, Color.GREEN);
+        Scene scene = new Scene(root, width, height + 50, Color.GREEN);
         
         this.play();
         stage.setTitle("Lab5Game");

@@ -40,12 +40,12 @@ public class Ai {
             aiPlayer.setJetpackState(false);
         }
         
-        if(threatX > 0) {
+        if(threatX > 0 && aiPlayer.currentDx() < 20) {
             aiPlayer.setDirection(Direction.LEFT);
-        }else {
+        }else if( aiPlayer.currentDx() > -20 ){
             aiPlayer.setDirection(Direction.RIGHT);
+        }else {
+            aiPlayer.setDirection(Direction.NONE);
         }
-        
-        
     }
 }
