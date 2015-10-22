@@ -55,7 +55,7 @@ public class TopMenu {
         MenuItem loadgame = new MenuItem("Load");
 	loadgame.setOnAction(load());
         MenuItem infogame = new MenuItem("Information");
-	loadgame.setOnAction(info());
+	infogame.setOnAction(info());
         
 	MenuItem scoregame = new MenuItem("Score board");
         //startgame.setOnAction(score());
@@ -132,7 +132,7 @@ public class TopMenu {
     public EventHandler<ActionEvent> info(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent z) {
-		GS.exitGame();
+		battlearena.info();
 		}
 	    }; 
     }

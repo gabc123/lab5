@@ -37,6 +37,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
@@ -237,6 +238,29 @@ public class BattleArena {
         gameUpdate.start();
         renderTimer.start();
     }
+    
+    public void info(){
+        String titel = ("Keybindings");
+        String header = ("Standard keybindings");
+        String msg =("Keybindings can be changed in lobby");
+        /**String msg =("Unless you have changed the keybindings"
+                + "the standardsare:"
+                + "Player1: Jump Q, Shoot SHIFT,"
+                + "Aim up/down W/S, Move left/right A/D"
+                + ""
+                + "Player2: Jump SPACE, Shoot PERIOD,"
+                + "Aim up/down UPARROW/DOWNARROW, "
+                + "Move left/right LEFTARROW/RIGHTARROW");*/
+        this.infoMessage(titel, header, msg);
+    }
+    
+    public void infoMessage(String title,String header,String msg){
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(msg);
+        alert.showAndWait();
+    }
+    private final Alert alert = new Alert(AlertType.INFORMATION);
     
     public void saveGame() {
         paus();
