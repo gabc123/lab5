@@ -186,7 +186,6 @@ public class BattleArena {
         RenderController render = new RenderController(gameView, graphicModels);
         renderTimer = new RenderTimer(render, gameObjects, terrain);
         
-        uIStatObserver.createUI();
         
         //MenuBar menubar = new MenuBar();
         TopMenu menu = new TopMenu(this, gameSetup);
@@ -203,6 +202,7 @@ public class BattleArena {
         StackPane.setMargin(hbox, Insets.EMPTY);
         hbox.getChildren().addAll(menuBox,gameBox);
         root.getChildren().addAll(hbox);
+        uIStatObserver.createUI();
         
         Scene scene = new Scene(root, width, height + 28, Color.GREEN);
         

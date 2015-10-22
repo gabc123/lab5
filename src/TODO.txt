@@ -9,7 +9,7 @@ Spelar namn synas.
 -Aim ska fixas, Både idicator samt styrning (angle)
 Weapon cross
 /// modeler
-Rita granat, missil, bullet
+-Rita granat, missil, bullet
 
 ////// Ai
 göra en ai.
