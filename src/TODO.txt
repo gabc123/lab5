@@ -1,7 +1,7 @@
 ////////// TODO
 
-Health och ammo ska synnas.
-Spelar namn synas.
+-Health och ammo ska synnas.
+-Spelar namn synas.
 
 ////// Rendering
 -Göra om så det blir model view controller, update timer.

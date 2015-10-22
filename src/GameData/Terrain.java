@@ -58,7 +58,7 @@ public class Terrain implements Observer {
         }
         //Image tmpImg = background;
         String path = file.getName();
-        this.background = new Image("Resource/" + path);
+        this.background = new Image(path);
         this.needsUpdate = true;
         craters.clear();
     }

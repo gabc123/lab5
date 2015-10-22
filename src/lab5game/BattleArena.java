@@ -160,9 +160,6 @@ public class BattleArena {
 
         terrain = new Terrain(width, height);
         
-        gameObjects.add(new SpawnBox(ProjectileType.BULLET, 200, 200, 0));
-        
-        
         
         ExplosionObserver explosionObserver = observerSetup();
         Collisions collisions = new Collisions(terrain,gameObjects);
@@ -171,7 +168,10 @@ public class BattleArena {
         gameUpdate = new GameTimer(gameController);
         
         // render timer, controller, and GraphicModels
-        String[] imgNames = {"buss.png", "Resource/Misil.png", "Resource/explosion.png"};
+        String[] imgNames = {"buss.png", "Resource/Misil.png",
+            "Resource/explosion.png",
+            "Resource/Granade.png",
+            "Resource/Bullet.png"};
         GraphicModels graphicModels = new GraphicModels();
         graphicModels.loadmodel(imgNames);
 

@@ -15,15 +15,17 @@ import java.util.ArrayList;
  * @author o_0
  */
 public class GameController {
+
     private GameModel gameModel;
     private ExplosionObserver explosionObserver;
     private GameStatsObservable gameStatsObservable;
-    public GameController(GameModel gameModel,ExplosionObserver explosionObserver) {
+
+    public GameController(GameModel gameModel, ExplosionObserver explosionObserver) {
         this.gameModel = gameModel;
         this.explosionObserver = explosionObserver;
-        this.gameStatsObservable  = gameStatsObservable;
+        this.gameStatsObservable = gameStatsObservable;
     }
-    
+
     public void addObservers(ArrayList<GameObject> newObservers) {
         for (GameObject obj : newObservers) {
             if (obj.physicsEnable()) {
@@ -33,18 +35,22 @@ public class GameController {
     }
 
     private void removeObserver(GameObject obj) {
-        if (!obj.physicsEnable()) {return;}
+        if (!obj.physicsEnable()) {
+            return;
+        }
         explosionObserver.checkTrigger(obj);
-        explosionObserver.deleteObserver((Physics) obj);    
+        explosionObserver.deleteObserver((Physics) obj);
     }
-    
+
     public void removeObservers(ArrayList<GameObject> inActiveObs) {
-        if(inActiveObs.isEmpty()) { return;}
-        for(GameObject observer : inActiveObs) {
+        if (inActiveObs.isEmpty()) {
+            return;
+        }
+        for (GameObject observer : inActiveObs) {
             removeObserver(observer);
         }
     }
-    
+
     public ArrayList<GameObject> removeInactiveObjects() {
         return gameModel.reapInactiveObjects();
     }
@@ -52,26 +58,31 @@ public class GameController {
     public void gameCollisionUpdate() {
         gameModel.checkCollisions();
     }
-    
+
     public ArrayList<GameObject> updateGame(double frameDelta) {
         gameModel.updateAiPlayers(frameDelta);
         return gameModel.updateGameobjects(frameDelta);
     }
-    
+
     public void addObjects(ArrayList<GameObject> newObjects) {
         gameModel.addObjects(newObjects);
     }
-    
-    public void playerRespawn(){
-        if(gameModel.deathCheck()){
-            ArrayList<GameObject> respawned = new ArrayList<GameObject>();
+
+    public void playerRespawn() {
+        if (gameModel.deathCheck()) {
+            ArrayList<GameObject> respawned;
             respawned = gameModel.reSpawnPlayers();
+            this.addObjects(respawned);
             this.addObservers(respawned);
         }
-    
+
     }
-    
-        public boolean deathcheck(){
+
+    public GameObject makeSpawnBox() {
+        return gameModel.spawnBox();
+    }
+
+    public boolean deathcheck() {
         return gameModel.deathCheck();
     }
 }

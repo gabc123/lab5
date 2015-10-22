@@ -26,11 +26,12 @@ public class GameTimer extends AnimationTimer {
     GameController gameController;
     private double gametime = 0;
     private double savetime = 0;
+    private double spawnTime = 0;
+
     public GameTimer(GameController gameController) {
         super();
         this.gameController = gameController;
     }
-
 
     @Override
     public void handle(long now) {
@@ -39,20 +40,24 @@ public class GameTimer extends AnimationTimer {
         frameDelta = (frameDelta < 1) ? frameDelta : 0;
         lastTime = now;
         this.gametime += frameDelta;
-
+        spawnTime += frameDelta;
         ArrayList<GameObject> inActiveObj;
         inActiveObj = gameController.removeInactiveObjects();
         gameController.removeObservers(inActiveObj);
-        
+
         gameController.gameCollisionUpdate();
-        
+
         ArrayList<GameObject> newObjects;
         newObjects = gameController.updateGame(frameDelta);
-        
-        if(gameController.deathcheck()){
-            savetime = gametime;
-            if((gametime - savetime) > 2){
-            gameController.playerRespawn();
+        if(spawnTime > 10) {
+            newObjects.add(gameController.makeSpawnBox());
+            spawnTime = 0;
+        }
+        if (gameController.deathcheck()) {
+            savetime += frameDelta;
+            if (savetime > 2) {
+                gameController.playerRespawn();
+                savetime = 0;
             }
         }
         gameController.addObjects(newObjects);
