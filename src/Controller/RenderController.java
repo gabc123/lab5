@@ -8,6 +8,7 @@ package Controller;
 import GameData.GraphicModels;
 import GameData.Terrain;
 import GameObjects.GameObject;
+import GameTimers.RenderTimer.RenderingState;
 import View.GameView;
 import javafx.scene.image.Image;
 
@@ -28,8 +29,9 @@ public class RenderController{
         gameView.drawterrain(terrain.getTerrainImage());
     }
     
-    public void displayModel(GameObject obj) {
+    public void displayModel(GameObject obj,RenderingState state) {
         Image model = graphicModel.getModel(obj.getModelID(), 0);
-        gameView.drawmodel(model, obj.getX(), obj.getY());
+        double scaling = state.getScaleFactor(model.getWidth(), model.getHeight());
+        gameView.drawmodel(model, obj.getX(), obj.getY(), scaling);
     }
 }

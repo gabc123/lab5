@@ -26,9 +26,11 @@ public class GameView {
         gc.drawImage(background, 0, 0, canvas.getWidth(), canvas.getHeight());
     }
     
-    public void drawmodel(Image model, double x, double y){
+    public void drawmodel(Image model, double x, double y, double scalingFactor){
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.drawImage(model, x - model.getWidth()/2, y - model.getHeight()/2);
+        double width = model.getWidth() * scalingFactor;
+        double height = model.getHeight() * scalingFactor;
+        gc.drawImage(model, x - width/2, y - height/2, width, height);
     }
     
    
