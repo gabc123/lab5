@@ -17,7 +17,7 @@ göra en ai.
 
 ///// game
 
-Avlutas spelet,
+-Avlutas spelet,
 -startas om.
 
 finaup koden.
