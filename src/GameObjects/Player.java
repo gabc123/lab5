@@ -47,6 +47,10 @@ public class Player extends Physics {
         }
     }
     
+    public int getDeths(){
+        return this.numberofdeaths;
+    }
+    
     /**
      * Used by ai to get info
      * @return the players dx
