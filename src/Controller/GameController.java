@@ -52,7 +52,7 @@ public class GameController {
     }
     
     public ArrayList<GameObject> updateGame(double frameDelta) {
-        
+        gameModel.updateAiPlayers();
         return gameModel.updateGameobjects(frameDelta);
     }
     

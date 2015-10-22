@@ -13,6 +13,7 @@ import GameTimers.RenderTimer;
 import GameTimers.GameTimer;
 import Controller.KeyboardController;
 import Controller.RenderController;
+import GameData.Ai;
 import GameData.GraphicModels;
 import GameData.Terrain;
 import GameObjects.GameObject;
@@ -60,13 +61,15 @@ public class BattleArena {
         this.gameStage = stage;
     }
 
-    private void createPlayers(ArrayList<Player.Playerinfo> playerInfo) {
+    private ArrayList<Player> createPlayers(ArrayList<Player.Playerinfo> playerInfo) {
         inputs = new ArrayList<EventHandler<KeyEvent>>();
+        ArrayList<Player> newPlayers = new ArrayList<Player>();
         EventHandler<KeyEvent> pressed;
         EventHandler<KeyEvent> released;
         KeyboardController keyboard;
         for (Player.Playerinfo info : playerInfo) {
             Player player = new Player(info.getPlayerName(), 500, 20, 0);
+            newPlayers.add(player);
             System.out.println(info.getPlayerName());
             keyboard = info.getKeyboard();
             pressed = keyboard.getPlayerKeyPressedHandler(player);
@@ -75,8 +78,12 @@ public class BattleArena {
             gameStage.addEventHandler(KeyEvent.KEY_RELEASED, released);
             inputs.add(pressed);
             inputs.add(released);
-            gameObjects.add(player);
+            
         }
+        if(!newPlayers.isEmpty()) {
+            gameObjects.addAll(newPlayers);
+        }
+        return newPlayers;
     }
 
     private void removeKeyEvents() {
@@ -130,9 +137,13 @@ public class BattleArena {
         Scene scene = new Scene(root, width, height + 28, Color.GREEN);
         
         gameObjects = new ArrayList<GameObject>();
-        createPlayers(playerInfo);
-
-        
+        ArrayList<Player> aiEnemys = createPlayers(playerInfo);
+        ArrayList<Ai> aiPlayers = new ArrayList<Ai>();
+        for(int i = 0; i < numOfAi; i++) {
+            Player aiUnit = new Player("Ai monster",200 , 40, 0);
+            gameObjects.add(aiUnit);
+            aiPlayers.add(new Ai(aiUnit,aiEnemys,gameObjects));
+        }
         
 
         terrain = new Terrain(width, height);
@@ -141,7 +152,7 @@ public class BattleArena {
         
         ExplosionObserver observer = observerSetup();
         Collisions collisions = new Collisions(terrain,gameObjects);
-        GameModel gameModel = new GameModel(width, height, gameObjects, collisions, terrain);
+        GameModel gameModel = new GameModel(width, height, gameObjects, aiPlayers, collisions, terrain);
         GameController gameController = new GameController(gameModel, observer);
         gameUpdate = new GameTimer(gameController);
         
