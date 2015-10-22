@@ -111,6 +111,5 @@ public class GameModel {
         if (!newObjects.isEmpty()) {
             gameObjects.addAll(newObjects);
         }
-    }
-    
+    } 
 }

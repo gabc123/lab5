@@ -70,4 +70,8 @@ public class GameController {
         }
     
     }
+    
+        public boolean deathcheck(){
+        return gameModel.deathCheck();
+    }
 }
