@@ -52,6 +52,10 @@ public class GameSetup {
         //Stoppa allt i en try catch så exception kastas om ai eller keyinpus inte finns
     }
     
+    public void exitGame() {
+        mainStage.close();
+    }
+    
     public void resetGame() {
         if(battleArena != null) {
             battleArena.killGame();
