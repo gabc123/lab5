@@ -29,14 +29,14 @@ public class UIStatObserver implements Observer {
     private Label player2health;
     private ArrayList<Player> players;
 
-    public UIStatObserver(StackPane root, ArrayList<Player> players) {
+    public UIStatObserver(ArrayList<Player> players) {
         super();
         this.players = players;
-        createUI(root);
+        //createUI(root);
 
     }
 
-    private void createUI(StackPane root) {
+    public HBox createUI(StackPane root) {
         player1name = new Label(players.get(0).getName());
         player2name = new Label(players.get(1).getName());
         player1name.setTextFill(Color.RED);
@@ -45,15 +45,15 @@ public class UIStatObserver implements Observer {
         player2health = new Label("Health:" + players.get(1).currentHealth());
         player1health.setTextFill(Color.RED);
         player2health.setTextFill(Color.RED);
-        VBox playerinfocon1 = new VBox(5);
+        VBox playerinfocon1 = new VBox(0);
         playerinfocon1.getChildren().addAll(player1name, player1health);
-        VBox playerinfocon2 = new VBox(5);
+        VBox playerinfocon2 = new VBox(0);
         playerinfocon2.getChildren().addAll(player2name, player2health);
         HBox namecon = new HBox(880);
         namecon.setAlignment(Pos.BOTTOM_CENTER);
         namecon.getChildren().addAll(playerinfocon1, playerinfocon2);
-
-        root.getChildren().addAll(namecon);
+        //root.getChildren().addAll(playerinfocon1, playerinfocon2);
+        return namecon;
     }
 
     public void setPlayers(ArrayList<Player> players_) {

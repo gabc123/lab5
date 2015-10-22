@@ -45,6 +45,22 @@ public class Player extends Physics {
         }
     }
     
+    /**
+     * Used by ai to get info
+     * @return the players dx
+     */
+    public double currentDx() {
+        return this.getDx();
+    }
+
+    /**
+     * Used by ai to get info
+     * @return the players dy
+     */
+    public double currentDy() {
+        return this.getDy();
+    }
+        
     public double currentHealth() {
         return this.health;
     }
