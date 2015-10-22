@@ -17,8 +17,7 @@ public class Weapon extends GameObject {
     Player owner;
     private Direction dirX = Direction.LEFT;
     private Direction dirY = Direction.NONE;
-    private double aimX = 0;
-    private double aimY = 0;
+    private double angle = 0;
     private double cooldown = 0.1;
     private double fireTimer = 0;
     private boolean didFire = false;
@@ -48,6 +47,7 @@ public class Weapon extends GameObject {
         this.setX(50);
         this.setY(50);
         this.ammo = 50;
+        this.owner = owner;
         this.projectileBuilder = new ProjectileBuilder(type)
                 .withModel(1)
                 .withDamage(20)
@@ -90,19 +90,29 @@ public class Weapon extends GameObject {
     
     @Override
     public boolean update(double frameDelta, ArrayList<GameObject> spawnedObj) {
-        switch(dirX) {
-            case LEFT: aimX = -1.0; break;
-            case RIGHT: aimX = 1.0; break;
-        }
-        
+                
         switch(dirY) {
-            case UP: aimY += -0.01*frameDelta; break;
-            case DOWN: aimY += 0.1*frameDelta; break;
+            case UP: angle += -1.0*frameDelta; break;
+            case DOWN: angle += 1.0*frameDelta; break;
         }
+        double halfPi = Math.PI/2;
+        angle = (angle > halfPi) ? halfPi : angle;
+        angle = (angle < -halfPi) ? -halfPi : angle;
         
         updateCooldown(frameDelta);
         
         if(didFire && ammo > 0) {
+            double tmpAngle = angle;
+            if(dirX == Direction.LEFT && angle < halfPi) {
+                tmpAngle = -tmpAngle;
+                tmpAngle += Math.PI;
+            }
+            if(dirX == Direction.RIGHT && angle > halfPi) {
+                tmpAngle -= Math.PI;
+            }
+            double aimX = Math.cos(tmpAngle);
+            double aimY = Math.sin(tmpAngle);
+            System.out.println("owner: " + owner.getName() +" total Angle: " + tmpAngle +" sin angle: " + angle);
             Projectile projectile = projectileBuilder.build(aimX, aimY);
             spawnedObj.add(projectile);
             didFire = false;
