@@ -15,7 +15,7 @@ import lab5game.BattleArena;
 import lab5game.GameSetup;
 
 /**
- *
+ *Class creating the menu at the top of the scene during the game
  * @author mats
  */
 public class TopMenu {
@@ -24,6 +24,11 @@ public class TopMenu {
     private MenuBar menubar;
     private GameSetup GS;
     
+    /**
+     * constructor for TopMenu
+     * @param ba takes a BattleArena as input to get accsess to methods
+     * @param GS_ takes gameSetup to get accsess to methods
+     */
     public TopMenu(BattleArena ba, GameSetup GS_){
         this.battlearena = ba;
         this.GS = GS_;
@@ -49,11 +54,13 @@ public class TopMenu {
 	savegame.setOnAction(save());
         MenuItem loadgame = new MenuItem("Load");
 	loadgame.setOnAction(load());
+        MenuItem infogame = new MenuItem("Information");
+	loadgame.setOnAction(info());
         
 	MenuItem scoregame = new MenuItem("Score board");
         //startgame.setOnAction(score());
         
-        menuOptions.getItems().addAll(savegame, loadgame,scoregame);
+        menuOptions.getItems().addAll(savegame, loadgame, scoregame, infogame);
             
         Menu menuEnd = new Menu("End game");
         
@@ -122,6 +129,13 @@ public class TopMenu {
     
     public void showscoreboard(){}
     
+    public EventHandler<ActionEvent> info(){
+        return new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent z) {
+		GS.exitGame();
+		}
+	    }; 
+    }
     
     
 }
