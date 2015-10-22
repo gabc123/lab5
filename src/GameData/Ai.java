@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import javafx.geometry.Point2D;
 
 /**
- *
+ * the main ai
  * @author o_0
  */
 public class Ai {
@@ -129,9 +129,14 @@ public class Ai {
             threatY += aiLocY - enemy.getY();
         }
 
+        aiPlayer.fireWeapon();
+        
         moveTo(threatX, threatY);
     }
 
+    /**
+     * state enging
+     */
     private void moveToSpawnBox() {
         int index = stateStack.size() - 1;
         if (index < 0) {
@@ -150,6 +155,10 @@ public class Ai {
         moveTo(target.getX(), target.getY());
     }
 
+    /**
+     * 
+     * @return if it found a box
+     */
     private boolean searchSpawnBox() {
         for (GameObject obj : gameObjects) {
             if (obj instanceof SpawnBox) {
@@ -160,6 +169,9 @@ public class Ai {
         return false;
     }
 
+    /**
+     * serch for target
+     */
     private void searchTarget() {
         double distance = 10000;
         int index = stateStack.size() - 1;
@@ -188,6 +200,9 @@ public class Ai {
 
     }
 
+    /**
+     * avoid terain
+     */
     private void avoidTerrain() {
         int index = stateStack.size() - 1;
         if (index < 0) {
@@ -208,6 +223,11 @@ public class Ai {
 
     }
 
+    /**
+     * collision point
+     * @param x 
+     * @param y 
+     */
     public void collisionWithTerrainAt(double x, double y) {
         this.collisionPoint = new Point2D(x, y);
         int index = stateStack.size() - 1;
@@ -218,6 +238,9 @@ public class Ai {
 
     }
 
+    /**
+     * called if call
+     */
     public void pickedupSpawnBox() {
         int index = stateStack.size() - 1;
         if (index < 0) {
@@ -228,6 +251,10 @@ public class Ai {
         }
     }
 
+    /**
+     * update ai state machine
+     * @param frameDelta 
+     */
     public void updateAi(double frameDelta) {
         this.gameTime += frameDelta;
 

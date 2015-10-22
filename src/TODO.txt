@@ -23,7 +23,7 @@ göra en ai.
 finaup koden.
 
 /// 
-exepctions,
+-exepctions,
 -Spara karta
 -ladda karta
 

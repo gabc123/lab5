@@ -20,18 +20,27 @@ public class GameSetup {
     private Lobby lobby = null;
 
     private Stage mainStage;
-    
+    /**
+     * This sets the main stage
+     * @param stage 
+     */
     public GameSetup(Stage stage) {
         this.mainStage = stage;
     }
     
+    /**
+     * starts the mainmenu
+     */
     public void startMainMenu() {
         if(loginScreen == null) {
             loginScreen = new LoginScreen(mainStage, this);
         }
         loginScreen.setup();
     }
-    
+    /**
+     * starts the lobby
+     * @param gameSetup_ this
+     */
     public void lobbyStart(GameSetup gameSetup_){
         if(lobby == null){
             lobby = new Lobby(mainStage, gameSetup_);
@@ -39,6 +48,9 @@ public class GameSetup {
         lobby.lobbysetup();
     }
     
+    /**
+     * starts the game play
+     */
     public void startMap() {
 
         battleArena = new BattleArena(mainStage);
@@ -53,10 +65,16 @@ public class GameSetup {
         //Stoppa allt i en try catch så exception kastas om ai eller keyinpus inte finns
     }
     
+    /**
+     * exit program
+     */
     public void exitGame() {
         mainStage.close();
     }
     
+    /**
+     * resets game
+     */
     public void resetGame() {
         if(battleArena != null) {
             battleArena.killGame();

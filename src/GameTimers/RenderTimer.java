@@ -23,6 +23,12 @@ public class RenderTimer extends AnimationTimer {
     private Terrain terrain;
     long lastTime = 0;
     double gameTime = 0;
+    /**
+     * 
+     * @param renderController the controller for render
+     * @param gameObj all gameObjects
+     * @param terrain the game terrain
+     */
     public RenderTimer(RenderController renderController, ArrayList<GameObject> gameObj, Terrain terrain) {
         super();
         this.gameObjects = gameObj;
@@ -30,6 +36,10 @@ public class RenderTimer extends AnimationTimer {
         this.renderController = renderController;
     }
 
+    /**
+     * updates all game movements
+     * @param now 
+     */
     @Override
     public void handle(long now) {
         renderController.displayTerrain(terrain);
@@ -45,18 +55,36 @@ public class RenderTimer extends AnimationTimer {
         }
     }
     
+    /**
+     * used by the controller to determin animation and scaling
+     */
     public class RenderingState {
         private double timePassed;
         private double radius;
+        /**
+         * 
+         * @param obj gameObject
+         * @param time time it was done
+         */
         public RenderingState(GameObject obj,double time) {
             this.timePassed = time;
             this.radius = obj.getBodySize();
             radius = (radius >= 0) ? radius : 0;
         }
         
+        /**
+         * 
+         * @return 
+         */
         public double getTimeCount() {
             return this.timePassed;
         }
+        /**
+         * 
+         * @param width
+         * @param heigth
+         * @return the scaling factor
+         */
         public double getScaleFactor(double width,double heigth) {
             double maxValue = Math.max(width, width);
             if(this.radius <= 0 || maxValue <= 0) {

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Controller;
 
 import GameObjects.GameObject;
@@ -11,7 +7,7 @@ import GameData.GameModel;
 import java.util.ArrayList;
 
 /**
- *
+ * The gameController for the game, it ties the gameModel and ExplosionObserver together
  * @author o_0
  */
 public class GameController {
@@ -20,12 +16,21 @@ public class GameController {
     private ExplosionObserver explosionObserver;
     private GameStatsObservable gameStatsObservable;
 
+    /**
+     * 
+     * @param gameModel the gameModel, that has all gamelogic
+     * @param explosionObserver the explosion tracker
+     */
     public GameController(GameModel gameModel, ExplosionObserver explosionObserver) {
         this.gameModel = gameModel;
         this.explosionObserver = explosionObserver;
         this.gameStatsObservable = gameStatsObservable;
     }
 
+    /**
+     * Add more observers to the
+     * @param newObservers explosionObserver
+     */
     public void addObservers(ArrayList<GameObject> newObservers) {
         for (GameObject obj : newObservers) {
             if (obj.physicsEnable()) {
@@ -34,6 +39,10 @@ public class GameController {
         }
     }
 
+    /**
+     * Used to remove a observer from the explosionObserver
+     * @param obj object to remove
+     */
     private void removeObserver(GameObject obj) {
         if (!obj.physicsEnable()) {
             return;
@@ -42,6 +51,10 @@ public class GameController {
         explosionObserver.deleteObserver((Physics) obj);
     }
 
+    /**
+     * Removes all inActive objects from the explosionObserver
+     * @param inActiveObs 
+     */
     public void removeObservers(ArrayList<GameObject> inActiveObs) {
         if (inActiveObs.isEmpty()) {
             return;
@@ -51,23 +64,42 @@ public class GameController {
         }
     }
 
+    /**
+     * Returns a list of all newly inactive gameObjects
+     * @return a list of all newly inactive gameObjects
+     */
     public ArrayList<GameObject> removeInactiveObjects() {
         return gameModel.reapInactiveObjects();
     }
 
+    /**
+     * Tells the model to do all collisionChecks
+     */
     public void gameCollisionUpdate() {
         gameModel.checkCollisions();
     }
 
+    /**
+     * Updates all game data, and logic
+     * @param frameDelta the fraction of a seconde that has passed sence last update
+     * @return all new objects that has spawned this updateCycle
+     */
     public ArrayList<GameObject> updateGame(double frameDelta) {
         gameModel.updateAiPlayers(frameDelta);
         return gameModel.updateGameobjects(frameDelta);
     }
 
+    /**
+     * Adds objects to the gameModel
+     * @param newObjects 
+     */
     public void addObjects(ArrayList<GameObject> newObjects) {
         gameModel.addObjects(newObjects);
     }
 
+    /**
+     * Respawns all inactive players, (if they died or something)
+     */
     public void playerRespawn() {
         if (gameModel.deathCheck()) {
             ArrayList<GameObject> respawned;
@@ -78,10 +110,18 @@ public class GameController {
 
     }
 
+    /**
+     * Creates a new spawnBox
+     * @return returns a spawnBox, with random stuff according to the model
+     */
     public GameObject makeSpawnBox() {
         return gameModel.spawnBox();
     }
 
+    /**
+     * Checks if a player has been inactive
+     * @return true if someone is inactive
+     */
     public boolean deathcheck() {
         return gameModel.deathCheck();
     }

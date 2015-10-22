@@ -6,7 +6,7 @@ import GameData.Ai;
 import java.util.ArrayList;
 
 /**
- *
+ * the player that is controlled by an ai or a human
  * @author o_0
  */
 public class Player extends Physics {
@@ -24,6 +24,13 @@ public class Player extends Physics {
 
     private Ai aiControl = null;
 
+    /**
+     * 
+     * @param name_ name of player
+     * @param x starting x position
+     * @param y starting y position
+     * @param modelId what model to use
+     */
     public Player(String name_, double x, double y, int modelId) {
         super(0, 0, 7, modelId); // should be stationary
         this.setX(x);
@@ -34,14 +41,26 @@ public class Player extends Physics {
         this.weapon = new Weapon(this, ProjectileType.GRANADE, 3);
     }
 
+    /**
+     * The Observable to be called if some player stats was changed
+     * @param o the GameStatsObservable
+     */
     public void setGameStatsObservable(GameStatsObservable o) {
         this.gameStatsObservable = o;
     }
 
+    /**
+     * set if an ai controls this player
+     * @param aiControl the ai
+     */
     public void setAiControl(Ai aiControl) {
         this.aiControl = aiControl;
     }
 
+    /**
+     * called to take damage on player, if player health < 0 it deactivets
+     * @param damage how much
+     */
     public void takeDamage(double damage) {
         health -= damage;
         System.out.println("player: " + this.name + " Health: " + this.health);
@@ -54,6 +73,12 @@ public class Player extends Physics {
         }
     }
     
+    /**
+     * Rests the player and activates it with health
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param health what health to start witg
+     */
     public void resetPlayer(double x, double y, double health) {
         this.setX(x);
         this.setY(y);
@@ -65,6 +90,10 @@ public class Player extends Physics {
         }
     }
     
+    /**
+     * 
+     * @return how manny this player has died
+     */
     public int getDeaths(){
         return this.numberofdeaths;
     }
@@ -87,18 +116,35 @@ public class Player extends Physics {
         return this.getDy();
     }
 
+    /**
+     * getter
+     * @return currentHealth
+     */
     public double currentHealth() {
         return this.health;
     }
 
+    /**
+     * getter
+     * @return currentAmmo
+     */
     public int currentAmmo() {
         return this.weapon.getAmmo();
     }
     
+    /**
+     * getter
+     * @return currentAimAngle
+     */
     public double currentAimAngle() {
         return weapon.getAimAngle();
     }
-
+/**
+     * This is called every frame by gameTimer thru the controller
+     * @param frameDelta fraction of a seconde since last update
+     * @param spawnedObj list to store all newly created objects
+     * @return not used
+     */
     @Override
     public boolean update(double frameDelta, ArrayList<GameObject> spawnedObj) {
         switch (this.dir) {
@@ -124,6 +170,9 @@ public class Player extends Physics {
         return true;
     }
 
+    /**
+     * fires weapon
+     */
     public void fireWeapon() {
         this.didFire = this.weapon.fire();
         /*System.out.println("player: " + getName()
@@ -132,37 +181,58 @@ public class Player extends Physics {
          );*/
     }
 
+    /**
+     * if jetpack shoul be on or off
+     * @param b on/off
+     */
     public void setJetpackState(boolean b) {
         this.jetpackState = b;
     }
 
+    /**
+     * what direction the player moves
+     * @param direction 
+     */
     public void setDirection(Direction direction) {
         this.dir = direction;
     }
 
+    /**
+     * if he aims up or down
+     * @param direction aim
+     */
     public void setAim(Direction direction) {
         this.aim = direction;
     }
 
+    /**
+     * The player has been in a collision, with gameObj
+     * @param gameObj gameObj
+     */
     @Override
     public void collisionWith(Physics gameObj) {
         if (gameObj instanceof SpawnBox) {
             SpawnBox box = (SpawnBox) gameObj;
             this.weapon = box.consumeBox(this);
-            /*System.out.println("player: " + getName()
-                    + " Ammo: " + weapon.getAmmo()
-                    + " cooldown: " + weapon.getCooldown()
-            );*/
+
             if (this.aiControl != null) {
                 this.aiControl.pickedupSpawnBox();
             }
         }
     }
 
+    /**
+     * players name
+     * @return 
+     */
     public String getName() {
         return this.name;
     }
-
+    /**
+     * The point it hit the terrain at
+     * @param x point it hit the terrain at
+     * @param y point it hit the terrain at
+     */
     public void collisionWithTerrainAt(double x, double y) {
         // stop movement
         this.addToDx(-this.getDx());
@@ -174,29 +244,53 @@ public class Player extends Physics {
         }
     }
 
+    /**
+     * a class used for storage of player info from the lobby,
+     */
     public static class Playerinfo {
 
         private String playername;
         private KeyboardController keyInputs;
 
+        /**
+         * 
+         * @param name player name
+         * @param playerinput input kontroller for this player
+         */
         public Playerinfo(String name, KeyboardController playerinput) {
             this.playername = name;
             this.keyInputs = playerinput;
         }
 
+        /**
+         * 
+         * @param name_ name
+         */
         public void setPlayerName(String name_) {
             this.playername = name_;
         }
 
+        /**
+         * 
+         * @return name of player
+         */
         public String getPlayerName() {
 
             return this.playername;
         }
 
+        /**
+         * 
+         * @return this players KeyboardController
+         */
         public KeyboardController getKeyboard() {
             return this.keyInputs;
         }
 
+        /**
+         * 
+         * @param playerinput_ set new KeyboardController for player
+         */
         public void setKeyboard(KeyboardController playerinput_) {
             this.keyInputs = playerinput_;
         }

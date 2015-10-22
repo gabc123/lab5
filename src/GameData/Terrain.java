@@ -15,20 +15,18 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.PixelFormat;
 import javafx.scene.image.PixelReader;
-import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javax.imageio.ImageIO;
 
 /**
- *
+ * This is the class used for terrain for the game,
+ * it can load and save the current terrain, for later playability
+ * it has destructible terrain, and listens for explosions
  * @author o_0
  */
 public class Terrain implements Observer {
@@ -40,9 +38,14 @@ public class Terrain implements Observer {
     double mapHeigth;
     private boolean needsUpdate = false;
 
+    /**
+     * 
+     * @param width the size of the terrain, width
+     * @param heigth size for heigth
+     */
     public Terrain(double width, double heigth) {
         this.craters = new ArrayList<Circle>();
-        this.background = new Image("Resource/battleTerrain.png");
+        this.background = new Image("Resource/battleTerrain.png");  //defualt terrain
         this.mapHeigth = heigth;
         this.mapWidth = width;
         this.mapCanvas = new Canvas(mapWidth, mapHeigth);
@@ -52,6 +55,11 @@ public class Terrain implements Observer {
 
     }
 
+    /**
+     * This will load a map, it will only load from the game directory
+     * @param file the file info picked by fileChooser
+     * @throws IOException if we fail to load our terrain
+     */
     public void loadTerrain(File file) throws IOException {
         if (file == null) {
             return;
@@ -63,6 +71,11 @@ public class Terrain implements Observer {
         craters.clear();
     }
 
+    /**
+     * Saves the terrain for later loading
+     * @param file the file to be saved
+     * @throws IOException if it fails to save the file
+     */
     public void saveTerrain(File file) throws IOException {
         if (file == null) {
             return;
@@ -73,6 +86,12 @@ public class Terrain implements Observer {
 
     }
 
+    /**
+     * Checks if a point is inside the background
+     * @param x x 
+     * @param y
+     * @return true if its valid point
+     */
     private boolean isValidPoint(int x, int y) {
         if (x < 0 || background.getWidth() <= x || y < 0 || background.getHeight() <= y) {
             return false;
@@ -80,6 +99,13 @@ public class Terrain implements Observer {
         return true;
     }
 
+    /**
+     * This checks if a object is in contact with the terrain,
+     * it does this by checking the pixels in the background if it is a skypixel
+     * the pixels is based on the objects x,y and radius
+     * @param obj object to check if it collieds
+     * @return true if it did collide
+     */
     public boolean checkCollision(Physics obj) {
         PixelReader pr = background.getPixelReader();
         double scalingX = background.getWidth() / this.mapWidth;
@@ -130,21 +156,28 @@ public class Terrain implements Observer {
         avgX = avgX / hitCount;
         avgY = avgY / hitCount;
 
+        // tells the obj where the collision point is, scaled to game coordinates
         obj.collisionWithTerrainAt(avgX / scalingX, avgY / scalingY);
         
         return true;
     }
 
+    /**
+     * This returns the terrainImage, it only renders it into a new image
+     * if something has changed, else it resues the same image
+     * @return returns the terrainImage
+     */
     public Image getTerrainImage() {
         if (!this.needsUpdate) {
             return background;
         }
         this.needsUpdate = false;
+        // Draw a cleen background
         GraphicsContext gc = this.mapCanvas.getGraphicsContext2D();
         gc.clearRect(0, 0, mapWidth, mapHeigth);
         gc.drawImage(background, 0,0,this.mapWidth, this.mapHeigth);
-        //Paint paint = new Paint();
-        //Color.li
+        
+        // for all new creaters, paint sky color with crater radius,
         gc.setFill(Color.LIGHTSKYBLUE);   // 
         for (Circle crater : craters) {
             double radius = crater.getRadius();
@@ -155,10 +188,17 @@ public class Terrain implements Observer {
 
         }
         craters.clear();
+        // save canvase to a new background image
         background = mapCanvas.snapshot(null, null);
         return background;
     }
 
+    /**
+     * Is notifyed if a explosion has happen
+     * Adds all explosions to a crater
+     * @param o the observable
+     * @param arg not used
+     */
     @Override
     public void update(Observable o, Object arg) {
         Projectile exploded = ((ExplosionObserver) o).getProjectile();

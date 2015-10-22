@@ -6,11 +6,8 @@
 package GameData;
 
 import Collisions.Collisions;
-import GameData.Terrain;
 import GameObjects.GameObject;
-import GameObjects.Physics;
 import GameObjects.Player;
-import GameObjects.Projectile;
 import GameObjects.ProjectileType;
 import GameObjects.SpawnBox;
 import java.util.ArrayList;
@@ -18,7 +15,8 @@ import java.util.Iterator;
 import java.util.Random;
 
 /**
- *
+ * This is the main Game Model has all game logic, and data, knows how to update 
+ * diffrent game objects
  * @author o_0
  */
 public class GameModel {
@@ -34,6 +32,15 @@ public class GameModel {
     private ArrayList<Player> currentPlayers;
     private Random rand;
 
+    /**
+     * 
+     * @param width the map width
+     * @param heigth the map heigth
+     * @param gameObj container for all gameObjects
+     * @param aiPlayers ao players
+     * @param collisions collision handler
+     * @param terrain tje game terrain
+     */
     public GameModel(double width, double heigth, ArrayList<GameObject> gameObj, ArrayList<Ai> aiPlayers, Collisions collisions, Terrain terrain) {
         super();
         this.width = width;
@@ -47,6 +54,11 @@ public class GameModel {
         this.findeplayers();
     }
 
+    /**
+     * Will remove all inactive objects from the gameModel, this will cause them
+     * to not be renderd or get called in update
+     * @return all objects that has been removed
+     */
     public ArrayList<GameObject> reapInactiveObjects() {
         ArrayList<GameObject> removed = new ArrayList<GameObject>();
         // removes all inactive objects
@@ -62,6 +74,10 @@ public class GameModel {
         return removed;
     }
 
+    /**
+     * this will add all players into currentPlayers that exists in gameObjects
+     * Only call this once from constructor
+     */
     private void findeplayers() {
         for (GameObject obj : this.gameObjects) {
             if (obj instanceof Player) {
@@ -70,6 +86,10 @@ public class GameModel {
         }
     }
 
+    /**
+     * Checks for inactive players
+     * @return true if any player has died
+     */
     public boolean deathCheck() {
         for (Player player : currentPlayers) {
             if (!player.isActive()) {
@@ -79,6 +99,11 @@ public class GameModel {
         return false;
     }
 
+    /**
+     * Resets the players info, and returns a list of all reset players to be
+     * added back into game
+     * @return all players to be readded
+     */
     public ArrayList<GameObject> reSpawnPlayers() {
         ArrayList<GameObject> respawned = new ArrayList<GameObject>();
         for (Player player : currentPlayers) {
@@ -92,6 +117,10 @@ public class GameModel {
         return respawned;
     }
 
+    /**
+     * creates a random spawnbox with ammo and weapons
+     * @return a new game objects to be added to game
+     */
     public GameObject spawnBox() {
         double newX = rand.nextDouble() * 1000;
         double newY = rand.nextDouble() * 50;
@@ -115,17 +144,29 @@ public class GameModel {
         return box;
     }
 
+    /**
+     * perfomrce all collision checks for the game
+     */
     public void checkCollisions() {
         collisions.checkAllCollisions();
         collisions.checkTerrainCollisions();
     }
 
+    /**
+     * Updates all ai in the game, and their logic
+     * @param frameDelta fractions since last update
+     */
     public void updateAiPlayers(double frameDelta) {
         for (Ai ai : aiPlayers) {
             ai.updateAi(frameDelta);
         }
     }
 
+    /**
+     * updates all gameObjects, stats,positions, constriants
+     * @param frameDelta fraction since last update
+     * @return a list with all newly created objects
+     */
     public ArrayList<GameObject> updateGameobjects(double frameDelta) {
         ArrayList<GameObject> spawnedObj = new ArrayList<GameObject>();
         for (GameObject obj : gameObjects) {
@@ -135,6 +176,10 @@ public class GameModel {
         return spawnedObj;
     }
 
+    /**
+     * Adds new objects to the models, after this they are active, and activly updated
+     * @param newObjects all objects to be added
+     */
     public void addObjects(ArrayList<GameObject> newObjects) {
         // adds all spawned objects
         if (!newObjects.isEmpty()) {
