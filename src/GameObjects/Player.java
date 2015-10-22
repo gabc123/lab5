@@ -15,7 +15,7 @@ public class Player extends Physics {
     private Weapon weapon;
     private boolean didFire = false;
     private double health = 100;
-    private GameStatsObservable gameStatsObservable;
+    private GameStatsObservable gameStatsObservable = null;
 
     private Direction dir;
     private Direction aim;
@@ -40,7 +40,9 @@ public class Player extends Physics {
         if (health < 0) {
             this.deactivate();
         }
-        this.gameStatsObservable.checkUIInfo();
+        if(gameStatsObservable != null) {
+            this.gameStatsObservable.checkUIInfo();
+        }
     }
     
     public double currentHealth() {
@@ -68,6 +70,10 @@ public class Player extends Physics {
         if (this.jetpackState == true) {
             super.addToDy(-5);
         }
+        if(didFire && gameStatsObservable != null) {
+            this.gameStatsObservable.checkUIInfo();
+            didFire = false;
+        }
         super.update(frameDelta, spawnedObj);
         return true;
     }
@@ -78,9 +84,6 @@ public class Player extends Physics {
                     + " Ammo: " + weapon.getAmmo()
                     + " cooldown: " + weapon.getCooldown()
             );*/
-        if(this.didFire){
-            this.gameStatsObservable.checkUIInfo();
-        }
     }
 
     public void setJetpackState(boolean b) {

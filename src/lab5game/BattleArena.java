@@ -65,7 +65,8 @@ public class BattleArena {
 
     private ArrayList<EventHandler<KeyEvent>> inputs;
     private Stage gameStage;
-    private UIStatObserver uIStatObserver;
+    //private UIStatObserver uIStatObserver;
+    private GameStatsObservable gameStatsObservable;
 
     public BattleArena(Stage stage) {
         this.gameStage = stage;
@@ -116,23 +117,14 @@ public class BattleArena {
         return explosionObserver;
     }
     
-    public GameStatsObservable infoObserverSetup(UIStatObserver uIStatObserver){
-        GameStatsObservable gameStatsObservable = new GameStatsObservable();
-        gameStatsObservable.addObserver(uIStatObserver);    
-        return gameStatsObservable;
-    }
-    
-    public void playerFinde(GameStatsObservable UIobserver) {
+     public ArrayList<Player> playerFinde() {
         ArrayList<Player> players = new ArrayList<Player>();
         for(GameObject obj : this.gameObjects) {
             if(obj instanceof Player){
                 players.add((Player) obj);
             }
         }
-        uIStatObserver.setPlayers(players);
-        for(int i = 0; i < players.size(); i++){
-            players.get(0).setGameStatsObservable(UIobserver);
-        }
+        return players;
     }
     
     
@@ -143,7 +135,7 @@ public class BattleArena {
         
         root = new StackPane();
         
-        uIStatObserver = new UIStatObserver(root);
+        
 
         
         //root.getChildren().
@@ -168,13 +160,12 @@ public class BattleArena {
         
         gameObjects.add(new SpawnBox(ProjectileType.BULLET, 200, 200, 0));
         
-        ExplosionObserver observer = observerSetup();
-        GameStatsObservable UIobserver = infoObserverSetup(uIStatObserver);
-        this.playerFinde(UIobserver);
         
+        
+        ExplosionObserver explosionObserver = observerSetup();
         Collisions collisions = new Collisions(terrain,gameObjects);
         GameModel gameModel = new GameModel(width, height, gameObjects, aiPlayers, collisions, terrain);
-        GameController gameController = new GameController(gameModel, observer);
+        GameController gameController = new GameController(gameModel, explosionObserver);
         gameUpdate = new GameTimer(gameController);
         
         // render timer, controller, and GraphicModels
@@ -186,6 +177,7 @@ public class BattleArena {
         RenderController render = new RenderController(gameView, graphicModels);
         renderTimer = new RenderTimer(render, gameObjects, terrain);
         
+       
         
         //MenuBar menubar = new MenuBar();
         TopMenu menu = new TopMenu(this, gameSetup);
@@ -202,7 +194,18 @@ public class BattleArena {
         StackPane.setMargin(hbox, Insets.EMPTY);
         hbox.getChildren().addAll(menuBox,gameBox);
         root.getChildren().addAll(hbox);
-        uIStatObserver.createUI();
+        
+        
+        
+        ArrayList<Player> allPlayers = playerFinde();
+        UIStatObserver uIStatObserver = new UIStatObserver(root,allPlayers);
+        
+        gameStatsObservable = new GameStatsObservable();
+        gameStatsObservable.addObserver(uIStatObserver);
+        
+        for(Player player : allPlayers) {
+            player.setGameStatsObservable(gameStatsObservable);
+        }
         
         Scene scene = new Scene(root, width, height + 28, Color.GREEN);
         

@@ -58,9 +58,9 @@ public class TopMenu {
         Menu menuEnd = new Menu("End game");
         
         MenuItem maingame = new MenuItem("Main menu");
-        maingame.setOnAction(quit());
+        maingame.setOnAction(reset());
         MenuItem exitgame = new MenuItem("Exit Game");
-        //maingame.setOnAction(exit());
+        exitgame.setOnAction(quit());
         
         menuEnd.getItems().addAll(maingame, exitgame);
 	
@@ -104,7 +104,7 @@ public class TopMenu {
         };
     }
     
-    public EventHandler<ActionEvent> quit(){
+    public EventHandler<ActionEvent> reset(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent z) {
 		GS.resetGame();
@@ -112,10 +112,16 @@ public class TopMenu {
 	    }; 
     }
     
+    public EventHandler<ActionEvent> quit(){
+        return new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent z) {
+		GS.exitGame();
+		}
+	    }; 
+    }
+    
     public void showscoreboard(){}
     
-    public EventHandler<ActionEvent> exit(){
-        return null;
-    }
+    
     
 }
