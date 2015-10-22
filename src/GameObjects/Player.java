@@ -14,7 +14,6 @@ public class Player extends Physics {
     private Weapon weapon;
     private boolean didFire = false;
     private double health = 100;
-
     private Direction dir;
     private Direction aim;
 
@@ -27,7 +26,7 @@ public class Player extends Physics {
         this.name = name_;
         this.weapon = new Weapon(this, ProjectileType.GRANADE, 0);
     }
-
+    
     public void takeDamage(double damage) {
         health -= damage;
         System.out.println("player: " + this.name + " Health: " + this.health);
