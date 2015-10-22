@@ -16,24 +16,34 @@ public class Player extends Physics {
     private double health = 100;
 
     private Direction dir;
+    private Direction aim;
 
     public Player(String name_, double x, double y, int modelId) {
         super(0, 0, 7, modelId); // should be stationary
         this.setX(x);
         this.setY(y);
         this.dir = Direction.NONE;
+        this.aim = Direction.NONE;
         this.name = name_;
         this.weapon = new Weapon(this, ProjectileType.GRANADE, 0);
     }
 
-    void takeDamage(double damage) {
+    public void takeDamage(double damage) {
         health -= damage;
         System.out.println("player: " + this.name + " Health: " + this.health);
         if (health < 0) {
             this.deactivate();
         }
     }
+    
+    public double currentHealth() {
+        return this.health;
+    }
 
+    public int currentAmmo() {
+        return this.weapon.getAmmo();
+    }
+    
     @Override
     public boolean update(double frameDelta, ArrayList<GameObject> spawnedObj) {
         switch (this.dir) {
@@ -45,20 +55,8 @@ public class Player extends Physics {
                 super.addToDx(5);
                 weapon.setAimX(dir);
                 break;
-            case DOWN:
-                //super.addToDy(1);
-                break;
-            case UP:
-                //super.addToDy(-1);
-                break;
-            case NONE:
-                break;
-            default:
-                break;
         }
-
-        weapon.setAimY(dir);
-
+        weapon.setAimY(aim);
         weapon.update(frameDelta, spawnedObj);
         if (this.jetpackState == true) {
             super.addToDy(-5);
@@ -81,6 +79,10 @@ public class Player extends Physics {
 
     public void setDirection(Direction direction) {
         this.dir = direction;
+    }
+    
+    public void setAim(Direction direction) {
+        this.aim = direction;
     }
 
     @Override

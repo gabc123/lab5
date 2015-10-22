@@ -6,8 +6,8 @@ Spelar namn synas.
 ////// Rendering
 -Göra om så det blir model view controller, update timer.
 -Fixa state sak,
-Aim ska fixas, Både idicator samt styrning (angle)
-
+-Aim ska fixas, Både idicator samt styrning (angle)
+Weapon cross
 /// modeler
 Rita granat, missil, bullet
 

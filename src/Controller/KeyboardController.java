@@ -19,15 +19,18 @@ public class KeyboardController {
 
     private KeyCode moveLeft = KeyCode.A;
     private KeyCode moveRight = KeyCode.D;
-    private KeyCode moveUp = KeyCode.W;
-    private KeyCode moveDown = KeyCode.S;
+    private KeyCode aimUp = KeyCode.W;
+    private KeyCode aimDown = KeyCode.S;
     private KeyCode jetpackOn = KeyCode.SPACE;
     private KeyCode fireWeapon = KeyCode.SHIFT;
 
-    public KeyboardController(KeyCode moveLeft, KeyCode moveRight, KeyCode jetpackOn) {
+    public KeyboardController(KeyCode moveLeft, KeyCode moveRight, KeyCode aimUp, KeyCode aimDown,KeyCode fire, KeyCode jetpackOn) {
         this.moveLeft = moveLeft;
         this.moveRight = moveRight;
         this.jetpackOn = jetpackOn;
+        this.aimUp = aimUp;
+        this.aimDown = aimDown;
+        this.fireWeapon = fire;
     }
 
     public void setKeyMoveLeft(KeyCode moveLeft) {
@@ -42,6 +45,18 @@ public class KeyboardController {
         this.jetpackOn = jetpackOn;
     }
 
+    public void setKeyAimUp(KeyCode aimUp) {
+        this.aimUp = aimUp;
+    }
+    
+    public void setKeyAimDown(KeyCode aimDown) {
+        this.aimDown = aimDown;
+    }
+    
+    public void setKeyFireWeapon(KeyCode fire) {
+        this.fireWeapon = fire;
+    }
+    
     public EventHandler<KeyEvent> getPlayerKeyPressedHandler(Player player) {
         return new EventHandler<KeyEvent>() {
             @Override
@@ -58,12 +73,12 @@ public class KeyboardController {
                     player.setDirection(Direction.RIGHT);
                 }
                 
-                if (event.getCode() == moveUp) {
-                    player.setDirection(Direction.UP);
+                if (event.getCode() == aimUp) {
+                    player.setAim(Direction.UP);
                 }
                 
-                if (event.getCode() == moveDown) {
-                    player.setDirection(Direction.DOWN);
+                if (event.getCode() == aimDown) {
+                    player.setAim(Direction.DOWN);
                 }
                 
                 if (event.getCode() == jetpackOn) {
@@ -84,12 +99,12 @@ public class KeyboardController {
                 if (event.getCode() == moveRight) {
                     player.setDirection(Direction.NONE);
                 }
-                if (event.getCode() == moveUp) {
-                    player.setDirection(Direction.NONE);
+                if (event.getCode() == aimUp) {
+                    player.setAim(Direction.NONE);
                 }
                 
-                if (event.getCode() == moveDown) {
-                    player.setDirection(Direction.NONE);
+                if (event.getCode() == aimDown) {
+                    player.setAim(Direction.NONE);
                 }
                 
                 if (event.getCode() == jetpackOn) {
