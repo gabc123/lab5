@@ -25,9 +25,11 @@ import View.GameView;
 import java.util.ArrayList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -99,6 +101,13 @@ public class BattleArena {
     
     public void setup(ArrayList<Player.Playerinfo> playerInfo, int numOfAi, GameSetup gameSetup) {
         Stage stage = this.gameStage;
+        Label player1name = new Label(playerInfo.get(0).getPlayerName());
+        Label player2name = new Label(playerInfo.get(1).getPlayerName());
+        player1name.setTextFill(Color.RED);
+        player2name.setTextFill(Color.RED);
+        HBox namecon = new HBox(880);
+        namecon.setAlignment(Pos.BOTTOM_CENTER);
+        namecon.getChildren().addAll(player1name, player2name);
         
         //root = new Group();
         
@@ -125,6 +134,7 @@ public class BattleArena {
         StackPane.setMargin(hbox, Insets.EMPTY);
         hbox.getChildren().addAll(menuBox,gameBox);
         root.getChildren().addAll(hbox);
+        root.getChildren().addAll(namecon);
         
         
         Scene scene = new Scene(root, width, height + 28, Color.GREEN);

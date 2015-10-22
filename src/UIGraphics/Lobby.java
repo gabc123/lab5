@@ -11,7 +11,6 @@ import GameObjects.Player.Playerinfo;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -46,6 +45,9 @@ public class Lobby {
     private Button jumpbuttonp2;
     private Button leftbuttonp2;
     private Button rightbuttonp2;
+    //private Button[] player1buttons;
+    //private int i;
+    
     private String player1name;
     private String player2name;
     private KeyboardController player1input;
@@ -82,6 +84,7 @@ public class Lobby {
         enterNewKey = false;
         player = 0;
         whatkey = 0;
+        //player1buttons = new Button[3];
         jumpbutp1 = KeyCode.SPACE;;
         leftbutp1 = KeyCode.A;
         rightbutp1 = KeyCode.D;
@@ -102,6 +105,18 @@ public class Lobby {
                 else{event.consume();}
             }
         };
+        
+        /**for(i = 0; i < player1buttons.length; i++){
+            player1buttons[i] = new Button();
+                player1buttons[i].setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent event){
+                    player = 1;
+                    enterNewKey = true;
+                    whatkey = i;
+            }   
+        });
+        }*/
+        
         
         Label jumpp1 = new Label("Jump");
         jumpbuttonp1 = new Button();
@@ -227,6 +242,12 @@ public class Lobby {
         leftcon.getChildren().addAll(leftp1, leftbuttonp1);
         
         rightcon.getChildren().addAll(rightp1, rightbuttonp1);
+        
+        /**jumpcon.getChildren().addAll(jumpp1, player1buttons[0]);
+        
+        leftcon.getChildren().addAll(leftp1, player1buttons[1]);
+        
+        rightcon.getChildren().addAll(rightp1, player1buttons[2]);*/
                 
         jumpcon2.getChildren().addAll(jumpp2, jumpbuttonp2);
         
