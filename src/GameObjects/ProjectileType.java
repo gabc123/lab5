@@ -6,7 +6,7 @@
 package GameObjects;
 
 /**
- * diffrent ProjectileType
+ * different ProjectileType
  * @author o_0
  */
 public enum ProjectileType {GRANADE, BULLET, MISSILE};

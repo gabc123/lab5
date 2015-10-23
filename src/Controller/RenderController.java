@@ -32,7 +32,7 @@ public class RenderController{
     }
     /**
      * will trigger the view to render the terrain
-     * @param terrain to be renderd
+     * @param terrain to be rendered
      */
     public void displayTerrain(Terrain terrain) {
         gameView.drawterrain(terrain.getTerrainImage());

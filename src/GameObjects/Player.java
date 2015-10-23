@@ -92,7 +92,7 @@ public class Player extends Physics {
     
     /**
      * 
-     * @return how manny this player has died
+     * @return how manny times this player has died
      */
     public int getDeaths(){
         return this.numberofdeaths;
@@ -182,7 +182,7 @@ public class Player extends Physics {
     }
 
     /**
-     * if jetpack shoul be on or off
+     * if jetpack should be on or off
      * @param b on/off
      */
     public void setJetpackState(boolean b) {
@@ -223,7 +223,7 @@ public class Player extends Physics {
 
     /**
      * players name
-     * @return 
+     * @return name in string
      */
     public String getName() {
         return this.name;
@@ -255,7 +255,7 @@ public class Player extends Physics {
         /**
          * 
          * @param name player name
-         * @param playerinput input kontroller for this player
+         * @param playerinput input controller for this player
          */
         public Playerinfo(String name, KeyboardController playerinput) {
             this.playername = name;

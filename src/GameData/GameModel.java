@@ -35,11 +35,11 @@ public class GameModel {
     /**
      * 
      * @param width the map width
-     * @param heigth the map heigth
+     * @param heigth the map height
      * @param gameObj container for all gameObjects
-     * @param aiPlayers ao players
+     * @param aiPlayers ai players
      * @param collisions collision handler
-     * @param terrain tje game terrain
+     * @param terrain the game terrain
      */
     public GameModel(double width, double heigth, ArrayList<GameObject> gameObj, ArrayList<Ai> aiPlayers, Collisions collisions, Terrain terrain) {
         super();
@@ -56,7 +56,7 @@ public class GameModel {
 
     /**
      * Will remove all inactive objects from the gameModel, this will cause them
-     * to not be renderd or get called in update
+     * to not be rendered or get called in update
      * @return all objects that has been removed
      */
     public ArrayList<GameObject> reapInactiveObjects() {
@@ -102,7 +102,7 @@ public class GameModel {
     /**
      * Resets the players info, and returns a list of all reset players to be
      * added back into game
-     * @return all players to be readded
+     * @return all players to be reset in ArrayList
      */
     public ArrayList<GameObject> reSpawnPlayers() {
         ArrayList<GameObject> respawned = new ArrayList<GameObject>();
@@ -163,7 +163,7 @@ public class GameModel {
     }
 
     /**
-     * updates all gameObjects, stats,positions, constriants
+     * updates all gameObjects, stats,positions, constraints
      * @param frameDelta fraction since last update
      * @return a list with all newly created objects
      */
@@ -177,7 +177,7 @@ public class GameModel {
     }
 
     /**
-     * Adds new objects to the models, after this they are active, and activly updated
+     * Adds new objects to the models, after this they are active, and actively updated
      * @param newObjects all objects to be added
      */
     public void addObjects(ArrayList<GameObject> newObjects) {

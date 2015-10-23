@@ -8,7 +8,7 @@ package GameObjects;
 import java.util.ArrayList;
 
 /**
- *
+ *Class containing information about the projectiles used by weapons in the game
  * @author o_0
  */
 public class Projectile extends Physics {
@@ -23,7 +23,7 @@ public class Projectile extends Physics {
     private ProjectileType type;
 
     /**
-     * Private contructor, using the builder pattern
+     * Private constructor, using the builder pattern
      * @param aimSide what start dx
      * @param aimUp what start dy
      * @param builder a builder for a projectile

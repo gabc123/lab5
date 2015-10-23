@@ -68,7 +68,7 @@ public abstract class Physics extends GameObject implements Observer {
     }
     
     /**
-     * that this obejct has physicsEnable
+     * that this object has physicsEnable
      * @return true
      */
     @Override
@@ -84,7 +84,7 @@ public abstract class Physics extends GameObject implements Observer {
 
     /**
      * updates the gravity effect
-     * @param frameDelta diff between frams
+     * @param frameDelta diff between frames
      */
     protected void updateGravity(double frameDelta) {
         this.dy += 80.0 * frameDelta;
@@ -108,7 +108,7 @@ public abstract class Physics extends GameObject implements Observer {
     }
     
     /**
-     * Called if this object collieds with anything
+     * Called if this object collides with anything
      * @param gameObj what it collided with
      */
     public abstract void collisionWith(Physics gameObj);
@@ -122,8 +122,8 @@ public abstract class Physics extends GameObject implements Observer {
     
     /**
      * Updates all physics on this object
-     * @param frameDelta se super
-     * @param spawnedObj se super
+     * @param frameDelta see super
+     * @param spawnedObj see super
      * @return true
      */
     @Override

@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 
 /**
  * Stores all image/model data used by the rendering
- * also can preforem animations, if added =)
+ * also can preform animations, if added =)
  * @author mats
  */
 public class GraphicModels {

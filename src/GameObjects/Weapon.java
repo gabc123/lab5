@@ -10,7 +10,7 @@ import GameObjects.Projectile.ProjectileBuilder;
 import java.util.ArrayList;
 
 /**
- *
+ *Weapon class containing information needed for weapon functionality
  * @author o_0
  */
 public class Weapon extends GameObject {
@@ -45,7 +45,7 @@ public class Weapon extends GameObject {
     }
     
     /**
-     * Defualt value, basic weapon
+     * Default value, basic weapon
      * @param owner
      * @param type
      * @param modelId 

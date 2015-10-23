@@ -21,8 +21,8 @@ public class SpawnBox extends Physics {
      * Constructor for spawnbox
      * @param type what type of projectile the box will contain,
      * the stats of the projectile is randomised during creation
-     * @param x the x value the box will have when spawend
-     * @param y the y value the box will have when spawend
+     * @param x the x value the box will have when spawned
+     * @param y the y value the box will have when spawned
      */
     public SpawnBox(ProjectileType type,double x, double y) {
         super(0, 0,10, 0);

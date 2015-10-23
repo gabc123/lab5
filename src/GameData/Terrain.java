@@ -41,7 +41,7 @@ public class Terrain implements Observer {
     /**
      * 
      * @param width the size of the terrain, width
-     * @param heigth size for heigth
+     * @param heigth size for height
      */
     public Terrain(double width, double heigth) {
         this.craters = new ArrayList<Circle>();
@@ -88,8 +88,8 @@ public class Terrain implements Observer {
 
     /**
      * Checks if a point is inside the background
-     * @param x x 
-     * @param y
+     * @param x x pos
+     * @param y y pos
      * @return true if its valid point
      */
     private boolean isValidPoint(int x, int y) {
@@ -103,7 +103,7 @@ public class Terrain implements Observer {
      * This checks if a object is in contact with the terrain,
      * it does this by checking the pixels in the background if it is a skypixel
      * the pixels is based on the objects x,y and radius
-     * @param obj object to check if it collieds
+     * @param obj object to check if it collides
      * @return true if it did collide
      */
     public boolean checkCollision(Physics obj) {
@@ -164,7 +164,7 @@ public class Terrain implements Observer {
 
     /**
      * This returns the terrainImage, it only renders it into a new image
-     * if something has changed, else it resues the same image
+     * if something has changed, else it reuses the same image
      * @return returns the terrainImage
      */
     public Image getTerrainImage() {
@@ -194,7 +194,7 @@ public class Terrain implements Observer {
     }
 
     /**
-     * Is notifyed if a explosion has happen
+     * Is notified if a explosion has happen
      * Adds all explosions to a crater
      * @param o the observable
      * @param arg not used
