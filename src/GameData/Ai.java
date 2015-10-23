@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import javafx.geometry.Point2D;
 
 /**
- * the main ai
+ * the main ai, based on a state machine, with a stack to do strategies
  * @author o_0
  */
 public class Ai {
@@ -26,11 +26,17 @@ public class Ai {
     private Point2D destination;
     private double fireDelay;
 
+    /**
+     * diffrent ai states types
+     */
     private enum AiState {
 
         HUNT, SEARCH, AVOID_TERRAIN, GETSPAWNBOX,MOVETOPOINT
     };
 
+    /**
+     * all states have a timespamp and a type this is used to model it
+     */
     private class StateData {
 
         private AiState state;
@@ -56,6 +62,12 @@ public class Ai {
     private ArrayList<StateData> stateStack = null;
     private GameObject target = null;
 
+    /**
+     * creates a new ai player
+     * @param player the player the ai should control
+     * @param enemyList a list with all the enemys to hunt
+     * @param gameObjects all game objects
+     */
     public Ai(Player player, ArrayList<Player> enemyList, ArrayList<GameObject> gameObjects) {
         this.aiPlayer = player;
         this.enemyList = enemyList;
@@ -68,6 +80,11 @@ public class Ai {
 
     }
 
+    /**
+     * moves to a point, xy
+     * @param destX x coordinate
+     * @param destY y coordinate
+     */
     private void moveTo(double destX, double destY) {
         if (destY > 0) {
             aiPlayer.setJetpackState(true);
@@ -88,6 +105,9 @@ public class Ai {
         
     }
 
+    /**
+     * Move to a point that was set this.destination
+     */
     private void moveToPoint() {
         int index = stateStack.size() - 1;
         if (index < 0) {
@@ -103,6 +123,9 @@ public class Ai {
         moveTo(destination.getX(),destination.getY());
     }
     
+    /**
+     * Hunts a target, and moves towards it and tryies to shoot enemys
+     */
     private void huntTarget() {
 
         int index = stateStack.size() - 1;
@@ -146,7 +169,7 @@ public class Ai {
     }
 
     /**
-     * state enging
+     * moves to a spawn box to pickup weapons/ammo
      */
     private void moveToSpawnBox() {
         int index = stateStack.size() - 1;
@@ -168,7 +191,7 @@ public class Ai {
 
     /**
      * 
-     * @return if it found a box
+     * @return if it found a box sets it to the new target
      */
     private boolean searchSpawnBox() {
         for (GameObject obj : gameObjects) {
@@ -181,7 +204,7 @@ public class Ai {
     }
 
     /**
-     * serch for target
+     * search for a target to hunt/go too
      */
     private void searchTarget() {
         double distance = 10000;
@@ -235,7 +258,7 @@ public class Ai {
     }
 
     /**
-     * collision point
+     * collision point, where the ai collided with the terrain
      * @param x 
      * @param y 
      */
@@ -250,7 +273,7 @@ public class Ai {
     }
 
     /**
-     * called if call
+     * called if ai piced up a spawn box, removes this state if this was its mission
      */
     public void pickedupSpawnBox() {
         int index = stateStack.size() - 1;
@@ -263,7 +286,7 @@ public class Ai {
     }
 
     /**
-     * update ai state machine
+     * update the ai state machine
      * @param frameDelta 
      */
     public void updateAi(double frameDelta) {

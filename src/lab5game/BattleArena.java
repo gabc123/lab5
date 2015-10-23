@@ -319,7 +319,8 @@ public class BattleArena {
     }
     
     /**
-     * 
+     * loads a saved game file, uses fileChooser, this also handels
+     * errors and displays a error msg if you failed to load file
      */
     public void loadGame() {
         paus();
@@ -334,11 +335,17 @@ public class BattleArena {
             showErrorMsg("Failed to load","Could not load","File need to be of typ png");
             
         }catch(IllegalArgumentException ex) {
-            showErrorMsg("Failed to load","Path error","File can only be loaded from game directory");
+            showErrorMsg("Failed to load","Path error","File can only be loaded from game directory\n or valid path");
         }
         renderTimer.start();
     }
     
+    /**
+     * Used tp show an erraor alert msg,
+     * @param title the title of the alert 
+     * @param header the header of alert
+     * @param msg the msg to be displayed
+     */
     public void showErrorMsg(String title,String header,String msg) {
         
         errorMsg.setTitle(title);
@@ -347,6 +354,8 @@ public class BattleArena {
         errorMsg.show();
         
     }
-    
+    /**
+     * the alert error msg thing
+     */
     private final Alert errorMsg = new Alert(Alert.AlertType.ERROR);
 }
