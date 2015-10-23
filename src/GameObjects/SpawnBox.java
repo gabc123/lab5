@@ -25,7 +25,7 @@ public class SpawnBox extends Physics {
      * @param y the y value the box will have when spawned
      */
     public SpawnBox(ProjectileType type,double x, double y) {
-        super(0, 0,10, 0);
+        super(0, 0,10, 5);
         this.setX(x);
         this.setY(y);
         Random rand = new Random();
@@ -37,7 +37,7 @@ public class SpawnBox extends Physics {
             case GRANADE: projectile.withModel(3); break;
             case BULLET: projectile.withModel(4); break;
             case MISSILE: projectile.withModel(1); break;
-            default: projectile.withModel(0); break;
+            default: projectile.withModel(1); break;
         }
         this.ammo = rand.nextInt(100) + 10;
         //System.out.println("Create Spawnbox with ammo: " + ammo);
