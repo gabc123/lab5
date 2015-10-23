@@ -60,10 +60,10 @@ public class TopMenu {
         MenuItem infogame = new MenuItem("Information");
 	infogame.setOnAction(info());
         
-	MenuItem scoregame = new MenuItem("Score board");
+	//MenuItem scoregame = new MenuItem("Score board");
         //startgame.setOnAction(score());
         
-        menuOptions.getItems().addAll(savegame, loadgame, scoregame, infogame);
+        menuOptions.getItems().addAll(savegame, loadgame,  infogame);
             
         Menu menuEnd = new Menu("End game");
         

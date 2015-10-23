@@ -24,6 +24,7 @@ public class Ai {
     private double gameTime = 0;
     private Point2D collisionPoint;
     private Point2D destination;
+    private double fireDelay;
 
     private enum AiState {
 
@@ -128,8 +129,18 @@ public class Ai {
             threatX += aiLocX - enemy.getX();
             threatY += aiLocY - enemy.getY();
         }
-
-        aiPlayer.fireWeapon();
+        if(threatY > 30) {
+            aiPlayer.setAim(Direction.UP);
+        }else if(threatY < -30){
+            aiPlayer.setAim(Direction.DOWN);
+        }else{
+            aiPlayer.setAim(Direction.NONE);
+        }
+        if(this.fireDelay > 1.0) {
+            aiPlayer.fireWeapon();
+            this.fireDelay = 0;
+        }
+        
         
         moveTo(threatX, threatY);
     }
@@ -257,7 +268,7 @@ public class Ai {
      */
     public void updateAi(double frameDelta) {
         this.gameTime += frameDelta;
-
+        this.fireDelay +=frameDelta;
         if (stateStack.isEmpty()) {
             stateStack.add(new StateData(AiState.HUNT, 0));
         }

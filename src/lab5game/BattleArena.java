@@ -269,26 +269,40 @@ public class BattleArena {
     public void info(){
         String titel = ("Keybindings");
         String header = ("Standard keybindings");
-        String msg =("Keybindings can be changed in lobby");
-        /**String msg =("Unless you have changed the keybindings"
-                + "the standardsare:"
-                + "Player1: Jump Q, Shoot SHIFT,"
-                + "Aim up/down W/S, Move left/right A/D"
-                + ""
-                + "Player2: Jump SPACE, Shoot PERIOD,"
-                + "Aim up/down UPARROW/DOWNARROW, "
-                + "Move left/right LEFTARROW/RIGHTARROW");*/
+        //String msg =("Shoot at enemyKeybindings can be changed in lobby");
+        String msg =("Shooot and kill your enmey, and take ammoboxes\n"
+                +"Unless you have changed the keybinding in lobby\n"
+                + "the standardsare:\n"
+                + "Player1: Jump Q, Shoot SHIFT,\n"
+                + "Aim up/down W/S, Move left/right A/D\n"
+                + "\n"
+                + "Player2: Jump SPACE, Shoot PERIOD\n,"
+                + "Aim up/down UPARROW/DOWNARROW,\n "
+                + "Move left/right LEFTARROW/RIGHTARROW\n");
         this.infoMessage(titel, header, msg);
     }
     
+    /**
+     * Shows the information alert msg
+     * @param title the title for the alert
+     * @param header the header
+     * @param msg  and the main msg
+     */
     public void infoMessage(String title,String header,String msg){
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(msg);
-        alert.showAndWait();
+        informationPopup.setTitle(title);
+        informationPopup.setHeaderText(header);
+        informationPopup.setContentText(msg);
+        informationPopup.showAndWait();
     }
-    private final Alert alert = new Alert(AlertType.INFORMATION);
     
+    /**
+     * The alert for game information
+     */
+    private final Alert informationPopup = new Alert(AlertType.INFORMATION);
+    
+    /**
+     * This will open a fileChooser and save the current terrain
+     */
     public void saveGame() {
         paus();
         System.out.println("savegame selected");
@@ -304,6 +318,9 @@ public class BattleArena {
         }
     }
     
+    /**
+     * 
+     */
     public void loadGame() {
         paus();
         System.out.println("loadgame selected");
